@@ -1,0 +1,61 @@
+# General
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+.cache/
+/*_preview.jpg
+/*_overlay.jpg
+
+# Environment secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Node / JS
+node_modules/
+dist/
+build/
+.npm/
+
+# Python / OMR Engine
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+env/
+venv/
+ENV/
+services/omr-engine/.venv/
+
+# Flutter / Dart
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+apps/mobile/build/
+apps/mobile/.flutter-plugins
+apps/mobile/.flutter-plugins-dependencies
+apps/mobile/.packages
+apps/mobile/.dart_tool/
+*.apk
+*.aab
+*.ipa
+
+# Supabase
+supabase/.branches/
+supabase/.temp/
+
+# IDE / Editors
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.iml
