@@ -19,11 +19,10 @@ Engineered specifically for educational institutions, academies, and examination
 
 Recruiters, educators, and developers can test the **exact Flutter mobile application** live in any web browser without downloading the Android APK:
 
-- **📱 Live Flutter Web App**: [**Open OmniMark in Browser**](https://Prakhyat05.github.io/OmniMark-OMR_Scan_Evaluator/) *(or deploy to Vercel via [`vercel.json`](vercel.json))*
+- **📱 Live Flutter Web App**: [**Open OmniMark in Browser**](https://Prakhyat05.github.io/OmniMark-OMR_Scan_Evaluator/)
   - **Identical Mobile UI**: Powered by Flutter Web (CanvasKit rendering + WebAssembly SQLite driver).
   - **Full Feature Tour**: Explore the Dashboard, Exams List, Create Exam, Answer Key Setup, Student Roster, Review Queue, and Result Reports.
   - **Zero Installation**: Runs client-side directly in Google Chrome, Safari, Firefox, or Edge.
-- **⚙️ Live Backend Microservice**: Deployable in 1-click on [Render via `render.yaml`](render.yaml) with live Swagger UI (`/docs`).
 
 ---
 
@@ -565,25 +564,12 @@ curl http://localhost:8000/v1/health
 
 ---
 
-### 🚀 Cloud Deployment (Vercel & Render)
+### 🚀 Live Web Deployment (GitHub Pages)
 
-#### 1. Live Flutter Mobile App on GitHub Pages (Automated via GitHub Actions)
 The repository includes an automated GitHub Actions deployment workflow ([`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml)):
-1. In your GitHub repository, go to **Settings** > **Pages**.
-2. Under **Build and deployment** > **Source**, select **"GitHub Actions"**.
-3. Push any commit to `main`. GitHub Actions will automatically compile the exact Flutter mobile app with CanvasKit and host it at `https://Prakhyat05.github.io/OmniMark-OMR_Scan_Evaluator/`.
-
-#### 2. Deploying Flutter Web to Vercel
-You can also deploy the Flutter web app to Vercel using the root [`vercel.json`](vercel.json) and [`scripts/build_flutter_web.sh`](scripts/build_flutter_web.sh):
-1. In [vercel.com](https://vercel.com), import `OmniMark-OMR_Scan_Evaluator`.
-2. Vercel automatically runs the build script to compile `apps/mobile/build/web` and serves the mobile application.
-
-#### 3. Python OMR Engine API on Render
-The Python microservice is configured for 1-click deployment on Render via the included [`render.yaml`](render.yaml) Blueprint:
-1. Go to [render.com](https://render.com) and log in with your GitHub account.
-2. Click **"New +"** > **"Blueprint"**.
-3. Connect `OmniMark-OMR_Scan_Evaluator`. Render reads `render.yaml` and deploys the FastAPI web service on their free tier.
-4. Once deployed, access the interactive Swagger UI at: `https://<your-render-subdomain>.onrender.com/docs`.
+1. Every push to `main` triggers GitHub Actions to automatically compile the exact Flutter mobile app with CanvasKit and WebAssembly SQLite.
+2. The compiled application is published directly to GitHub Pages at: [**https://Prakhyat05.github.io/OmniMark-OMR_Scan_Evaluator/**](https://Prakhyat05.github.io/OmniMark-OMR_Scan_Evaluator/).
+3. Zero third-party hosting accounts, zero manual configuration, and 100% automated uptime.
 
 ---
 
