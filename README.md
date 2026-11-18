@@ -12,24 +12,38 @@ Engineered specifically for educational institutions, academies, and examination
 
 ---
 
+## About The Project
+
+Traditional OMR assessment workflows rely heavily on dedicated, expensive optical scanning machines (\$3,000–\$10,000+) and proprietary pre-printed forms. For schools, competitive coaching academies, and independent tutors, this creates high operational costs, logistical delays, and hours of tedious manual grading.
+
+**OmniMark** was built to modernize and democratize exam evaluation:
+- **Zero Expensive Hardware**: Turns any standard Android or iOS smartphone into an industrial-grade OMR reader.
+- **100% On-Device Offline Autonomy**: Evaluates answer sheets in under **35 milliseconds** with zero server roundtrips, allowing teachers to grade full classrooms in minutes even in areas with zero internet connectivity.
+- **Dynamic Exam Slicing**: Uses a standardized Universal 200-Question A4 format that dynamically adapts to 25, 50, 75, 100, or 200 questions without needing custom sheet designs for every exam.
+- **Subpixel Ink Precision**: Combines mathematical image convolution, Otsu gradient thresholding, and a lightweight PyTorch Micro-CNN to distinguish confident ballpoint pen fills from light erasures, paper grain, and smudges.
+- **Automated Parent Communication**: Automatically compiles official A4 PDF student report cards (with ranks, percentiles, and question-level breakdowns) and queues them for delivery to parents via Supabase Edge Functions and Resend.
+
+---
+
 ## Table of Contents
 
-1. [Key Highlights & Architecture](#key-highlights--architecture)
-2. [Monorepo Directory Structure](#monorepo-directory-structure)
-3. [Core Components](#core-components)
+1. [About The Project](#about-the-project)
+2. [Key Highlights & Architecture](#key-highlights--architecture)
+3. [Monorepo Directory Structure](#monorepo-directory-structure)
+4. [Core Components](#core-components)
    - [Mobile Application (`apps/mobile`)](#1-mobile-application-appsmobile)
    - [OMR Processing Engine (`services/omr-engine`)](#2-omr-processing-engine-servicesomr-engine)
    - [Cloud Backend & Edge Functions (`supabase`)](#3-cloud-backend--edge-functions-supabase)
-4. [OMR Computer Vision & ML Pipeline](#omr-computer-vision--ml-pipeline)
-5. [Getting Started & Local Setup](#getting-started--local-setup)
+5. [OMR Computer Vision & ML Pipeline](#omr-computer-vision--ml-pipeline)
+6. [Getting Started & Local Setup](#getting-started--local-setup)
    - [Flutter Mobile App](#flutter-mobile-app)
    - [Python OMR Engine](#python-omr-engine)
    - [Docker Deployment](#docker-deployment)
    - [Supabase Setup](#supabase-setup)
-6. [Testing & Verification](#testing--verification)
-7. [Environment Configuration](#environment-configuration)
-8. [Documentation Links](#documentation-links)
-9. [License](#license)
+7. [Testing & Verification](#testing--verification)
+8. [Environment Configuration](#environment-configuration)
+9. [Documentation Links](#documentation-links)
+10. [License](#license)
 
 ---
 
