@@ -1,7 +1,8 @@
 # OmniMark — Mobile OMR Scanner, Automated Evaluation & Cloud Analytics Platform
 
+[![Live Interactive Showcase](https://img.shields.io/badge/Live%20Demo-Vercel%20Showcase-black?style=flat-square&logo=vercel)](https://omnimark.vercel.app)
 [![Latest Release](https://img.shields.io/github/v/release/Prakhyat05/OmniMark-OMR_Scan_Evaluator?style=flat-square&color=blue)](https://github.com/Prakhyat05/OmniMark-OMR_Scan_Evaluator/releases/tag/v1.0.0)
-[![Download APK](https://img.shields.io/badge/Download-Android%20APK%20(v1.0.0)-success?style=flat-square&logo=android)](https://github.com/Prakhyat05/OmniMark-OMR_Scan_Evaluator/releases/download/v1.0.0/omnimark-mobile-v1.0.0.apk)
+[![Download APK](https://img.shields.io/badge/Download-Android%20APK%20(v1.0.0)-success?style=flat-square&logo=android)](https://github.com/Prakhyat05/OmniMark-OMR_Scan_Evaluator/releases/download/v1.0.0/omnimark-mobile-v1.0.0-arm64-v8a.apk)
 [![Flutter CI](https://img.shields.io/badge/Flutter%20CI-Passing-brightgreen.svg?style=flat-square)](https://github.com/Prakhyat05/OmniMark-OMR_Scan_Evaluator/actions/workflows/mobile-ci.yml)
 [![OMR Engine CI](https://img.shields.io/badge/OMR%20Engine%20CI-Passing-brightgreen.svg?style=flat-square)](https://github.com/Prakhyat05/OmniMark-OMR_Scan_Evaluator/actions/workflows/omr-ci.yml)
 [![Supabase CI](https://img.shields.io/badge/Supabase%20CI-Passing-brightgreen.svg?style=flat-square)](https://github.com/Prakhyat05/OmniMark-OMR_Scan_Evaluator/actions/workflows/supabase-ci.yml)
@@ -11,6 +12,19 @@
 A high-precision, mobile-first **Optical Mark Recognition (OMR)** scanning, instant evaluation, student report card generation, and automated parent communication platform.
 
 Engineered specifically for educational institutions, academies, and examination boards, the platform provides **100% on-device offline evaluation** in pure Dart (< 35 ms per sheet), backed by a Python FastAPI microservice for template calibration and PyTorch Micro-CNN training, with automated cloud synchronization and transactional email dispatch via Supabase and Resend.
+
+---
+
+## 🌐 Live Interactive Recruiter Demo
+
+Recruiters and hiring managers can explore the live edge evaluation engine directly in their browser without downloading an APK:
+
+- **⚡ Live Interactive Showcase**: [**omnimark.vercel.app**](https://omnimark.vercel.app) *(or connect your fork to Vercel)*
+  - **Interactive OMR Canvas**: Click bubbles, simulate human answering, or load 100% perfect score presets.
+  - **Real-Time Edge Evaluation**: Sub-35ms scoring, Modulo-11 student roll validation, and color-coded question audit overlays.
+  - **Official Report Card Preview**: Dynamic A4 student performance card with ranks and percentile distribution.
+  - **CV Pipeline Deep-Dive**: Visual inspection of Fiducials, Homography, Otsu Gradients, and Micro-CNN stages.
+- **⚙️ Live Backend Microservice**: Deployable in 1-click on [Render via `render.yaml`](render.yaml) with live Swagger UI (`/docs`).
 
 ---
 
@@ -549,6 +563,24 @@ Check service health:
 ```bash
 curl http://localhost:8000/v1/health
 ```
+
+---
+
+### 🚀 Cloud Deployment (Vercel & Render)
+
+#### 1. Interactive Web Showcase on Vercel
+The interactive recruiter showcase (`apps/web`) is configured for zero-config Vercel deployment:
+1. Go to [vercel.com](https://vercel.com) and log in with your GitHub account.
+2. Click **"Add New..."** > **"Project"** and select `OmniMark-OMR_Scan_Evaluator`.
+3. Vercel automatically detects the root `vercel.json` and builds `apps/web`.
+4. Click **"Deploy"** — your live interactive showcase will be live at `https://<your-project>.vercel.app` in under 60 seconds!
+
+#### 2. Python OMR Engine API on Render
+The Python microservice is configured for 1-click deployment on Render via the included [`render.yaml`](render.yaml) Blueprint:
+1. Go to [render.com](https://render.com) and log in with your GitHub account.
+2. Click **"New +"** > **"Blueprint"**.
+3. Connect `OmniMark-OMR_Scan_Evaluator`. Render reads `render.yaml` and deploys the FastAPI web service on their free tier.
+4. Once deployed, access the interactive Swagger UI at: `https://<your-render-subdomain>.onrender.com/docs`.
 
 ---
 
