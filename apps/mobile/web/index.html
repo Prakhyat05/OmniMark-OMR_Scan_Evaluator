@@ -221,16 +221,14 @@
       overflow: hidden;
     }
 
-    /* PHOTOREALISTIC IPHONE 16 PRO MAX FRAME - Perfectly fitted to viewport */
+    /* PHOTOREALISTIC IPHONE PRO MAX FRAME - Wide, Spacious & Zero Window Scroll */
     .iphone-wrapper {
       position: relative;
-      /* Height strictly bounded to remaining vertical space, width derived via aspect-ratio */
-      height: 100%;
-      max-height: calc(100vh - 78px);
-      max-height: calc(100dvh - 78px);
-      aspect-ratio: 430 / 932;
-      width: auto;
-      max-width: 94vw;
+      /* Height strictly bounded to viewport for single-page view */
+      height: min(870px, calc(100vh - 76px));
+      height: min(870px, calc(100dvh - 76px));
+      /* Wide, comfortable width so UI elements have ample breathing room with zero overlap */
+      width: min(460px, 92vw);
       /* Outer titanium chassis */
       border-radius: min(54px, 5.8vh);
       background: #000000;
@@ -254,7 +252,7 @@
       left: -6px;
       top: 12%;
       width: 4px;
-      height: 3.2%;
+      height: 26px;
       background: #373942;
       border-radius: 3px 0 0 3px;
       box-shadow: -1px 0 2px rgba(0,0,0,0.5);
@@ -264,7 +262,7 @@
       left: -6px;
       top: 17.5%;
       width: 4px;
-      height: 6%;
+      height: 48px;
       background: #373942;
       border-radius: 3px 0 0 3px;
       box-shadow: -1px 0 2px rgba(0,0,0,0.5);
@@ -274,7 +272,7 @@
       left: -6px;
       top: 25%;
       width: 4px;
-      height: 6%;
+      height: 48px;
       background: #373942;
       border-radius: 3px 0 0 3px;
       box-shadow: -1px 0 2px rgba(0,0,0,0.5);
@@ -284,7 +282,7 @@
       right: -6px;
       top: 19%;
       width: 4px;
-      height: 9%;
+      height: 70px;
       background: #373942;
       border-radius: 0 3px 3px 0;
       box-shadow: 1px 0 2px rgba(0,0,0,0.5);

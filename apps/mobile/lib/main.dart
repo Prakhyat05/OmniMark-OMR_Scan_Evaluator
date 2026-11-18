@@ -49,7 +49,7 @@ class OMRScanApp extends StatelessWidget {
             data: mediaQuery.copyWith(
               // Provide authentic iOS status bar & home indicator insets
               padding: const EdgeInsets.only(top: 36, bottom: 18),
-              textScaler: const TextScaler.linear(0.92),
+              textScaler: const TextScaler.linear(0.88),
             ),
             child: child ?? const SizedBox.shrink(),
           );
