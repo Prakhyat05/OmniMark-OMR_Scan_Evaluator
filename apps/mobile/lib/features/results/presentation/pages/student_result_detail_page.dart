@@ -13,10 +13,12 @@ class StudentResultDetailPage extends ConsumerStatefulWidget {
   const StudentResultDetailPage({super.key});
 
   @override
-  ConsumerState<StudentResultDetailPage> createState() => _StudentResultDetailPageState();
+  ConsumerState<StudentResultDetailPage> createState() =>
+      _StudentResultDetailPageState();
 }
 
-class _StudentResultDetailPageState extends ConsumerState<StudentResultDetailPage> {
+class _StudentResultDetailPageState
+    extends ConsumerState<StudentResultDetailPage> {
   QuestionFilter _selectedFilter = QuestionFilter.all;
 
   @override
@@ -103,7 +105,10 @@ class _StudentResultDetailPageState extends ConsumerState<StudentResultDetailPag
                           children: [
                             Text(
                               result.studentName,
-                              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium
+                                  ?.copyWith(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -111,13 +116,15 @@ class _StudentResultDetailPageState extends ConsumerState<StudentResultDetailPag
                             const SizedBox(height: 3),
                             Text(
                               'Roll #${result.studentRoll} • Code: ${result.studentCode} • ${result.studentClass}',
-                              style: const TextStyle(color: AppColors.tertiary, fontSize: 12),
+                              style: const TextStyle(
+                                  color: AppColors.tertiary, fontSize: 12),
                             ),
                           ],
                         ),
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 6),
                         decoration: BoxDecoration(
                           color: result.percentage >= 70
                               ? AppColors.softMint
@@ -146,7 +153,8 @@ class _StudentResultDetailPageState extends ConsumerState<StudentResultDetailPag
                     children: [
                       Expanded(
                         child: _BreakdownStat(
-                          val: '${result.marksObtained.toStringAsFixed(1)} / ${result.maximumMarks.toInt()}',
+                          val:
+                              '${result.marksObtained.toStringAsFixed(1)} / ${result.maximumMarks.toInt()}',
                           label: 'Marks',
                           color: AppColors.primary,
                         ),
@@ -160,7 +168,8 @@ class _StudentResultDetailPageState extends ConsumerState<StudentResultDetailPag
                       ),
                       Expanded(
                         child: _BreakdownStat(
-                          val: '${((result.percentage * 1.05).clamp(0, 99.8)).toStringAsFixed(1)}%',
+                          val:
+                              '${((result.percentage * 1.05).clamp(0, 99.8)).toStringAsFixed(1)}%',
                           label: 'Percentile',
                           color: const Color(0xFF0284C7),
                         ),
@@ -207,16 +216,19 @@ class _StudentResultDetailPageState extends ConsumerState<StudentResultDetailPag
                 children: [
                   Row(
                     children: [
-                      const Icon(Icons.document_scanner_rounded, size: 18, color: AppColors.primary),
+                      const Icon(Icons.document_scanner_rounded,
+                          size: 18, color: AppColors.primary),
                       const SizedBox(width: 6),
-                      Text('OMR Sheet Visual Matrix', style: Theme.of(context).textTheme.titleLarge),
+                      Text('OMR Sheet Visual Matrix',
+                          style: Theme.of(context).textTheme.titleLarge),
                     ],
                   ),
                   InkWell(
                     borderRadius: BorderRadius.circular(8),
                     onTap: () => _openFullscreenInspector(context, result),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
                         color: AppColors.primary.withOpacity(0.08),
                         borderRadius: BorderRadius.circular(8),
@@ -224,7 +236,8 @@ class _StudentResultDetailPageState extends ConsumerState<StudentResultDetailPag
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.zoom_in_rounded, size: 14, color: AppColors.primary),
+                          Icon(Icons.zoom_in_rounded,
+                              size: 14, color: AppColors.primary),
                           SizedBox(width: 4),
                           Text(
                             'Inspect Overlay',
@@ -279,7 +292,8 @@ class _StudentResultDetailPageState extends ConsumerState<StudentResultDetailPag
                           bottom: 12,
                           right: 12,
                           child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 7),
                             decoration: BoxDecoration(
                               color: Colors.black.withOpacity(0.80),
                               borderRadius: BorderRadius.circular(20),
@@ -287,7 +301,8 @@ class _StudentResultDetailPageState extends ConsumerState<StudentResultDetailPag
                             child: const Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(Icons.fullscreen_rounded, color: Colors.white, size: 16),
+                                Icon(Icons.fullscreen_rounded,
+                                    color: Colors.white, size: 16),
                                 SizedBox(width: 5),
                                 Text(
                                   'Tap to Zoom & Pan',
@@ -313,8 +328,10 @@ class _StudentResultDetailPageState extends ConsumerState<StudentResultDetailPag
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Question-wise Analysis', style: Theme.of(context).textTheme.titleLarge),
-                Text('$totalQuestions Total', style: Theme.of(context).textTheme.labelSmall),
+                Text('Question-wise Analysis',
+                    style: Theme.of(context).textTheme.titleLarge),
+                Text('$totalQuestions Total',
+                    style: Theme.of(context).textTheme.labelSmall),
               ],
             ),
             const SizedBox(height: 12),
@@ -328,28 +345,32 @@ class _StudentResultDetailPageState extends ConsumerState<StudentResultDetailPag
                   _FilterChip(
                     label: 'All ($totalQuestions)',
                     isSelected: _selectedFilter == QuestionFilter.all,
-                    onTap: () => setState(() => _selectedFilter = QuestionFilter.all),
+                    onTap: () =>
+                        setState(() => _selectedFilter = QuestionFilter.all),
                   ),
                   const SizedBox(width: 8),
                   _FilterChip(
                     label: 'Correct (${result.correctCount})',
                     color: AppColors.primary,
                     isSelected: _selectedFilter == QuestionFilter.correct,
-                    onTap: () => setState(() => _selectedFilter = QuestionFilter.correct),
+                    onTap: () => setState(
+                        () => _selectedFilter = QuestionFilter.correct),
                   ),
                   const SizedBox(width: 8),
                   _FilterChip(
                     label: 'Incorrect (${result.wrongCount})',
                     color: AppColors.error,
                     isSelected: _selectedFilter == QuestionFilter.incorrect,
-                    onTap: () => setState(() => _selectedFilter = QuestionFilter.incorrect),
+                    onTap: () => setState(
+                        () => _selectedFilter = QuestionFilter.incorrect),
                   ),
                   const SizedBox(width: 8),
                   _FilterChip(
                     label: 'Unattempted (${result.unattemptedCount})',
                     color: AppColors.tertiary,
                     isSelected: _selectedFilter == QuestionFilter.unattempted,
-                    onTap: () => setState(() => _selectedFilter = QuestionFilter.unattempted),
+                    onTap: () => setState(
+                        () => _selectedFilter = QuestionFilter.unattempted),
                   ),
                 ],
               ),
@@ -381,13 +402,16 @@ class _StudentResultDetailPageState extends ConsumerState<StudentResultDetailPag
                 separatorBuilder: (_, __) => const SizedBox(height: 8),
                 itemBuilder: (context, index) {
                   final a = filteredAnswers[index];
-                  final isUnatt = a.detectedOption == null || a.detectedOption!.isEmpty;
+                  final isUnatt =
+                      a.detectedOption == null || a.detectedOption!.isEmpty;
                   final isCorr = a.isCorrect == true;
 
                   return _QuestionTile(
                     qNum: a.questionNumber,
                     markedOpt: a.detectedOption ?? '-',
-                    correctOpt: a.correctOptions.isNotEmpty ? a.correctOptions.first : '-',
+                    correctOpt: a.correctOptions.isNotEmpty
+                        ? a.correctOptions.first
+                        : '-',
                     isCorrect: isCorr,
                     isUnattempted: isUnatt,
                     isMultiple: a.isMultiple,
@@ -439,7 +463,8 @@ class _StudentResultDetailPageState extends ConsumerState<StudentResultDetailPag
     );
   }
 
-  void _showTeacherOverrideDialog(BuildContext context, AnswerItemResult answer) {
+  void _showTeacherOverrideDialog(
+      BuildContext context, AnswerItemResult answer) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -482,19 +507,25 @@ class _StudentResultDetailPageState extends ConsumerState<StudentResultDetailPag
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: ['1', '2', '3', '4', 'None'].map((opt) {
-                final isCurr = (answer.detectedOption == opt) || (opt == 'None' && answer.detectedOption == null);
+                final isCurr = (answer.detectedOption == opt) ||
+                    (opt == 'None' && answer.detectedOption == null);
                 return InkWell(
                   onTap: () {
                     Navigator.pop(ctx);
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Updated Q${answer.questionNumber} to $opt')),
+                      SnackBar(
+                          content: Text(
+                              'Updated Q${answer.questionNumber} to $opt')),
                     );
                   },
                   borderRadius: BorderRadius.circular(12),
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
                     decoration: BoxDecoration(
-                      color: isCurr ? AppColors.primary : AppColors.surfaceContainerLow,
+                      color: isCurr
+                          ? AppColors.primary
+                          : AppColors.surfaceContainerLow,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
@@ -612,7 +643,8 @@ class _QuestionTile extends StatelessWidget {
               width: 38,
               child: Text(
                 'Q$qNum',
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
               ),
             ),
             const Spacer(),
@@ -659,12 +691,15 @@ class _QuestionTile extends StatelessWidget {
                       ? const Color(0xFFD97706)
                       : (isWrong
                           ? AppColors.error
-                          : (isUnattempted ? AppColors.tertiary : AppColors.primary)),
+                          : (isUnattempted
+                              ? AppColors.tertiary
+                              : AppColors.primary)),
                 ),
               ),
             ),
             const SizedBox(width: 6),
-            const Icon(Icons.edit_outlined, size: 14, color: AppColors.tertiary),
+            const Icon(Icons.edit_outlined,
+                size: 14, color: AppColors.tertiary),
           ],
         ),
       ),
@@ -677,15 +712,19 @@ class _BreakdownStat extends StatelessWidget {
   final String label;
   final Color color;
 
-  const _BreakdownStat({required this.val, required this.label, required this.color});
+  const _BreakdownStat(
+      {required this.val, required this.label, required this.color});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(val, style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16, color: color)),
+        Text(val,
+            style: TextStyle(
+                fontWeight: FontWeight.w800, fontSize: 16, color: color)),
         const SizedBox(height: 2),
-        Text(label, style: const TextStyle(fontSize: 11, color: AppColors.tertiary)),
+        Text(label,
+            style: const TextStyle(fontSize: 11, color: AppColors.tertiary)),
       ],
     );
   }
@@ -696,7 +735,8 @@ class _CountTag extends StatelessWidget {
   final String label;
   final Color color;
 
-  const _CountTag({required this.count, required this.label, required this.color});
+  const _CountTag(
+      {required this.count, required this.label, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -714,7 +754,8 @@ class _CountTag extends StatelessWidget {
             fit: BoxFit.scaleDown,
             child: Text(
               '$count $label',
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12, color: color),
+              style: TextStyle(
+                  fontWeight: FontWeight.w600, fontSize: 12, color: color),
             ),
           ),
         ),

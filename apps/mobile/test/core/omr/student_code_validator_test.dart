@@ -38,7 +38,8 @@ void main() {
       expect(result.errors.any((e) => e.contains('Incomplete')), isTrue);
     });
 
-    test('Modulo-11 checksum correctly calculates and verifies check digit', () {
+    test('Modulo-11 checksum correctly calculates and verifies check digit',
+        () {
       const base = '22456';
       final checkDigit = StudentCodeValidator.calculateModulo11CheckDigit(base);
       final validCode = '$base$checkDigit';
@@ -50,7 +51,8 @@ void main() {
       expect(StudentCodeValidator.verifyModulo11(corrupted), isFalse);
     });
 
-    test('Suggests enrolled match when student has single misbubbled digit', () {
+    test('Suggests enrolled match when student has single misbubbled digit',
+        () {
       // Student marked '224561' instead of '224567'
       final result = validator.validate(
         rawCode: '224561',

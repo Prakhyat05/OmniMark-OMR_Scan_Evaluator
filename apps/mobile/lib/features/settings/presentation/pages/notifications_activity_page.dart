@@ -6,7 +6,8 @@ class NotificationsActivityPage extends StatefulWidget {
   const NotificationsActivityPage({super.key});
 
   @override
-  State<NotificationsActivityPage> createState() => _NotificationsActivityPageState();
+  State<NotificationsActivityPage> createState() =>
+      _NotificationsActivityPageState();
 }
 
 class _NotificationsActivityPageState extends State<NotificationsActivityPage> {
@@ -73,9 +74,12 @@ class _NotificationsActivityPageState extends State<NotificationsActivityPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.notifications_off_outlined, size: 54, color: Colors.grey.shade400),
+                  Icon(Icons.notifications_off_outlined,
+                      size: 54, color: Colors.grey.shade400),
                   const SizedBox(height: 12),
-                  const Text('No recent notifications', style: TextStyle(color: AppColors.tertiary, fontSize: 15)),
+                  const Text('No recent notifications',
+                      style:
+                          TextStyle(color: AppColors.tertiary, fontSize: 15)),
                 ],
               ),
             )
@@ -88,21 +92,28 @@ class _NotificationsActivityPageState extends State<NotificationsActivityPage> {
                 final act = _activities[index];
                 return Card(
                   child: ListTile(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 10),
                     leading: Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color: (act['color'] as Color).withOpacity(0.12),
                         shape: BoxShape.circle,
                       ),
-                      child: Icon(act['icon'] as IconData, color: act['color'] as Color, size: 22),
+                      child: Icon(act['icon'] as IconData,
+                          color: act['color'] as Color, size: 22),
                     ),
-                    title: Text(act['title'] as String, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+                    title: Text(act['title'] as String,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 14)),
                     subtitle: Padding(
                       padding: const EdgeInsets.only(top: 4),
-                      child: Text(act['subtitle'] as String, style: const TextStyle(fontSize: 12, color: AppColors.tertiary)),
+                      child: Text(act['subtitle'] as String,
+                          style: const TextStyle(
+                              fontSize: 12, color: AppColors.tertiary)),
                     ),
-                    trailing: Text(act['time'] as String, style: Theme.of(context).textTheme.labelSmall),
+                    trailing: Text(act['time'] as String,
+                        style: Theme.of(context).textTheme.labelSmall),
                   ),
                 );
               },

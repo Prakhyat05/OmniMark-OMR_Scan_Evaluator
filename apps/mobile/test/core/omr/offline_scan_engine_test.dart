@@ -13,7 +13,9 @@ void main() {
   });
 
   group('Offline OMR Scan Engine Tests with Real Samples', () {
-    test('Correctly extracts 6-digit student code 224567 and generates visual overlay for Sample 1 (Vedehi)', () async {
+    test(
+        'Correctly extracts 6-digit student code 224567 and generates visual overlay for Sample 1 (Vedehi)',
+        () async {
       final file = File('assets/samples/sample_1_vedehi_224567.jpg');
       if (!await file.exists()) {
         return;
@@ -38,7 +40,9 @@ void main() {
       expect(result.processingDurationMs, lessThan(3000));
     });
 
-    test('Correctly extracts 6-digit student code 342105 and option 1 for Sample 2 (Amar Singh)', () async {
+    test(
+        'Correctly extracts 6-digit student code 342105 and option 1 for Sample 2 (Amar Singh)',
+        () async {
       final file = File('assets/samples/sample_2_amar_342105.jpg');
       if (!await file.exists()) {
         return;
@@ -60,7 +64,9 @@ void main() {
       expect(result.detectedAnswers[69], equals('3'));
     });
 
-    test('Correctly extracts bubbled code 134768 and options for Sample 3 (Vaibhav Shrivastava)', () async {
+    test(
+        'Correctly extracts bubbled code 134768 and options for Sample 3 (Vaibhav Shrivastava)',
+        () async {
       final file = File('assets/samples/sample_3_vaibhav_134768.jpg');
       if (!await file.exists()) {
         return;

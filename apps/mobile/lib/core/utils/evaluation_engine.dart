@@ -110,7 +110,8 @@ class EvaluationEngine {
       ));
     }
 
-    final percentage = maxMarks > 0 ? ((totalMarks / maxMarks) * 100).clamp(0.0, 100.0) : 0.0;
+    final percentage =
+        maxMarks > 0 ? ((totalMarks / maxMarks) * 100).clamp(0.0, 100.0) : 0.0;
 
     return EvaluationResult(
       marksObtained: totalMarks,

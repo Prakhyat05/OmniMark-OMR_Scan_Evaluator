@@ -8,15 +8,16 @@ import '../../../../core/database/local_database.dart';
 class ReviewQueuePage extends ConsumerWidget {
   const ReviewQueuePage({super.key});
 
-  void _resolveItem(BuildContext context, WidgetRef ref, ReviewQueueItemModel item, String chosenOption) {
+  void _resolveItem(BuildContext context, WidgetRef ref,
+      ReviewQueueItemModel item, String chosenOption) {
     final activeExam = ref.read(activeExamProvider);
     if (activeExam != null) {
       ref.read(scanResultsProvider.notifier).resolveReviewItem(
-        item.resultId,
-        item.questionNumber,
-        chosenOption,
-        activeExam,
-      );
+            item.resultId,
+            item.questionNumber,
+            chosenOption,
+            activeExam,
+          );
 
       // Record tamper-proof audit log
       LocalOMRDatabase().logAuditResolution(
@@ -32,7 +33,8 @@ class ReviewQueuePage extends ConsumerWidget {
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Resolved Question ${item.questionNumber} for ${item.studentName} (${chosenOption.toUpperCase()})'),
+        content: Text(
+            'Resolved Question ${item.questionNumber} for ${item.studentName} (${chosenOption.toUpperCase()})'),
         backgroundColor: AppColors.primary,
       ),
     );
@@ -63,7 +65,9 @@ class ReviewQueuePage extends ConsumerWidget {
                     'Ambiguous marks occur when students erase improperly or mark multiple options. Staff verification permanently logs the reviewer ID and updates official marks.',
                   ),
                   actions: [
-                    TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Got it')),
+                    TextButton(
+                        onPressed: () => Navigator.pop(ctx),
+                        child: const Text('Got it')),
                   ],
                 ),
               );
@@ -79,12 +83,16 @@ class ReviewQueuePage extends ConsumerWidget {
             color: const Color(0xFFFEF3C7),
             child: Row(
               children: [
-                const Icon(Icons.warning_amber_rounded, color: Color(0xFFD97706), size: 22),
+                const Icon(Icons.warning_amber_rounded,
+                    color: Color(0xFFD97706), size: 22),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
                     '${queue.length} ambiguous items require manual staff verification before results can be finalized.',
-                    style: const TextStyle(color: Color(0xFF92400E), fontSize: 12, fontWeight: FontWeight.w600),
+                    style: const TextStyle(
+                        color: Color(0xFF92400E),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
               ],
@@ -98,20 +106,24 @@ class ReviewQueuePage extends ConsumerWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.check_circle_outline_rounded, size: 64, color: AppColors.primary),
+                        const Icon(Icons.check_circle_outline_rounded,
+                            size: 64, color: AppColors.primary),
                         const SizedBox(height: 16),
                         const Text(
                           'All Flagged Sheets Resolved!',
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 6),
                         Text(
                           'You can now email finalized report cards to parents.',
-                          style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
+                          style: TextStyle(
+                              color: Colors.grey.shade600, fontSize: 13),
                         ),
                         const SizedBox(height: 24),
                         ElevatedButton(
-                          onPressed: () => context.safePop('/exam-results-summary'),
+                          onPressed: () =>
+                              context.safePop('/exam-results-summary'),
                           child: const Text('Back to Results Summary'),
                         ),
                       ],
@@ -132,25 +144,32 @@ class ReviewQueuePage extends ConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           item.studentName,
-                                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15),
                                         ),
                                         Text(
                                           '${item.studentCode} • ${item.examName}',
-                                          style: const TextStyle(color: AppColors.tertiary, fontSize: 12),
+                                          style: const TextStyle(
+                                              color: AppColors.tertiary,
+                                              fontSize: 12),
                                         ),
                                       ],
                                     ),
                                   ),
                                   Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 4),
                                     decoration: BoxDecoration(
                                       color: const Color(0xFFFEE2E2),
                                       borderRadius: BorderRadius.circular(12),
@@ -175,26 +194,35 @@ class ReviewQueuePage extends ConsumerWidget {
                                 ),
                                 child: Row(
                                   children: [
-                                    const Icon(Icons.help_outline_rounded, size: 18, color: AppColors.tertiary),
+                                    const Icon(Icons.help_outline_rounded,
+                                        size: 18, color: AppColors.tertiary),
                                     const SizedBox(width: 8),
                                     Expanded(
                                       child: Text(
                                         'Issue: ${item.reason} (Confidence: ${item.confidence.toStringAsFixed(1)}%)',
-                                        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                                        style: const TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
                               const SizedBox(height: 16),
-                              const Text('Select Verified Bubble Option:', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                              const Text('Select Verified Bubble Option:',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600)),
                               const SizedBox(height: 8),
                               StatefulBuilder(
                                 builder: (ctx, setLocalState) {
                                   return Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: ['1', '2', '3', '4', 'Blank'].map((opt) {
-                                      final isPicked = item.selectedOption == opt;
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: ['1', '2', '3', '4', 'Blank']
+                                        .map((opt) {
+                                      final isPicked =
+                                          item.selectedOption == opt;
                                       return ChoiceChip(
                                         label: Text(opt),
                                         selected: isPicked,
@@ -205,7 +233,9 @@ class ReviewQueuePage extends ConsumerWidget {
                                         },
                                         selectedColor: AppColors.primary,
                                         labelStyle: TextStyle(
-                                          color: isPicked ? Colors.white : AppColors.onSurface,
+                                          color: isPicked
+                                              ? Colors.white
+                                              : AppColors.onSurface,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       );
@@ -218,14 +248,16 @@ class ReviewQueuePage extends ConsumerWidget {
                                 children: [
                                   Expanded(
                                     child: OutlinedButton(
-                                      onPressed: () => _resolveItem(context, ref, item, 'Blank'),
+                                      onPressed: () => _resolveItem(
+                                          context, ref, item, 'Blank'),
                                       child: const Text('Mark as Blank'),
                                     ),
                                   ),
                                   const SizedBox(width: 12),
                                   Expanded(
                                     child: ElevatedButton(
-                                      onPressed: () => _resolveItem(context, ref, item, item.selectedOption),
+                                      onPressed: () => _resolveItem(context,
+                                          ref, item, item.selectedOption),
                                       child: const Text('Approve Choice'),
                                     ),
                                   ),

@@ -11,7 +11,8 @@ import 'package:omr_mobile_app/core/omr/annotated_sheet_painter.dart';
 class FullScanProcessingResult {
   final String studentCode; // 6-digit student roll/code string
   final double codeConfidence;
-  final Map<int, String?> detectedAnswers; // [QuestionNum: "1"|"2"|"3"|"4"|null]
+  final Map<int, String?>
+      detectedAnswers; // [QuestionNum: "1"|"2"|"3"|"4"|null]
   final Map<int, double> answerConfidences; // [QuestionNum: 0.0..1.0]
   final Set<int> multipleMarkedQuestions;
   final Set<int> needsReviewQuestions;
@@ -168,15 +169,17 @@ class OfflineOMRScanEngine {
     ];
 
     final int bubblePitch = math.max(12, (0.0271 * gridWidth).round());
-    final double rowPitchNormCol12 = 0.01240;
-    final double rowPitchNormCol36 = 0.01245;
+    const double rowPitchNormCol12 = 0.01240;
+    const double rowPitchNormCol36 = 0.01245;
 
     // 2. Read 6-Digit Student Code Block (Square grid)
     final StringBuffer codeBuffer = StringBuffer();
     double minCodeConfidence = 1.0;
     const codeOffsets = [-0.003, 0.0, 0.003];
 
-    for (int colIdx = 0; colIdx < Universal200QBlueprint.codeColXNorm.length; colIdx++) {
+    for (int colIdx = 0;
+        colIdx < Universal200QBlueprint.codeColXNorm.length;
+        colIdx++) {
       final double cx = Universal200QBlueprint.codeColXNorm[colIdx];
       String bestDigit = '0';
       double bestTopIntensity = 255.0;
@@ -186,7 +189,9 @@ class OfflineOMRScanEngine {
         final List<Map<String, dynamic>> digitScores = [];
 
         for (int d = 0; d <= 9; d++) {
-          final double cy = Universal200QBlueprint.codeStartYNorm + d * Universal200QBlueprint.codePitchYNorm + yOff;
+          final double cy = Universal200QBlueprint.codeStartYNorm +
+              d * Universal200QBlueprint.codePitchYNorm +
+              yOff;
           final sample = bubbleSampler.sampleBubble(
             image,
             cxNorm: cx,
@@ -200,7 +205,8 @@ class OfflineOMRScanEngine {
           });
         }
 
-        digitScores.sort((a, b) => (a['intensity'] as double).compareTo(b['intensity'] as double));
+        digitScores.sort((a, b) =>
+            (a['intensity'] as double).compareTo(b['intensity'] as double));
         final top = digitScores[0];
         final runnerUp = digitScores[1];
         final double topIntensity = top['intensity'] as double;
@@ -324,7 +330,8 @@ class OfflineOMRScanEngine {
           for (final b in bubbleScores) [b['cx'] as int, b['cy'] as int]
         ];
 
-        bubbleScores.sort((a, b) => (a['score'] as double).compareTo(b['score'] as double));
+        bubbleScores.sort(
+            (a, b) => (a['score'] as double).compareTo(b['score'] as double));
         final top = bubbleScores[0];
         final runnerUp = bubbleScores[1];
 

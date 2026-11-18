@@ -16,19 +16,22 @@ class _OnboardingPageState extends State<OnboardingPage> {
   final List<Map<String, dynamic>> _slides = [
     {
       'title': 'Instant Phone OMR Scanning',
-      'description': 'Capture standard OMR answer sheets using your phone camera. Automatic perspective correction and alignment in seconds.',
+      'description':
+          'Capture standard OMR answer sheets using your phone camera. Automatic perspective correction and alignment in seconds.',
       'icon': Icons.camera_enhance_rounded,
       'color': AppColors.primary,
     },
     {
       'title': 'Automated & Deterministic Grading',
-      'description': 'Instant bubble recognition with confidence metrics, multi-mark detection, and side-by-side review for ambiguous answers.',
+      'description':
+          'Instant bubble recognition with confidence metrics, multi-mark detection, and side-by-side review for ambiguous answers.',
       'icon': Icons.fact_check_rounded,
       'color': AppColors.secondary,
     },
     {
       'title': 'Direct Parent Email Reports',
-      'description': 'Generate tamper-proof branded report cards and automatically email them to parents with a single tap.',
+      'description':
+          'Generate tamper-proof branded report cards and automatically email them to parents with a single tap.',
       'icon': Icons.mark_email_read_rounded,
       'color': AppColors.primaryContainer,
     },
@@ -50,8 +53,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   child: Text(
                     'Skip',
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: AppColors.tertiary,
-                    ),
+                          color: AppColors.tertiary,
+                        ),
                   ),
                 ),
               ),
@@ -90,10 +93,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           child: Text(
                             slide['description'] as String,
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: AppColors.onSurfaceVariant,
-                              height: 1.4,
-                            ),
+                            style:
+                                Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      color: AppColors.onSurfaceVariant,
+                                      height: 1.4,
+                                    ),
                           ),
                         ),
                       ],
@@ -110,7 +114,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     width: _currentPage == idx ? 28 : 8,
                     height: 8,
                     decoration: BoxDecoration(
-                      color: _currentPage == idx ? AppColors.primary : AppColors.surfaceContainerHigh,
+                      color: _currentPage == idx
+                          ? AppColors.primary
+                          : AppColors.surfaceContainerHigh,
                       borderRadius: BorderRadius.circular(4),
                     ),
                   );
@@ -130,7 +136,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       context.go('/login');
                     }
                   },
-                  child: Text(_currentPage == _slides.length - 1 ? 'Get Started' : 'Next'),
+                  child: Text(_currentPage == _slides.length - 1
+                      ? 'Get Started'
+                      : 'Next'),
                 ),
               ),
               const SizedBox(height: 12),

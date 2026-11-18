@@ -62,7 +62,8 @@ class _ExamsListPageState extends ConsumerState<ExamsListPage> {
             : const Text('Assessments & Exams'),
         actions: [
           IconButton(
-            icon: Icon(_isSearching ? Icons.close_rounded : Icons.search_rounded),
+            icon:
+                Icon(_isSearching ? Icons.close_rounded : Icons.search_rounded),
             onPressed: () {
               setState(() {
                 if (_isSearching) {
@@ -97,7 +98,8 @@ class _ExamsListPageState extends ConsumerState<ExamsListPage> {
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
             child: Row(
-              children: ['All', 'Published', 'Completed', 'Draft'].map((filter) {
+              children:
+                  ['All', 'Published', 'Completed', 'Draft'].map((filter) {
                 final isSelected = _selectedFilter == filter;
                 return Padding(
                   padding: const EdgeInsets.only(right: 8),
@@ -108,14 +110,18 @@ class _ExamsListPageState extends ConsumerState<ExamsListPage> {
                     backgroundColor: AppColors.surfaceContainerLow,
                     selectedColor: AppColors.softMint,
                     labelStyle: TextStyle(
-                      color: isSelected ? AppColors.primary : AppColors.onSurfaceVariant,
-                      fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                      color: isSelected
+                          ? AppColors.primary
+                          : AppColors.onSurfaceVariant,
+                      fontWeight:
+                          isSelected ? FontWeight.w700 : FontWeight.w500,
                       fontSize: 13,
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                       side: BorderSide(
-                        color: isSelected ? AppColors.primary : Colors.transparent,
+                        color:
+                            isSelected ? AppColors.primary : Colors.transparent,
                         width: 1,
                       ),
                     ),
@@ -132,13 +138,15 @@ class _ExamsListPageState extends ConsumerState<ExamsListPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.assignment_late_outlined, size: 48, color: Colors.grey.shade400),
+                        Icon(Icons.assignment_late_outlined,
+                            size: 48, color: Colors.grey.shade400),
                         const SizedBox(height: 12),
                         Text(
                           _searchQuery.isNotEmpty
                               ? 'No assessments match "$_searchQuery"'
                               : 'No $_selectedFilter assessments found',
-                          style: TextStyle(color: Colors.grey.shade600, fontSize: 14),
+                          style: TextStyle(
+                              color: Colors.grey.shade600, fontSize: 14),
                         ),
                       ],
                     ),
@@ -154,7 +162,8 @@ class _ExamsListPageState extends ConsumerState<ExamsListPage> {
 
                       return InkWell(
                         onTap: () {
-                          ref.read(activeExamIdProvider.notifier).state = exam.id;
+                          ref.read(activeExamIdProvider.notifier).state =
+                              exam.id;
                           if (isDraft) {
                             context.push('/answer-key-setup');
                           } else {
@@ -167,7 +176,8 @@ class _ExamsListPageState extends ConsumerState<ExamsListPage> {
                           decoration: BoxDecoration(
                             color: AppColors.surfaceContainerLowest,
                             borderRadius: BorderRadius.circular(16),
-                            border: Border.all(color: AppColors.surfaceContainerHigh),
+                            border: Border.all(
+                                color: AppColors.surfaceContainerHigh),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black.withOpacity(0.02),
@@ -180,18 +190,24 @@ class _ExamsListPageState extends ConsumerState<ExamsListPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 3),
                                     decoration: BoxDecoration(
-                                      color: isDraft ? AppColors.surfaceContainerHigh : AppColors.softMint,
+                                      color: isDraft
+                                          ? AppColors.surfaceContainerHigh
+                                          : AppColors.softMint,
                                       borderRadius: BorderRadius.circular(6),
                                     ),
                                     child: Text(
                                       exam.status.toUpperCase(),
                                       style: TextStyle(
-                                        color: isDraft ? AppColors.tertiary : AppColors.primary,
+                                        color: isDraft
+                                            ? AppColors.tertiary
+                                            : AppColors.primary,
                                         fontSize: 10,
                                         fontWeight: FontWeight.w700,
                                         letterSpacing: 0.5,
@@ -200,14 +216,20 @@ class _ExamsListPageState extends ConsumerState<ExamsListPage> {
                                   ),
                                   Text(
                                     exam.date,
-                                    style: TextStyle(color: AppColors.tertiary.withOpacity(0.8), fontSize: 12),
+                                    style: TextStyle(
+                                        color:
+                                            AppColors.tertiary.withOpacity(0.8),
+                                        fontSize: 12),
                                   ),
                                 ],
                               ),
                               const SizedBox(height: 12),
                               Text(
                                 exam.title,
-                                style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 16),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge
+                                    ?.copyWith(fontSize: 16),
                               ),
                               const SizedBox(height: 4),
                               Text(
@@ -218,45 +240,76 @@ class _ExamsListPageState extends ConsumerState<ExamsListPage> {
                               const Divider(height: 1),
                               const SizedBox(height: 10),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     '${exam.scannedCount} of ${exam.totalStudents} sheets',
-                                    style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12),
                                   ),
                                   Row(
                                     children: [
                                       OutlinedButton.icon(
                                         style: OutlinedButton.styleFrom(
-                                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 6),
                                           minimumSize: Size.zero,
-                                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                          side: const BorderSide(color: AppColors.primary),
+                                          tapTargetSize:
+                                              MaterialTapTargetSize.shrinkWrap,
+                                          side: const BorderSide(
+                                              color: AppColors.primary),
                                         ),
                                         onPressed: () {
-                                          ref.read(activeExamIdProvider.notifier).state = exam.id;
+                                          ref
+                                              .read(
+                                                  activeExamIdProvider.notifier)
+                                              .state = exam.id;
                                           context.push('/scan');
                                         },
-                                        icon: const Icon(Icons.camera_alt_rounded, size: 14, color: AppColors.primary),
-                                        label: const Text('Scan', style: TextStyle(fontSize: 12, color: AppColors.primary, fontWeight: FontWeight.bold)),
+                                        icon: const Icon(
+                                            Icons.camera_alt_rounded,
+                                            size: 14,
+                                            color: AppColors.primary),
+                                        label: const Text('Scan',
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: AppColors.primary,
+                                                fontWeight: FontWeight.bold)),
                                       ),
                                       const SizedBox(width: 8),
                                       TextButton.icon(
                                         style: TextButton.styleFrom(
-                                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8, vertical: 6),
                                           minimumSize: Size.zero,
-                                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                          tapTargetSize:
+                                              MaterialTapTargetSize.shrinkWrap,
                                         ),
                                         onPressed: () {
-                                          ref.read(activeExamIdProvider.notifier).state = exam.id;
+                                          ref
+                                              .read(
+                                                  activeExamIdProvider.notifier)
+                                              .state = exam.id;
                                           if (isDraft) {
                                             context.push('/answer-key-setup');
                                           } else {
-                                            context.push('/exam-results-summary');
+                                            context
+                                                .push('/exam-results-summary');
                                           }
                                         },
-                                        icon: Icon(isDraft ? Icons.edit_note_rounded : Icons.insights_rounded, size: 14, color: AppColors.tertiary),
-                                        label: Text(isDraft ? 'Edit Key' : 'Results', style: const TextStyle(fontSize: 12, color: AppColors.tertiary)),
+                                        icon: Icon(
+                                            isDraft
+                                                ? Icons.edit_note_rounded
+                                                : Icons.insights_rounded,
+                                            size: 14,
+                                            color: AppColors.tertiary),
+                                        label: Text(
+                                            isDraft ? 'Edit Key' : 'Results',
+                                            style: const TextStyle(
+                                                fontSize: 12,
+                                                color: AppColors.tertiary)),
                                       ),
                                     ],
                                   ),

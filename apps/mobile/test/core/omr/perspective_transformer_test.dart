@@ -18,7 +18,8 @@ void main() {
       final source = img.Image(width: 400, height: 600);
       img.fill(source, color: img.ColorRgb8(255, 255, 255));
       // Draw a black dot at center (200, 300)
-      img.fillCircle(source, x: 200, y: 300, radius: 10, color: img.ColorRgb8(0, 0, 0));
+      img.fillCircle(source,
+          x: 200, y: 300, radius: 10, color: img.ColorRgb8(0, 0, 0));
 
       const corners = QuadCorners(
         topLeft: Point2D(0, 0),
@@ -44,7 +45,9 @@ void main() {
       expect(centerP.b, lessThan(30));
     });
 
-    test('Correctly rectifies trapezoid perspective tilt into rectangular canvas', () {
+    test(
+        'Correctly rectifies trapezoid perspective tilt into rectangular canvas',
+        () {
       final source = img.Image(width: 500, height: 700);
       img.fill(source, color: img.ColorRgb8(255, 255, 255));
 

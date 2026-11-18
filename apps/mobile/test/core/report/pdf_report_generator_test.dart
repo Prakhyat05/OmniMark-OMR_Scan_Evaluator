@@ -11,7 +11,9 @@ void main() {
     const evaluator = OfflineExamEvaluator();
 
     final answerKey = {for (var i = 1; i <= 50; i++) i: 'B'};
-    final detectedAnswers = {for (var i = 1; i <= 50; i++) i: (i % 5 == 0 ? 'A' : 'B')};
+    final detectedAnswers = {
+      for (var i = 1; i <= 50; i++) i: (i % 5 == 0 ? 'A' : 'B')
+    };
 
     final summary = evaluator.evaluate(
       totalQuestions: 50,

@@ -8,7 +8,8 @@ class InstituteSettingsPage extends ConsumerStatefulWidget {
   const InstituteSettingsPage({super.key});
 
   @override
-  ConsumerState<InstituteSettingsPage> createState() => _InstituteSettingsPageState();
+  ConsumerState<InstituteSettingsPage> createState() =>
+      _InstituteSettingsPageState();
 }
 
 class _InstituteSettingsPageState extends ConsumerState<InstituteSettingsPage> {
@@ -115,7 +116,8 @@ class _InstituteSettingsPageState extends ConsumerState<InstituteSettingsPage> {
                         color: AppColors.primary,
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      child: const Icon(Icons.school_rounded, color: Colors.white, size: 36),
+                      child: const Icon(Icons.school_rounded,
+                          color: Colors.white, size: 36),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
@@ -123,25 +125,33 @@ class _InstituteSettingsPageState extends ConsumerState<InstituteSettingsPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            _orgNameController.text.isNotEmpty ? _orgNameController.text : 'Institution Name',
-                            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                            _orgNameController.text.isNotEmpty
+                                ? _orgNameController.text
+                                : 'Institution Name',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w700, fontSize: 16),
                           ),
                           const SizedBox(height: 2),
                           Text(
                             'Tenant Slug: ${_slugController.text}',
-                            style: const TextStyle(color: AppColors.tertiary, fontSize: 12),
+                            style: const TextStyle(
+                                color: AppColors.tertiary, fontSize: 12),
                           ),
                           const SizedBox(height: 8),
                           OutlinedButton(
                             onPressed: () {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Choose institute logo from device gallery')),
+                                const SnackBar(
+                                    content: Text(
+                                        'Choose institute logo from device gallery')),
                               );
                             },
                             style: OutlinedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 6),
                             ),
-                            child: const Text('Change Logo', style: TextStyle(fontSize: 12)),
+                            child: const Text('Change Logo',
+                                style: TextStyle(fontSize: 12)),
                           ),
                         ],
                       ),
@@ -151,17 +161,21 @@ class _InstituteSettingsPageState extends ConsumerState<InstituteSettingsPage> {
               ),
               const SizedBox(height: 24),
 
-              Text('Organization Profile', style: Theme.of(context).textTheme.titleLarge),
+              Text('Organization Profile',
+                  style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 14),
 
               // Institute Name
-              Text('Institute Full Name *', style: Theme.of(context).textTheme.labelLarge),
+              Text('Institute Full Name *',
+                  style: Theme.of(context).textTheme.labelLarge),
               const SizedBox(height: 6),
               TextFormField(
                 controller: _orgNameController,
-                decoration: const InputDecoration(hintText: 'e.g. Apex International Academy'),
+                decoration: const InputDecoration(
+                    hintText: 'e.g. Apex International Academy'),
                 validator: (val) {
-                  if (val == null || val.trim().isEmpty) return 'Please enter the institute name';
+                  if (val == null || val.trim().isEmpty)
+                    return 'Please enter the institute name';
                   return null;
                 },
                 onChanged: (_) => setState(() {}),
@@ -169,13 +183,16 @@ class _InstituteSettingsPageState extends ConsumerState<InstituteSettingsPage> {
               const SizedBox(height: 16),
 
               // Tenant Slug
-              Text('Tenant Slug / Workspace Code *', style: Theme.of(context).textTheme.labelLarge),
+              Text('Tenant Slug / Workspace Code *',
+                  style: Theme.of(context).textTheme.labelLarge),
               const SizedBox(height: 6),
               TextFormField(
                 controller: _slugController,
-                decoration: const InputDecoration(hintText: 'e.g. apex-academy'),
+                decoration:
+                    const InputDecoration(hintText: 'e.g. apex-academy'),
                 validator: (val) {
-                  if (val == null || val.trim().isEmpty) return 'Tenant slug is required';
+                  if (val == null || val.trim().isEmpty)
+                    return 'Tenant slug is required';
                   return null;
                 },
                 onChanged: (_) => setState(() {}),
@@ -183,50 +200,61 @@ class _InstituteSettingsPageState extends ConsumerState<InstituteSettingsPage> {
               const SizedBox(height: 16),
 
               // Official Email
-              Text('Official Contact Email *', style: Theme.of(context).textTheme.labelLarge),
+              Text('Official Contact Email *',
+                  style: Theme.of(context).textTheme.labelLarge),
               const SizedBox(height: 6),
               TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                   hintText: 'admin@institute.edu',
-                  prefixIcon: Icon(Icons.email_outlined, color: AppColors.outline),
+                  prefixIcon:
+                      Icon(Icons.email_outlined, color: AppColors.outline),
                 ),
                 validator: (val) {
-                  if (val == null || val.trim().isEmpty) return 'Contact email is required';
-                  final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-                  if (!emailRegex.hasMatch(val.trim())) return 'Please enter a valid email address';
+                  if (val == null || val.trim().isEmpty)
+                    return 'Contact email is required';
+                  final emailRegex =
+                      RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                  if (!emailRegex.hasMatch(val.trim()))
+                    return 'Please enter a valid email address';
                   return null;
                 },
               ),
               const SizedBox(height: 16),
 
               // Phone
-              Text('Contact Phone Number *', style: Theme.of(context).textTheme.labelLarge),
+              Text('Contact Phone Number *',
+                  style: Theme.of(context).textTheme.labelLarge),
               const SizedBox(height: 6),
               TextFormField(
                 controller: _phoneController,
                 keyboardType: TextInputType.phone,
                 decoration: const InputDecoration(
                   hintText: '+91 98765 43210',
-                  prefixIcon: Icon(Icons.phone_outlined, color: AppColors.outline),
+                  prefixIcon:
+                      Icon(Icons.phone_outlined, color: AppColors.outline),
                 ),
                 validator: (val) {
-                  if (val == null || val.trim().isEmpty) return 'Phone number is required';
+                  if (val == null || val.trim().isEmpty)
+                    return 'Phone number is required';
                   return null;
                 },
               ),
               const SizedBox(height: 16),
 
               // Address
-              Text('Campus / Office Address *', style: Theme.of(context).textTheme.labelLarge),
+              Text('Campus / Office Address *',
+                  style: Theme.of(context).textTheme.labelLarge),
               const SizedBox(height: 6),
               TextFormField(
                 controller: _addressController,
                 maxLines: 2,
-                decoration: const InputDecoration(hintText: 'Full postal address of campus...'),
+                decoration: const InputDecoration(
+                    hintText: 'Full postal address of campus...'),
                 validator: (val) {
-                  if (val == null || val.trim().isEmpty) return 'Campus address is required';
+                  if (val == null || val.trim().isEmpty)
+                    return 'Campus address is required';
                   return null;
                 },
               ),
@@ -237,26 +265,43 @@ class _InstituteSettingsPageState extends ConsumerState<InstituteSettingsPage> {
                 child: Column(
                   children: [
                     ListTile(
-                      leading: const Icon(Icons.mail_outline_rounded, color: AppColors.primary),
-                      title: const Text('Email & SMTP Gateway', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
-                      subtitle: const Text('Configure custom outgoing report server', style: TextStyle(fontSize: 12)),
-                      trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: AppColors.outline),
+                      leading: const Icon(Icons.mail_outline_rounded,
+                          color: AppColors.primary),
+                      title: const Text('Email & SMTP Gateway',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 14)),
+                      subtitle: const Text(
+                          'Configure custom outgoing report server',
+                          style: TextStyle(fontSize: 12)),
+                      trailing: const Icon(Icons.arrow_forward_ios_rounded,
+                          size: 14, color: AppColors.outline),
                       onTap: () => context.push('/email-settings'),
                     ),
                     const Divider(height: 1),
                     ListTile(
-                      leading: const Icon(Icons.history_edu_rounded, color: AppColors.primary),
-                      title: const Text('Email Delivery Logs', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
-                      subtitle: const Text('View sent, pending & bounced scorecards', style: TextStyle(fontSize: 12)),
-                      trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: AppColors.outline),
+                      leading: const Icon(Icons.history_edu_rounded,
+                          color: AppColors.primary),
+                      title: const Text('Email Delivery Logs',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 14)),
+                      subtitle: const Text(
+                          'View sent, pending & bounced scorecards',
+                          style: TextStyle(fontSize: 12)),
+                      trailing: const Icon(Icons.arrow_forward_ios_rounded,
+                          size: 14, color: AppColors.outline),
                       onTap: () => context.push('/email-history'),
                     ),
                     const Divider(height: 1),
                     ListTile(
-                      leading: const Icon(Icons.help_outline_rounded, color: AppColors.primary),
-                      title: const Text('Help & Documentation', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
-                      subtitle: const Text('OMR sheet templates and guides', style: TextStyle(fontSize: 12)),
-                      trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: AppColors.outline),
+                      leading: const Icon(Icons.help_outline_rounded,
+                          color: AppColors.primary),
+                      title: const Text('Help & Documentation',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 14)),
+                      subtitle: const Text('OMR sheet templates and guides',
+                          style: TextStyle(fontSize: 12)),
+                      trailing: const Icon(Icons.arrow_forward_ios_rounded,
+                          size: 14, color: AppColors.outline),
                       onTap: () => context.push('/help-support'),
                     ),
                   ],
@@ -273,10 +318,12 @@ class _InstituteSettingsPageState extends ConsumerState<InstituteSettingsPage> {
                       ? const SizedBox(
                           width: 18,
                           height: 18,
-                          child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                          child: CircularProgressIndicator(
+                              strokeWidth: 2, color: Colors.white),
                         )
                       : const Icon(Icons.save_rounded),
-                  label: Text(_isSaving ? 'Saving Changes...' : 'Save Settings'),
+                  label:
+                      Text(_isSaving ? 'Saving Changes...' : 'Save Settings'),
                 ),
               ),
               const SizedBox(height: 100),

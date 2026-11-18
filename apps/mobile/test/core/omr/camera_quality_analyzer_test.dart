@@ -22,11 +22,17 @@ void main() {
       final img.Image? decoded = img.decodeImage(bytes);
       final assessment = analyzer.analyzeImage(decoded!);
 
-      expect(assessment.isSharp, isTrue, reason: 'Real sample should be sharp (score: ${assessment.sharpnessScore})');
-      expect(assessment.isLightingAdequate, isTrue, reason: 'Luma: ${assessment.meanLuma}');
-      expect(assessment.hasExcessiveShadow, isFalse, reason: 'Shadow: ${assessment.quadrantLumaDelta}');
-      expect(assessment.isAspectRatioValid, isTrue, reason: 'Aspect: ${assessment.aspectRatio}');
-      expect(assessment.isAcceptable, isTrue, reason: 'Feedback: ${assessment.feedbackMessages}');
+      expect(assessment.isSharp, isTrue,
+          reason:
+              'Real sample should be sharp (score: ${assessment.sharpnessScore})');
+      expect(assessment.isLightingAdequate, isTrue,
+          reason: 'Luma: ${assessment.meanLuma}');
+      expect(assessment.hasExcessiveShadow, isFalse,
+          reason: 'Shadow: ${assessment.quadrantLumaDelta}');
+      expect(assessment.isAspectRatioValid, isTrue,
+          reason: 'Aspect: ${assessment.aspectRatio}');
+      expect(assessment.isAcceptable, isTrue,
+          reason: 'Feedback: ${assessment.feedbackMessages}');
       expect(assessment.feedbackMessages, isEmpty);
     });
 
@@ -40,7 +46,8 @@ void main() {
       expect(assessment.sharpnessScore, lessThan(10.0));
       expect(assessment.isSharp, isFalse);
       expect(assessment.isAcceptable, isFalse);
-      expect(assessment.feedbackMessages.any((m) => m.contains('blurry')), isTrue);
+      expect(
+          assessment.feedbackMessages.any((m) => m.contains('blurry')), isTrue);
     });
 
     test('Detects harsh directional shadow across quadrants', () {
@@ -74,7 +81,8 @@ void main() {
 
       expect(assessment.hasExcessiveShadow, isTrue);
       expect(assessment.quadrantLumaDelta, greaterThan(60.0));
-      expect(assessment.feedbackMessages.any((m) => m.contains('shadow')), isTrue);
+      expect(
+          assessment.feedbackMessages.any((m) => m.contains('shadow')), isTrue);
     });
 
     test('Flags severely dark or overexposed frames', () {
@@ -83,7 +91,8 @@ void main() {
 
       final assessment = analyzer.analyzeImage(darkImage);
       expect(assessment.isLightingAdequate, isFalse);
-      expect(assessment.feedbackMessages.any((m) => m.contains('dark')), isTrue);
+      expect(
+          assessment.feedbackMessages.any((m) => m.contains('dark')), isTrue);
     });
   });
 }

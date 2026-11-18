@@ -24,6 +24,7 @@ build/
 __pycache__/
 *.py[cod]
 *$py.class
+*.egg-info/
 .pytest_cache/
 .coverage
 htmlcov/
@@ -34,6 +35,7 @@ ENV/
 services/omr-engine/.venv/
 
 # Flutter / Dart
+coverage/
 .dart_tool/
 .packages
 .pub-cache/

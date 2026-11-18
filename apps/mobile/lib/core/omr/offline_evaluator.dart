@@ -1,7 +1,8 @@
 /// Offline Evaluation & Scoring Engine for On-Device Processing.
 class ScoringRule {
   final double correctMarks;
-  final double negativeMarks; // Positive number representing penalty (e.g. 1.0 or 0.25)
+  final double
+      negativeMarks; // Positive number representing penalty (e.g. 1.0 or 0.25)
   final double unattemptedMarks;
 
   const ScoringRule({
@@ -100,7 +101,8 @@ class OfflineExamEvaluator {
       final detected = detectedAnswers[q];
       final correct = answerKey[q]?.toUpperCase();
       final isMultiple = multipleMarkedQuestions?.contains(q) ?? false;
-      final confidence = answerConfidences?[q] ?? (detected != null ? 1.0 : 0.0);
+      final confidence =
+          answerConfidences?[q] ?? (detected != null ? 1.0 : 0.0);
 
       bool isCorrect = false;
       bool isWrong = false;

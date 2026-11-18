@@ -47,7 +47,9 @@ class _AddStudentPageState extends ConsumerState<AddStudentPage> {
       className: _selectedClass,
       parentName: _parentNameController.text.trim(),
       parentEmail: _parentEmailController.text.trim(),
-      parentPhone: _phoneController.text.trim().isNotEmpty ? _phoneController.text.trim() : '+91 98765 43210',
+      parentPhone: _phoneController.text.trim().isNotEmpty
+          ? _phoneController.text.trim()
+          : '+91 98765 43210',
       relationship: _relationship,
       examsCount: 0,
       avgScore: 'N/A',
@@ -57,7 +59,8 @@ class _AddStudentPageState extends ConsumerState<AddStudentPage> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Student "${_nameController.text.trim()}" enrolled successfully!'),
+        content: Text(
+            'Student "${_nameController.text.trim()}" enrolled successfully!'),
         backgroundColor: AppColors.primary,
       ),
     );
@@ -83,18 +86,23 @@ class _AddStudentPageState extends ConsumerState<AddStudentPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Student Information', style: Theme.of(context).textTheme.titleLarge),
+              Text('Student Information',
+                  style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 14),
 
               // Student Full Name
-              Text('Student Full Name *', style: Theme.of(context).textTheme.labelLarge),
+              Text('Student Full Name *',
+                  style: Theme.of(context).textTheme.labelLarge),
               const SizedBox(height: 6),
               TextFormField(
                 controller: _nameController,
-                decoration: const InputDecoration(hintText: 'e.g. Aarav Sharma'),
+                decoration:
+                    const InputDecoration(hintText: 'e.g. Aarav Sharma'),
                 validator: (val) {
-                  if (val == null || val.trim().isEmpty) return 'Student name is required';
-                  if (val.trim().length < 2) return 'Name must be at least 2 characters';
+                  if (val == null || val.trim().isEmpty)
+                    return 'Student name is required';
+                  if (val.trim().length < 2)
+                    return 'Name must be at least 2 characters';
                   return null;
                 },
               ),
@@ -107,13 +115,16 @@ class _AddStudentPageState extends ConsumerState<AddStudentPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Student ID / Code *', style: Theme.of(context).textTheme.labelLarge),
+                        Text('Student ID / Code *',
+                            style: Theme.of(context).textTheme.labelLarge),
                         const SizedBox(height: 6),
                         TextFormField(
                           controller: _codeController,
-                          decoration: const InputDecoration(hintText: 'e.g. STU1006'),
+                          decoration:
+                              const InputDecoration(hintText: 'e.g. STU1006'),
                           validator: (val) {
-                            if (val == null || val.trim().isEmpty) return 'Student ID is required';
+                            if (val == null || val.trim().isEmpty)
+                              return 'Student ID is required';
                             return null;
                           },
                         ),
@@ -125,14 +136,17 @@ class _AddStudentPageState extends ConsumerState<AddStudentPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Roll Number *', style: Theme.of(context).textTheme.labelLarge),
+                        Text('Roll Number *',
+                            style: Theme.of(context).textTheme.labelLarge),
                         const SizedBox(height: 6),
                         TextFormField(
                           controller: _rollController,
                           keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(hintText: 'e.g. 106'),
+                          decoration:
+                              const InputDecoration(hintText: 'e.g. 106'),
                           validator: (val) {
-                            if (val == null || val.trim().isEmpty) return 'Roll number is required';
+                            if (val == null || val.trim().isEmpty)
+                              return 'Roll number is required';
                             return null;
                           },
                         ),
@@ -144,18 +158,24 @@ class _AddStudentPageState extends ConsumerState<AddStudentPage> {
               const SizedBox(height: 16),
 
               // Class Selection
-              Text('Class / Section *', style: Theme.of(context).textTheme.labelLarge),
+              Text('Class / Section *',
+                  style: Theme.of(context).textTheme.labelLarge),
               const SizedBox(height: 6),
               DropdownButtonFormField<String>(
                 value: _selectedClass,
-                items: ['Grade 10 - Section A', 'Grade 10 - Section B', 'Grade 12 - Science']
+                items: [
+                  'Grade 10 - Section A',
+                  'Grade 10 - Section B',
+                  'Grade 12 - Science'
+                ]
                     .map((c) => DropdownMenuItem(value: c, child: Text(c)))
                     .toList(),
                 onChanged: (v) => setState(() => _selectedClass = v!),
               ),
               const SizedBox(height: 28),
 
-              Text('Parent / Guardian Details', style: Theme.of(context).textTheme.titleLarge),
+              Text('Parent / Guardian Details',
+                  style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 6),
               Text(
                 'Assessment reports and performance cards will be sent to this email.',
@@ -164,52 +184,63 @@ class _AddStudentPageState extends ConsumerState<AddStudentPage> {
               const SizedBox(height: 14),
 
               // Parent Name
-              Text('Parent / Guardian Name *', style: Theme.of(context).textTheme.labelLarge),
+              Text('Parent / Guardian Name *',
+                  style: Theme.of(context).textTheme.labelLarge),
               const SizedBox(height: 6),
               TextFormField(
                 controller: _parentNameController,
-                decoration: const InputDecoration(hintText: 'e.g. Rajesh Sharma'),
+                decoration:
+                    const InputDecoration(hintText: 'e.g. Rajesh Sharma'),
                 validator: (val) {
-                  if (val == null || val.trim().isEmpty) return 'Parent name is required';
+                  if (val == null || val.trim().isEmpty)
+                    return 'Parent name is required';
                   return null;
                 },
               ),
               const SizedBox(height: 16),
 
               // Parent Email
-              Text('Parent Email Address *', style: Theme.of(context).textTheme.labelLarge),
+              Text('Parent Email Address *',
+                  style: Theme.of(context).textTheme.labelLarge),
               const SizedBox(height: 6),
               TextFormField(
                 controller: _parentEmailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                   hintText: 'parent.email@example.com',
-                  prefixIcon: Icon(Icons.email_outlined, color: AppColors.outline),
+                  prefixIcon:
+                      Icon(Icons.email_outlined, color: AppColors.outline),
                 ),
                 validator: (val) {
-                  if (val == null || val.trim().isEmpty) return 'Parent email is required';
-                  final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-                  if (!emailRegex.hasMatch(val.trim())) return 'Please enter a valid email address';
+                  if (val == null || val.trim().isEmpty)
+                    return 'Parent email is required';
+                  final emailRegex =
+                      RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                  if (!emailRegex.hasMatch(val.trim()))
+                    return 'Please enter a valid email address';
                   return null;
                 },
               ),
               const SizedBox(height: 16),
 
               // Phone Number
-              Text('Parent Phone Number', style: Theme.of(context).textTheme.labelLarge),
+              Text('Parent Phone Number',
+                  style: Theme.of(context).textTheme.labelLarge),
               const SizedBox(height: 6),
               TextFormField(
                 controller: _phoneController,
                 keyboardType: TextInputType.phone,
                 decoration: const InputDecoration(
                   hintText: '+91 98765 11223',
-                  prefixIcon: Icon(Icons.phone_outlined, color: AppColors.outline),
+                  prefixIcon:
+                      Icon(Icons.phone_outlined, color: AppColors.outline),
                 ),
               ),
               const SizedBox(height: 16),
 
               // Relationship
-              Text('Relationship', style: Theme.of(context).textTheme.labelLarge),
+              Text('Relationship',
+                  style: Theme.of(context).textTheme.labelLarge),
               const SizedBox(height: 6),
               DropdownButtonFormField<String>(
                 value: _relationship,

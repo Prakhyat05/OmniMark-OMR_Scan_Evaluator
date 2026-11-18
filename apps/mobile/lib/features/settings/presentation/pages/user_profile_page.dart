@@ -24,9 +24,11 @@ class UserProfilePage extends StatelessWidget {
               TextFormField(
                 controller: currentPassController,
                 obscureText: true,
-                decoration: const InputDecoration(labelText: 'Current Password'),
+                decoration:
+                    const InputDecoration(labelText: 'Current Password'),
                 validator: (val) {
-                  if (val == null || val.isEmpty) return 'Current password is required';
+                  if (val == null || val.isEmpty)
+                    return 'Current password is required';
                   return null;
                 },
               ),
@@ -36,7 +38,8 @@ class UserProfilePage extends StatelessWidget {
                 obscureText: true,
                 decoration: const InputDecoration(labelText: 'New Password'),
                 validator: (val) {
-                  if (val == null || val.isEmpty) return 'New password is required';
+                  if (val == null || val.isEmpty)
+                    return 'New password is required';
                   if (val.length < 6) return 'Must be at least 6 characters';
                   return null;
                 },
@@ -45,9 +48,11 @@ class UserProfilePage extends StatelessWidget {
               TextFormField(
                 controller: confirmPassController,
                 obscureText: true,
-                decoration: const InputDecoration(labelText: 'Confirm New Password'),
+                decoration:
+                    const InputDecoration(labelText: 'Confirm New Password'),
                 validator: (val) {
-                  if (val != newPassController.text) return 'Passwords do not match';
+                  if (val != newPassController.text)
+                    return 'Passwords do not match';
                   return null;
                 },
               ),
@@ -55,7 +60,8 @@ class UserProfilePage extends StatelessWidget {
           ),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
+          TextButton(
+              onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
           ElevatedButton(
             onPressed: () {
               if (formKey.currentState!.validate()) {
@@ -80,9 +86,11 @@ class UserProfilePage extends StatelessWidget {
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text('Sign Out'),
-        content: const Text('Are you sure you want to sign out of your institute account?'),
+        content: const Text(
+            'Are you sure you want to sign out of your institute account?'),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
+          TextButton(
+              onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: AppColors.error),
             onPressed: () {
@@ -126,20 +134,29 @@ class UserProfilePage extends StatelessWidget {
                   const CircleAvatar(
                     radius: 44,
                     backgroundColor: AppColors.primary,
-                    child: Text('AS', style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold)),
+                    child: Text('AS',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold)),
                   ),
                   const SizedBox(height: 12),
-                  Text('Dr. Amit Sharma', style: Theme.of(context).textTheme.headlineMedium),
+                  Text('Dr. Amit Sharma',
+                      style: Theme.of(context).textTheme.headlineMedium),
                   const SizedBox(height: 4),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                     decoration: BoxDecoration(
                       color: AppColors.softMint,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: const Text(
                       'Institute Owner & Admin',
-                      style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold, fontSize: 12),
+                      style: TextStyle(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12),
                     ),
                   ),
                 ],
@@ -153,13 +170,25 @@ class UserProfilePage extends StatelessWidget {
                 padding: EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    _ProfileTile(icon: Icons.email_outlined, label: 'Email', value: 'admin@apexacademy.edu'),
+                    _ProfileTile(
+                        icon: Icons.email_outlined,
+                        label: 'Email',
+                        value: 'admin@apexacademy.edu'),
                     Divider(height: 24),
-                    _ProfileTile(icon: Icons.phone_outlined, label: 'Phone', value: '+91 98765 43210'),
+                    _ProfileTile(
+                        icon: Icons.phone_outlined,
+                        label: 'Phone',
+                        value: '+91 98765 43210'),
                     Divider(height: 24),
-                    _ProfileTile(icon: Icons.access_time_rounded, label: 'Timezone', value: 'Asia/Kolkata (IST)'),
+                    _ProfileTile(
+                        icon: Icons.access_time_rounded,
+                        label: 'Timezone',
+                        value: 'Asia/Kolkata (IST)'),
                     Divider(height: 24),
-                    _ProfileTile(icon: Icons.apartment_rounded, label: 'Current Org', value: 'Apex International Academy'),
+                    _ProfileTile(
+                        icon: Icons.apartment_rounded,
+                        label: 'Current Org',
+                        value: 'Apex International Academy'),
                   ],
                 ),
               ),
@@ -171,23 +200,35 @@ class UserProfilePage extends StatelessWidget {
               child: Column(
                 children: [
                   ListTile(
-                    leading: const Icon(Icons.lock_outline_rounded, color: AppColors.primary),
-                    title: const Text('Change Password', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
-                    trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: AppColors.outline),
+                    leading: const Icon(Icons.lock_outline_rounded,
+                        color: AppColors.primary),
+                    title: const Text('Change Password',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 14)),
+                    trailing: const Icon(Icons.arrow_forward_ios_rounded,
+                        size: 14, color: AppColors.outline),
                     onTap: () => _showChangePasswordDialog(context),
                   ),
                   const Divider(),
                   ListTile(
-                    leading: const Icon(Icons.notifications_none_rounded, color: AppColors.primary),
-                    title: const Text('Notification Preferences', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
-                    trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: AppColors.outline),
+                    leading: const Icon(Icons.notifications_none_rounded,
+                        color: AppColors.primary),
+                    title: const Text('Notification Preferences',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 14)),
+                    trailing: const Icon(Icons.arrow_forward_ios_rounded,
+                        size: 14, color: AppColors.outline),
                     onTap: () => context.push('/notifications'),
                   ),
                   const Divider(),
                   ListTile(
-                    leading: const Icon(Icons.help_outline_rounded, color: AppColors.primary),
-                    title: const Text('Help & FAQs', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
-                    trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: AppColors.outline),
+                    leading: const Icon(Icons.help_outline_rounded,
+                        color: AppColors.primary),
+                    title: const Text('Help & FAQs',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 14)),
+                    trailing: const Icon(Icons.arrow_forward_ios_rounded,
+                        size: 14, color: AppColors.outline),
                     onTap: () => context.push('/help-support'),
                   ),
                 ],
@@ -201,7 +242,8 @@ class UserProfilePage extends StatelessWidget {
               child: OutlinedButton.icon(
                 onPressed: () => _confirmLogout(context),
                 icon: const Icon(Icons.logout_rounded, color: AppColors.error),
-                label: const Text('Sign Out', style: TextStyle(color: AppColors.error)),
+                label: const Text('Sign Out',
+                    style: TextStyle(color: AppColors.error)),
                 style: OutlinedButton.styleFrom(
                   side: const BorderSide(color: AppColors.errorContainer),
                 ),
@@ -219,7 +261,8 @@ class _ProfileTile extends StatelessWidget {
   final IconData icon;
   final String label;
   final String value;
-  const _ProfileTile({required this.icon, required this.label, required this.value});
+  const _ProfileTile(
+      {required this.icon, required this.label, required this.value});
 
   @override
   Widget build(BuildContext context) {
@@ -230,9 +273,13 @@ class _ProfileTile extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(label, style: const TextStyle(fontSize: 11, color: AppColors.tertiary)),
+            Text(label,
+                style:
+                    const TextStyle(fontSize: 11, color: AppColors.tertiary)),
             const SizedBox(height: 2),
-            Text(value, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+            Text(value,
+                style:
+                    const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
           ],
         ),
       ],

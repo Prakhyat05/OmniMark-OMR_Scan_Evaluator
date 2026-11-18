@@ -4,7 +4,12 @@ import 'package:omr_mobile_app/core/utils/evaluation_engine.dart';
 void main() {
   group('EvaluationEngine Tests', () {
     test('Correctly calculates 100% score when all answers match', () {
-      final answerKey = {1: ['A'], 2: ['B'], 3: ['C'], 4: ['D']};
+      final answerKey = {
+        1: ['A'],
+        2: ['B'],
+        3: ['C'],
+        4: ['D']
+      };
       final detected = {
         1: {'detected_option': 'A', 'confidence': 0.98},
         2: {'detected_option': 'B', 'confidence': 0.99},
@@ -28,7 +33,10 @@ void main() {
     });
 
     test('Correctly applies negative marking for wrong options', () {
-      final answerKey = {1: ['A'], 2: ['B']};
+      final answerKey = {
+        1: ['A'],
+        2: ['B']
+      };
       final detected = {
         1: {'detected_option': 'A', 'confidence': 0.98},
         2: {'detected_option': 'C', 'confidence': 0.95}, // Wrong
@@ -48,11 +56,15 @@ void main() {
     });
 
     test('Correctly accounts for bonus and dropped questions', () {
-      final answerKey = {1: ['A'], 2: ['B'], 3: ['C']};
+      final answerKey = {
+        1: ['A'],
+        2: ['B'],
+        3: ['C']
+      };
       final detected = {
         1: {'detected_option': 'A', 'confidence': 0.98},
         2: {'detected_option': 'D', 'confidence': 0.90}, // Dropped question
-        3: {'detected_option': '', 'confidence': 0.0},   // Bonus question
+        3: {'detected_option': '', 'confidence': 0.0}, // Bonus question
       };
 
       final result = EvaluationEngine.evaluate(

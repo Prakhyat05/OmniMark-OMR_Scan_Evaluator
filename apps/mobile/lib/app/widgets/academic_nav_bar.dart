@@ -17,7 +17,8 @@ class AcademicNavBar extends StatefulWidget {
   State<AcademicNavBar> createState() => _AcademicNavBarState();
 }
 
-class _AcademicNavBarState extends State<AcademicNavBar> with SingleTickerProviderStateMixin {
+class _AcademicNavBarState extends State<AcademicNavBar>
+    with SingleTickerProviderStateMixin {
   late AnimationController _pulseController;
   late Animation<double> _pulseAnimation;
 

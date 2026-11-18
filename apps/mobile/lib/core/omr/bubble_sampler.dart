@@ -4,7 +4,7 @@ import 'package:image/image.dart' as img;
 /// Bubble Pixel Sample
 class BubbleSample {
   final double meanIntensity; // 0.0 (darkest black) to 255.0 (pure white)
-  final double minIntensity;  // Darkest pixel within inner bubble mask
+  final double minIntensity; // Darkest pixel within inner bubble mask
   final List<int> patch32x32; // 32x32 grayscale pixel buffer (length: 1024)
 
   const BubbleSample({
@@ -50,7 +50,8 @@ class BubbleSampler {
         if (dx * dx + dy * dy <= innerR * innerR) {
           final pixel = image.getPixel(px, py);
           // Luminance = 0.299*R + 0.587*G + 0.114*B
-          final double luma = pixel.r * 0.299 + pixel.g * 0.587 + pixel.b * 0.114;
+          final double luma =
+              pixel.r * 0.299 + pixel.g * 0.587 + pixel.b * 0.114;
           sumVal += luma;
           if (luma < minVal) minVal = luma;
           count++;
@@ -77,7 +78,8 @@ class BubbleSampler {
         final int srcXi = srcX.clamp(0.0, (imgW - 1).toDouble()).round();
 
         final p = image.getPixel(srcXi, srcYi);
-        final int gray = (p.r * 0.299 + p.g * 0.587 + p.b * 0.114).round().clamp(0, 255);
+        final int gray =
+            (p.r * 0.299 + p.g * 0.587 + p.b * 0.114).round().clamp(0, 255);
         patch32[ty * 32 + tx] = gray;
       }
     }

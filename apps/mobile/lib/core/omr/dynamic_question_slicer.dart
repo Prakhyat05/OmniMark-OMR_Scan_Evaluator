@@ -14,8 +14,9 @@ class DynamicQuestionSlicer {
     if (totalQuestions <= 0) {
       throw ArgumentError('totalQuestions must be greater than 0');
     }
-    final int effectiveLimit = totalQuestions.clamp(1, masterBlueprint.maxQuestions);
-    
+    final int effectiveLimit =
+        totalQuestions.clamp(1, masterBlueprint.maxQuestions);
+
     final List<QuestionDefinition> active = [];
     for (int q = 1; q <= effectiveLimit; q++) {
       final qDef = masterBlueprint.allQuestions[q];

@@ -29,11 +29,13 @@ class StudentDetailPage extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Edit Student Profile', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              const Text('Edit Student Profile',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               const SizedBox(height: 16),
               TextField(
                 controller: nameController,
-                decoration: const InputDecoration(labelText: 'Student Full Name'),
+                decoration:
+                    const InputDecoration(labelText: 'Student Full Name'),
               ),
               const SizedBox(height: 12),
               TextField(
@@ -133,23 +135,44 @@ class StudentDetailPage extends ConsumerWidget {
                   CircleAvatar(
                     radius: 36,
                     backgroundColor: AppColors.softMint,
-                    child: Text(initials, style: const TextStyle(color: AppColors.primary, fontSize: 24, fontWeight: FontWeight.bold)),
+                    child: Text(initials,
+                        style: const TextStyle(
+                            color: AppColors.primary,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold)),
                   ),
                   const SizedBox(height: 12),
-                  Text(student.name, style: Theme.of(context).textTheme.headlineMedium),
+                  Text(student.name,
+                      style: Theme.of(context).textTheme.headlineMedium),
                   const SizedBox(height: 4),
-                  Text('Roll #${student.roll} • ${student.className}', style: Theme.of(context).textTheme.bodyMedium),
+                  Text('Roll #${student.roll} • ${student.className}',
+                      style: Theme.of(context).textTheme.bodyMedium),
                   const SizedBox(height: 16),
                   const Divider(),
                   const SizedBox(height: 12),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      _StudentStat(val: student.avgScore, label: 'Avg Score', color: AppColors.primary),
-                      Container(height: 30, width: 1, color: AppColors.surfaceContainerHigh),
-                      _StudentStat(val: '${student.examsCount}', label: 'Exams Taken', color: AppColors.secondary),
-                      Container(height: 30, width: 1, color: AppColors.surfaceContainerHigh),
-                      const _StudentStat(val: '#03', label: 'Class Rank', color: Color(0xFF0284C7)),
+                      _StudentStat(
+                          val: student.avgScore,
+                          label: 'Avg Score',
+                          color: AppColors.primary),
+                      Container(
+                          height: 30,
+                          width: 1,
+                          color: AppColors.surfaceContainerHigh),
+                      _StudentStat(
+                          val: '${student.examsCount}',
+                          label: 'Exams Taken',
+                          color: AppColors.secondary),
+                      Container(
+                          height: 30,
+                          width: 1,
+                          color: AppColors.surfaceContainerHigh),
+                      const _StudentStat(
+                          val: '#03',
+                          label: 'Class Rank',
+                          color: Color(0xFF0284C7)),
                     ],
                   ),
                 ],
@@ -158,18 +181,28 @@ class StudentDetailPage extends ConsumerWidget {
             const SizedBox(height: 24),
 
             // Parent Information Section
-            Text('Parent & Communication', style: Theme.of(context).textTheme.titleLarge),
+            Text('Parent & Communication',
+                style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 12),
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    _InfoRow(icon: Icons.person_outline, label: 'Parent Name', val: '${student.parentName} (${student.relationship})'),
+                    _InfoRow(
+                        icon: Icons.person_outline,
+                        label: 'Parent Name',
+                        val: '${student.parentName} (${student.relationship})'),
                     const Divider(height: 24),
-                    _InfoRow(icon: Icons.email_outlined, label: 'Email', val: student.parentEmail),
+                    _InfoRow(
+                        icon: Icons.email_outlined,
+                        label: 'Email',
+                        val: student.parentEmail),
                     const Divider(height: 24),
-                    _InfoRow(icon: Icons.phone_outlined, label: 'Phone', val: student.parentPhone),
+                    _InfoRow(
+                        icon: Icons.phone_outlined,
+                        label: 'Phone',
+                        val: student.parentPhone),
                   ],
                 ),
               ),
@@ -180,7 +213,8 @@ class StudentDetailPage extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Assessment History', style: Theme.of(context).textTheme.titleLarge),
+                Text('Assessment History',
+                    style: Theme.of(context).textTheme.titleLarge),
                 TextButton.icon(
                   onPressed: () => context.push('/email-report-card'),
                   icon: const Icon(Icons.send_rounded, size: 16),
@@ -227,15 +261,19 @@ class _StudentStat extends StatelessWidget {
   final String label;
   final Color color;
 
-  const _StudentStat({required this.val, required this.label, required this.color});
+  const _StudentStat(
+      {required this.val, required this.label, required this.color});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(val, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: color)),
+        Text(val,
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 18, color: color)),
         const SizedBox(height: 2),
-        Text(label, style: const TextStyle(fontSize: 11, color: AppColors.tertiary)),
+        Text(label,
+            style: const TextStyle(fontSize: 11, color: AppColors.tertiary)),
       ],
     );
   }
@@ -257,9 +295,13 @@ class _InfoRow extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(label, style: const TextStyle(fontSize: 11, color: AppColors.tertiary)),
+            Text(label,
+                style:
+                    const TextStyle(fontSize: 11, color: AppColors.tertiary)),
             const SizedBox(height: 2),
-            Text(val, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+            Text(val,
+                style:
+                    const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
           ],
         ),
       ],
@@ -290,14 +332,22 @@ class _ExamHistoryCard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 10),
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        title: Text(title, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
-        subtitle: Text('$date • Rank $rank', style: const TextStyle(fontSize: 12, color: AppColors.tertiary)),
+        title: Text(title,
+            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+        subtitle: Text('$date • Rank $rank',
+            style: const TextStyle(fontSize: 12, color: AppColors.tertiary)),
         trailing: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text(score, style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary, fontSize: 14)),
-            Text(percentage, style: const TextStyle(fontSize: 11, color: AppColors.secondary)),
+            Text(score,
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.primary,
+                    fontSize: 14)),
+            Text(percentage,
+                style:
+                    const TextStyle(fontSize: 11, color: AppColors.secondary)),
           ],
         ),
         onTap: onTap,

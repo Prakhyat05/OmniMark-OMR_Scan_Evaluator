@@ -15,7 +15,8 @@ class CreateExamPage extends ConsumerStatefulWidget {
 
 class _CreateExamPageState extends ConsumerState<CreateExamPage> {
   final _formKey = GlobalKey<FormState>();
-  final _titleController = TextEditingController(text: 'Science Diagnostic Test');
+  final _titleController =
+      TextEditingController(text: 'Science Diagnostic Test');
   final _correctMarksController = TextEditingController(text: '4.0');
   final _wrongMarksController = TextEditingController(text: '-1.0');
 
@@ -24,7 +25,17 @@ class _CreateExamPageState extends ConsumerState<CreateExamPage> {
   int _questionCount = 50; // Default to 50 questions
   String _selectedPreset = '+4 / -1';
 
-  final List<int> _presetQuestionCounts = [20, 45, 50, 75, 90, 100, 150, 180, 200];
+  final List<int> _presetQuestionCounts = [
+    20,
+    45,
+    50,
+    75,
+    90,
+    100,
+    150,
+    180,
+    200
+  ];
 
   @override
   void dispose() {
@@ -113,21 +124,26 @@ class _CreateExamPageState extends ConsumerState<CreateExamPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Assessment Details', style: Theme.of(context).textTheme.titleLarge),
+              Text('Assessment Details',
+                  style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 14),
 
               // Exam Title
-              Text('Exam / Test Title *', style: Theme.of(context).textTheme.labelLarge),
+              Text('Exam / Test Title *',
+                  style: Theme.of(context).textTheme.labelLarge),
               const SizedBox(height: 6),
               TextFormField(
                 controller: _titleController,
                 decoration: const InputDecoration(
                   hintText: 'e.g. Mathematics Weekly Assessment 05',
-                  contentPadding: EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                 ),
                 validator: (val) {
-                  if (val == null || val.trim().isEmpty) return 'Exam title is required';
-                  if (val.trim().length < 3) return 'Title must be at least 3 characters';
+                  if (val == null || val.trim().isEmpty)
+                    return 'Exam title is required';
+                  if (val.trim().length < 3)
+                    return 'Title must be at least 3 characters';
                   return null;
                 },
               ),
@@ -140,17 +156,30 @@ class _CreateExamPageState extends ConsumerState<CreateExamPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Subject *', style: Theme.of(context).textTheme.labelLarge),
+                        Text('Subject *',
+                            style: Theme.of(context).textTheme.labelLarge),
                         const SizedBox(height: 6),
                         DropdownButtonFormField<String>(
                           value: _selectedSubject,
                           isExpanded: true,
-                          items: ['Mathematics', 'Physics', 'Chemistry', 'Biology', 'Science', 'English']
-                              .map((s) => DropdownMenuItem(value: s, child: Text(s, overflow: TextOverflow.ellipsis)))
+                          items: [
+                            'Mathematics',
+                            'Physics',
+                            'Chemistry',
+                            'Biology',
+                            'Science',
+                            'English'
+                          ]
+                              .map((s) => DropdownMenuItem(
+                                  value: s,
+                                  child:
+                                      Text(s, overflow: TextOverflow.ellipsis)))
                               .toList(),
-                          onChanged: (v) => setState(() => _selectedSubject = v!),
+                          onChanged: (v) =>
+                              setState(() => _selectedSubject = v!),
                           decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 12),
                           ),
                         ),
                       ],
@@ -161,17 +190,29 @@ class _CreateExamPageState extends ConsumerState<CreateExamPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Class / Batch *', style: Theme.of(context).textTheme.labelLarge),
+                        Text('Class / Batch *',
+                            style: Theme.of(context).textTheme.labelLarge),
                         const SizedBox(height: 6),
                         DropdownButtonFormField<String>(
                           value: _selectedClass,
                           isExpanded: true,
-                          items: ['Grade 10 - Section A', 'Grade 10 - Section B', 'Grade 11 - Science', 'Grade 12 - Science', 'Batch A', 'Batch B']
-                              .map((c) => DropdownMenuItem(value: c, child: Text(c, overflow: TextOverflow.ellipsis)))
+                          items: [
+                            'Grade 10 - Section A',
+                            'Grade 10 - Section B',
+                            'Grade 11 - Science',
+                            'Grade 12 - Science',
+                            'Batch A',
+                            'Batch B'
+                          ]
+                              .map((c) => DropdownMenuItem(
+                                  value: c,
+                                  child:
+                                      Text(c, overflow: TextOverflow.ellipsis)))
                               .toList(),
                           onChanged: (v) => setState(() => _selectedClass = v!),
                           decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 12),
                           ),
                         ),
                       ],
@@ -185,16 +226,21 @@ class _CreateExamPageState extends ConsumerState<CreateExamPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Total Questions in this Test *', style: Theme.of(context).textTheme.titleMedium),
+                  Text('Total Questions in this Test *',
+                      style: Theme.of(context).textTheme.titleMedium),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                     decoration: BoxDecoration(
                       color: AppColors.primaryContainer,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
                       '$_questionCount Questions',
-                      style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 13),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 13),
                     ),
                   ),
                 ],
@@ -221,7 +267,8 @@ class _CreateExamPageState extends ConsumerState<CreateExamPage> {
                     selectedColor: AppColors.primary,
                     labelStyle: TextStyle(
                       color: isSelected ? Colors.white : AppColors.onSurface,
-                      fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                      fontWeight:
+                          isSelected ? FontWeight.bold : FontWeight.normal,
                     ),
                   );
                 }).toList(),
@@ -236,12 +283,14 @@ class _CreateExamPageState extends ConsumerState<CreateExamPage> {
                 divisions: 39,
                 label: '$_questionCount Qs',
                 activeColor: AppColors.primary,
-                onChanged: (val) => setState(() => _questionCount = val.round()),
+                onChanged: (val) =>
+                    setState(() => _questionCount = val.round()),
               ),
               const SizedBox(height: 24),
 
               // Marking Scheme Presets
-              Text('Marking Scheme *', style: Theme.of(context).textTheme.titleMedium),
+              Text('Marking Scheme *',
+                  style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: 10),
               Wrap(
                 spacing: 8,
@@ -269,16 +318,20 @@ class _CreateExamPageState extends ConsumerState<CreateExamPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Marks for Correct (+)', style: Theme.of(context).textTheme.labelMedium),
+                        Text('Marks for Correct (+)',
+                            style: Theme.of(context).textTheme.labelMedium),
                         const SizedBox(height: 6),
                         TextFormField(
                           controller: _correctMarksController,
-                          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                          keyboardType: const TextInputType.numberWithOptions(
+                              decimal: true),
                           decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 14, vertical: 12),
                             suffixText: 'pts',
                           ),
-                          onChanged: (_) => setState(() => _selectedPreset = 'Custom'),
+                          onChanged: (_) =>
+                              setState(() => _selectedPreset = 'Custom'),
                         ),
                       ],
                     ),
@@ -288,16 +341,20 @@ class _CreateExamPageState extends ConsumerState<CreateExamPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Penalty for Wrong (-)', style: Theme.of(context).textTheme.labelMedium),
+                        Text('Penalty for Wrong (-)',
+                            style: Theme.of(context).textTheme.labelMedium),
                         const SizedBox(height: 6),
                         TextFormField(
                           controller: _wrongMarksController,
-                          keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true),
+                          keyboardType: const TextInputType.numberWithOptions(
+                              decimal: true, signed: true),
                           decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 14, vertical: 12),
                             suffixText: 'pts',
                           ),
-                          onChanged: (_) => setState(() => _selectedPreset = 'Custom'),
+                          onChanged: (_) =>
+                              setState(() => _selectedPreset = 'Custom'),
                         ),
                       ],
                     ),
@@ -313,7 +370,9 @@ class _CreateExamPageState extends ConsumerState<CreateExamPage> {
                 child: ElevatedButton.icon(
                   onPressed: _proceedToAnswerKey,
                   icon: const Icon(Icons.arrow_forward_rounded),
-                  label: const Text('Configure Answer Key', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  label: const Text('Configure Answer Key',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 ),
               ),
             ],

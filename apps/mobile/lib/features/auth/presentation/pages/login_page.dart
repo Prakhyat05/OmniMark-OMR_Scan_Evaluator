@@ -57,15 +57,16 @@ class _LoginPageState extends State<LoginPage> {
                     color: AppColors.primary,
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  child: const Icon(Icons.document_scanner_rounded, color: Colors.white, size: 30),
+                  child: const Icon(Icons.document_scanner_rounded,
+                      color: Colors.white, size: 30),
                 ),
                 const SizedBox(height: 24),
                 Text(
                   'Welcome back',
                   style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                    fontSize: 28,
-                    fontWeight: FontWeight.w800,
-                  ),
+                        fontSize: 28,
+                        fontWeight: FontWeight.w800,
+                      ),
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -75,19 +76,24 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 36),
 
                 // Email Input
-                Text('Email Address *', style: Theme.of(context).textTheme.labelLarge),
+                Text('Email Address *',
+                    style: Theme.of(context).textTheme.labelLarge),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                     hintText: 'name@institute.com',
-                    prefixIcon: Icon(Icons.email_outlined, color: AppColors.outline),
+                    prefixIcon:
+                        Icon(Icons.email_outlined, color: AppColors.outline),
                   ),
                   validator: (val) {
-                    if (val == null || val.trim().isEmpty) return 'Email address is required';
-                    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-                    if (!emailRegex.hasMatch(val.trim())) return 'Please enter a valid email address';
+                    if (val == null || val.trim().isEmpty)
+                      return 'Email address is required';
+                    final emailRegex =
+                        RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                    if (!emailRegex.hasMatch(val.trim()))
+                      return 'Please enter a valid email address';
                     return null;
                   },
                 ),
@@ -97,16 +103,17 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Password *', style: Theme.of(context).textTheme.labelLarge),
+                    Text('Password *',
+                        style: Theme.of(context).textTheme.labelLarge),
                     TextButton(
                       onPressed: () => context.push('/forgot-password'),
                       style: TextButton.styleFrom(padding: EdgeInsets.zero),
                       child: Text(
                         'Forgot password?',
                         style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          color: AppColors.primary,
-                          fontWeight: FontWeight.w600,
-                        ),
+                              color: AppColors.primary,
+                              fontWeight: FontWeight.w600,
+                            ),
                       ),
                     ),
                   ],
@@ -117,18 +124,24 @@ class _LoginPageState extends State<LoginPage> {
                   obscureText: _obscurePassword,
                   decoration: InputDecoration(
                     hintText: 'Enter your password',
-                    prefixIcon: const Icon(Icons.lock_outline_rounded, color: AppColors.outline),
+                    prefixIcon: const Icon(Icons.lock_outline_rounded,
+                        color: AppColors.outline),
                     suffixIcon: IconButton(
                       icon: Icon(
-                        _obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                        _obscurePassword
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined,
                         color: AppColors.outline,
                       ),
-                      onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                      onPressed: () =>
+                          setState(() => _obscurePassword = !_obscurePassword),
                     ),
                   ),
                   validator: (val) {
-                    if (val == null || val.isEmpty) return 'Password is required';
-                    if (val.length < 6) return 'Password must be at least 6 characters';
+                    if (val == null || val.isEmpty)
+                      return 'Password is required';
+                    if (val.length < 6)
+                      return 'Password must be at least 6 characters';
                     return null;
                   },
                 ),
@@ -143,7 +156,8 @@ class _LoginPageState extends State<LoginPage> {
                         ? const SizedBox(
                             height: 20,
                             width: 20,
-                            child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                            child: CircularProgressIndicator(
+                                strokeWidth: 2, color: Colors.white),
                           )
                         : const Text('Sign In'),
                   ),
@@ -154,15 +168,16 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Don't have an account? ", style: Theme.of(context).textTheme.bodyMedium),
+                    Text("Don't have an account? ",
+                        style: Theme.of(context).textTheme.bodyMedium),
                     GestureDetector(
                       onTap: () => context.push('/signup'),
                       child: Text(
                         'Create Institute',
                         style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          color: AppColors.primary,
-                          fontWeight: FontWeight.w700,
-                        ),
+                              color: AppColors.primary,
+                              fontWeight: FontWeight.w700,
+                            ),
                       ),
                     ),
                   ],

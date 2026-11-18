@@ -103,7 +103,8 @@ class _ScanCameraPageState extends ConsumerState<ScanCameraPage>
   Future<void> _toggleFlash() async {
     if (_cameraController != null && _cameraController!.value.isInitialized) {
       setState(() => _isFlashOn = !_isFlashOn);
-      await _cameraController!.setFlashMode(_isFlashOn ? FlashMode.torch : FlashMode.off);
+      await _cameraController!
+          .setFlashMode(_isFlashOn ? FlashMode.torch : FlashMode.off);
     }
   }
 
@@ -112,7 +113,9 @@ class _ScanCameraPageState extends ConsumerState<ScanCameraPage>
     final activeExam = ref.read(activeExamProvider);
     if (activeExam == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('No active assessment selected'), backgroundColor: AppColors.error),
+        const SnackBar(
+            content: Text('No active assessment selected'),
+            backgroundColor: AppColors.error),
       );
       return;
     }
@@ -141,7 +144,9 @@ class _ScanCameraPageState extends ConsumerState<ScanCameraPage>
       // Match student by 6-digit roll code
       final students = ref.read(studentsProvider);
       final matchedStudent = students.firstWhere(
-        (s) => s.code == scanResult.studentCode || s.roll == scanResult.studentCode,
+        (s) =>
+            s.code == scanResult.studentCode ||
+            s.roll == scanResult.studentCode,
         orElse: () => StudentModel(
           id: 'temp_${scanResult.studentCode}',
           name: 'Student ${scanResult.studentCode}',
@@ -156,7 +161,8 @@ class _ScanCameraPageState extends ConsumerState<ScanCameraPage>
 
       final summary = scanResult.evaluationSummary;
       final double totalScore = summary?.totalScore ?? 0.0;
-      final double maxScore = summary?.maxPossibleScore ?? (totalQs * activeExam.correctMarks);
+      final double maxScore =
+          summary?.maxPossibleScore ?? (totalQs * activeExam.correctMarks);
       final double percentage = summary?.percentage ?? 0.0;
       final int correctCount = summary?.correctCount ?? 0;
       final int wrongCount = summary?.wrongCount ?? 0;
@@ -171,7 +177,8 @@ class _ScanCameraPageState extends ConsumerState<ScanCameraPage>
         final detected = scanResult.detectedAnswers[q];
         final isFlagged = scanResult.needsReviewQuestions.contains(q);
         final correctOpt = cleanKey[q];
-        final bool? isCorrect = detected == null ? null : (detected == correctOpt);
+        final bool? isCorrect =
+            detected == null ? null : (detected == correctOpt);
         final double marks = isCorrect == true
             ? activeExam.correctMarks
             : (detected == null ? 0.0 : activeExam.wrongMarks);
@@ -232,12 +239,15 @@ class _ScanCameraPageState extends ConsumerState<ScanCameraPage>
       }
 
       if (mounted) {
-        _showInstantResultModal(resultModel, scanResult.processingDurationMs, scanResult.needsReviewQuestions, scanResult.annotatedImageBytes);
+        _showInstantResultModal(resultModel, scanResult.processingDurationMs,
+            scanResult.needsReviewQuestions, scanResult.annotatedImageBytes);
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Processing failed: $e'), backgroundColor: AppColors.error),
+          SnackBar(
+              content: Text('Processing failed: $e'),
+              backgroundColor: AppColors.error),
         );
       }
     } finally {
@@ -248,7 +258,9 @@ class _ScanCameraPageState extends ConsumerState<ScanCameraPage>
   }
 
   Future<void> _captureFromCamera() async {
-    if (_cameraController == null || !_cameraController!.value.isInitialized || _isProcessing) return;
+    if (_cameraController == null ||
+        !_cameraController!.value.isInitialized ||
+        _isProcessing) return;
 
     try {
       final XFile photo = await _cameraController!.takePicture();
@@ -261,7 +273,8 @@ class _ScanCameraPageState extends ConsumerState<ScanCameraPage>
 
   Future<void> _pickFromGallery() async {
     try {
-      final XFile? image = await _picker.pickImage(source: ImageSource.gallery, imageQuality: 100);
+      final XFile? image = await _picker.pickImage(
+          source: ImageSource.gallery, imageQuality: 100);
       if (image != null) {
         final bytes = await image.readAsBytes();
         await _processImageBytes(bytes, image.path);
@@ -272,7 +285,8 @@ class _ScanCameraPageState extends ConsumerState<ScanCameraPage>
   }
 
   /// Instant Evaluation Overlay Dialog with Visual Evaluated Sheet Preview
-  void _showInstantResultModal(ScanResultModel result, int durationMs, Set<int> flaggedQs, Uint8List? annotatedBytes) {
+  void _showInstantResultModal(ScanResultModel result, int durationMs,
+      Set<int> flaggedQs, Uint8List? annotatedBytes) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -295,7 +309,8 @@ class _ScanCameraPageState extends ConsumerState<ScanCameraPage>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
                       color: Colors.green.shade50,
                       borderRadius: BorderRadius.circular(12),
@@ -303,9 +318,14 @@ class _ScanCameraPageState extends ConsumerState<ScanCameraPage>
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.check_circle_rounded, color: AppColors.primary, size: 14),
+                        const Icon(Icons.check_circle_rounded,
+                            color: AppColors.primary, size: 14),
                         const SizedBox(width: 6),
-                        Text('Processed in ${durationMs}ms (On-Device)', style: const TextStyle(color: AppColors.primary, fontSize: 11, fontWeight: FontWeight.bold)),
+                        Text('Processed in ${durationMs}ms (On-Device)',
+                            style: const TextStyle(
+                                color: AppColors.primary,
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold)),
                       ],
                     ),
                   ),
@@ -317,8 +337,12 @@ class _ScanCameraPageState extends ConsumerState<ScanCameraPage>
               ),
               const SizedBox(height: 12),
 
-              Text(result.studentName, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              Text('Roll / Code: ${result.studentCode}', style: const TextStyle(color: AppColors.tertiary, fontSize: 13)),
+              Text(result.studentName,
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold)),
+              Text('Roll / Code: ${result.studentCode}',
+                  style:
+                      const TextStyle(color: AppColors.tertiary, fontSize: 13)),
               const SizedBox(height: 14),
 
               // Score Summary Card
@@ -331,10 +355,18 @@ class _ScanCameraPageState extends ConsumerState<ScanCameraPage>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    _scoreItem('TOTAL SCORE', '${result.marksObtained.toStringAsFixed(1)}/${result.maximumMarks.toInt()}', Colors.white),
-                    _scoreItem('PERCENTAGE', '${result.percentage.toStringAsFixed(1)}%', const Color(0xFF78DC77)),
-                    _scoreItem('CORRECT', '${result.correctCount}', Colors.white),
-                    _scoreItem('WRONG', '${result.wrongCount}', const Color(0xFFFFB4AB)),
+                    _scoreItem(
+                        'TOTAL SCORE',
+                        '${result.marksObtained.toStringAsFixed(1)}/${result.maximumMarks.toInt()}',
+                        Colors.white),
+                    _scoreItem(
+                        'PERCENTAGE',
+                        '${result.percentage.toStringAsFixed(1)}%',
+                        const Color(0xFF78DC77)),
+                    _scoreItem(
+                        'CORRECT', '${result.correctCount}', Colors.white),
+                    _scoreItem('WRONG', '${result.wrongCount}',
+                        const Color(0xFFFFB4AB)),
                   ],
                 ),
               ),
@@ -345,7 +377,9 @@ class _ScanCameraPageState extends ConsumerState<ScanCameraPage>
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Evaluated OMR Sheet (Visual Ground Truth)', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+                    const Text('Evaluated OMR Sheet (Visual Ground Truth)',
+                        style: TextStyle(
+                            fontSize: 13, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 6),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),
@@ -390,12 +424,16 @@ class _ScanCameraPageState extends ConsumerState<ScanCameraPage>
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.warning_amber_rounded, color: Color(0xFFD97706), size: 20),
+                      const Icon(Icons.warning_amber_rounded,
+                          color: Color(0xFFD97706), size: 20),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
                           '${flaggedQs.length} ambiguous questions flagged for staff review.',
-                          style: const TextStyle(fontSize: 12, color: Color(0xFF92400E), fontWeight: FontWeight.bold),
+                          style: const TextStyle(
+                              fontSize: 12,
+                              color: Color(0xFF92400E),
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],
@@ -434,9 +472,16 @@ class _ScanCameraPageState extends ConsumerState<ScanCameraPage>
   static Widget _legendDot(Color color, String label) {
     return Row(
       children: [
-        Container(width: 8, height: 8, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+        Container(
+            width: 8,
+            height: 8,
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
         const SizedBox(width: 4),
-        Text(label, style: const TextStyle(fontSize: 11, color: AppColors.tertiary, fontWeight: FontWeight.w600)),
+        Text(label,
+            style: const TextStyle(
+                fontSize: 11,
+                color: AppColors.tertiary,
+                fontWeight: FontWeight.w600)),
       ],
     );
   }
@@ -444,9 +489,15 @@ class _ScanCameraPageState extends ConsumerState<ScanCameraPage>
   static Widget _scoreItem(String label, String value, Color color) {
     return Column(
       children: [
-        Text(label, style: const TextStyle(fontSize: 9, color: Colors.white70, fontWeight: FontWeight.bold)),
+        Text(label,
+            style: const TextStyle(
+                fontSize: 9,
+                color: Colors.white70,
+                fontWeight: FontWeight.bold)),
         const SizedBox(height: 4),
-        Text(value, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: color)),
+        Text(value,
+            style: TextStyle(
+                fontSize: 16, fontWeight: FontWeight.bold, color: color)),
       ],
     );
   }
@@ -467,16 +518,21 @@ class _ScanCameraPageState extends ConsumerState<ScanCameraPage>
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('100% Offline OMR Scanner', style: TextStyle(color: Colors.white, fontSize: 16)),
+            const Text('100% Offline OMR Scanner',
+                style: TextStyle(color: Colors.white, fontSize: 16)),
             Text(
-              activeExam != null ? '${activeExam.title} (${activeExam.questionsCount} Qs)' : 'No Exam Selected',
+              activeExam != null
+                  ? '${activeExam.title} (${activeExam.questionsCount} Qs)'
+                  : 'No Exam Selected',
               style: const TextStyle(color: Colors.white70, fontSize: 11),
             ),
           ],
         ),
         actions: [
           IconButton(
-            icon: Icon(_isFlashOn ? Icons.flash_on_rounded : Icons.flash_off_rounded, color: Colors.white),
+            icon: Icon(
+                _isFlashOn ? Icons.flash_on_rounded : Icons.flash_off_rounded,
+                color: Colors.white),
             onPressed: _toggleFlash,
           ),
         ],
@@ -505,7 +561,8 @@ class _ScanCameraPageState extends ConsumerState<ScanCameraPage>
             child: AspectRatio(
               aspectRatio: 730.0 / 1024.0, // Fixed Standard Sheet Aspect Ratio
               child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
                 decoration: BoxDecoration(
                   border: Border.all(color: AppColors.primary, width: 2.5),
                   borderRadius: BorderRadius.circular(16),
@@ -524,17 +581,25 @@ class _ScanCameraPageState extends ConsumerState<ScanCameraPage>
                         animation: _laserAnimation,
                         builder: (context, child) {
                           return Positioned(
-                            top: MediaQuery.of(context).size.height * 0.5 * _laserAnimation.value,
+                            top: MediaQuery.of(context).size.height *
+                                0.5 *
+                                _laserAnimation.value,
                             left: 0,
                             right: 0,
                             child: Container(
                               height: 2.5,
                               decoration: BoxDecoration(
                                 gradient: const LinearGradient(
-                                  colors: [Colors.transparent, AppColors.primary, Colors.transparent],
+                                  colors: [
+                                    Colors.transparent,
+                                    AppColors.primary,
+                                    Colors.transparent
+                                  ],
                                 ),
                                 boxShadow: [
-                                  BoxShadow(color: AppColors.primary.withOpacity(0.8), blurRadius: 8),
+                                  BoxShadow(
+                                      color: AppColors.primary.withOpacity(0.8),
+                                      blurRadius: 8),
                                 ],
                               ),
                             ),
@@ -563,7 +628,9 @@ class _ScanCameraPageState extends ConsumerState<ScanCameraPage>
                     children: [
                       const CircularProgressIndicator(color: AppColors.primary),
                       const SizedBox(height: 16),
-                      Text(_processingStatus, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                      Text(_processingStatus,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 14)),
                     ],
                   ),
                 ),
@@ -581,7 +648,8 @@ class _ScanCameraPageState extends ConsumerState<ScanCameraPage>
                 // Gallery Upload Button
                 IconButton(
                   iconSize: 32,
-                  icon: const Icon(Icons.photo_library_rounded, color: Colors.white),
+                  icon: const Icon(Icons.photo_library_rounded,
+                      color: Colors.white),
                   onPressed: _pickFromGallery,
                 ),
 
@@ -596,17 +664,21 @@ class _ScanCameraPageState extends ConsumerState<ScanCameraPage>
                       border: Border.all(color: Colors.white, width: 4),
                       color: AppColors.primary,
                       boxShadow: [
-                        BoxShadow(color: AppColors.primary.withOpacity(0.5), blurRadius: 16),
+                        BoxShadow(
+                            color: AppColors.primary.withOpacity(0.5),
+                            blurRadius: 16),
                       ],
                     ),
-                    child: const Icon(Icons.camera_alt_rounded, color: Colors.white, size: 36),
+                    child: const Icon(Icons.camera_alt_rounded,
+                        color: Colors.white, size: 36),
                   ),
                 ),
 
                 // Active Exam Results Button
                 IconButton(
                   iconSize: 32,
-                  icon: const Icon(Icons.analytics_outlined, color: Colors.white),
+                  icon:
+                      const Icon(Icons.analytics_outlined, color: Colors.white),
                   onPressed: () => context.push('/exam-results-summary'),
                 ),
               ],

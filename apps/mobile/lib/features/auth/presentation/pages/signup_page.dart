@@ -69,9 +69,9 @@ class _SignupPageState extends State<SignupPage> {
                 Text(
                   'Register Institute',
                   style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                    fontSize: 28,
-                    fontWeight: FontWeight.w800,
-                  ),
+                        fontSize: 28,
+                        fontWeight: FontWeight.w800,
+                      ),
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -81,76 +81,94 @@ class _SignupPageState extends State<SignupPage> {
                 const SizedBox(height: 28),
 
                 // Full Name
-                Text('Your Full Name *', style: Theme.of(context).textTheme.labelLarge),
+                Text('Your Full Name *',
+                    style: Theme.of(context).textTheme.labelLarge),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _nameController,
                   decoration: const InputDecoration(
                     hintText: 'e.g. Dr. Rajesh Sharma',
-                    prefixIcon: Icon(Icons.person_outline_rounded, color: AppColors.outline),
+                    prefixIcon: Icon(Icons.person_outline_rounded,
+                        color: AppColors.outline),
                   ),
                   validator: (val) {
-                    if (val == null || val.trim().isEmpty) return 'Full name is required';
+                    if (val == null || val.trim().isEmpty)
+                      return 'Full name is required';
                     return null;
                   },
                 ),
                 const SizedBox(height: 16),
 
                 // Organization Name
-                Text('Institute / Organization Name *', style: Theme.of(context).textTheme.labelLarge),
+                Text('Institute / Organization Name *',
+                    style: Theme.of(context).textTheme.labelLarge),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _orgNameController,
                   decoration: const InputDecoration(
                     hintText: 'e.g. Apex International Academy',
-                    prefixIcon: Icon(Icons.apartment_rounded, color: AppColors.outline),
+                    prefixIcon:
+                        Icon(Icons.apartment_rounded, color: AppColors.outline),
                   ),
                   validator: (val) {
-                    if (val == null || val.trim().isEmpty) return 'Institute name is required';
+                    if (val == null || val.trim().isEmpty)
+                      return 'Institute name is required';
                     return null;
                   },
                 ),
                 const SizedBox(height: 16),
 
                 // Official Email
-                Text('Official Email Address *', style: Theme.of(context).textTheme.labelLarge),
+                Text('Official Email Address *',
+                    style: Theme.of(context).textTheme.labelLarge),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                     hintText: 'admin@apexacademy.edu',
-                    prefixIcon: Icon(Icons.email_outlined, color: AppColors.outline),
+                    prefixIcon:
+                        Icon(Icons.email_outlined, color: AppColors.outline),
                   ),
                   validator: (val) {
-                    if (val == null || val.trim().isEmpty) return 'Email address is required';
-                    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-                    if (!emailRegex.hasMatch(val.trim())) return 'Please enter a valid email address';
+                    if (val == null || val.trim().isEmpty)
+                      return 'Email address is required';
+                    final emailRegex =
+                        RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                    if (!emailRegex.hasMatch(val.trim()))
+                      return 'Please enter a valid email address';
                     return null;
                   },
                 ),
                 const SizedBox(height: 16),
 
                 // Password
-                Text('Create Password *', style: Theme.of(context).textTheme.labelLarge),
+                Text('Create Password *',
+                    style: Theme.of(context).textTheme.labelLarge),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _passwordController,
                   obscureText: _obscurePassword,
                   decoration: InputDecoration(
                     hintText: 'Minimum 6 characters',
-                    prefixIcon: const Icon(Icons.lock_outline_rounded, color: AppColors.outline),
+                    prefixIcon: const Icon(Icons.lock_outline_rounded,
+                        color: AppColors.outline),
                     suffixIcon: IconButton(
                       icon: Icon(
-                        _obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                        _obscurePassword
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined,
                         color: AppColors.outline,
                       ),
-                      onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                      onPressed: () =>
+                          setState(() => _obscurePassword = !_obscurePassword),
                     ),
                   ),
                   validator: (val) {
-                    if (val == null || val.isEmpty) return 'Password is required';
-                    if (val.length < 6) return 'Password must be at least 6 characters';
+                    if (val == null || val.isEmpty)
+                      return 'Password is required';
+                    if (val.length < 6)
+                      return 'Password must be at least 6 characters';
                     return null;
                   },
                 ),
@@ -165,7 +183,8 @@ class _SignupPageState extends State<SignupPage> {
                         ? const SizedBox(
                             height: 20,
                             width: 20,
-                            child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                            child: CircularProgressIndicator(
+                                strokeWidth: 2, color: Colors.white),
                           )
                         : const Text('Create Account'),
                   ),

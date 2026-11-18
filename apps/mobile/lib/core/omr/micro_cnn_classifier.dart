@@ -25,7 +25,8 @@ class BubbleClassificationResult {
     required this.stdDev,
   });
 
-  bool get isFilled => bubbleClass == BubbleClass.fullyFilled && confidence >= 0.70;
+  bool get isFilled =>
+      bubbleClass == BubbleClass.fullyFilled && confidence >= 0.70;
   bool get isBlank => bubbleClass == BubbleClass.blank && confidence >= 0.70;
   bool get isAmbiguous => !isFilled && !isBlank;
 }
@@ -36,7 +37,8 @@ class OnDeviceBubbleClassifier {
   const OnDeviceBubbleClassifier();
 
   /// Analyzes a 32x32 grayscale image buffer (intensity 0..255).
-  BubbleClassificationResult classifyPatch(List<int> grayscalePixels, {int width = 32, int height = 32}) {
+  BubbleClassificationResult classifyPatch(List<int> grayscalePixels,
+      {int width = 32, int height = 32}) {
     if (grayscalePixels.length < width * height) {
       return const BubbleClassificationResult(
         bubbleClass: BubbleClass.blank,
@@ -89,8 +91,11 @@ class OnDeviceBubbleClassifier {
     // Standard deviation
     double stdDev = 0.0;
     if (circlePixelVals.isNotEmpty) {
-      final double mean = circlePixelVals.reduce((a, b) => a + b) / circlePixelVals.length;
-      final double variance = circlePixelVals.map((v) => math.pow(v - mean, 2)).reduce((a, b) => a + b) /
+      final double mean =
+          circlePixelVals.reduce((a, b) => a + b) / circlePixelVals.length;
+      final double variance = circlePixelVals
+              .map((v) => math.pow(v - mean, 2))
+              .reduce((a, b) => a + b) /
           circlePixelVals.length;
       stdDev = math.sqrt(variance);
     }
@@ -156,7 +161,8 @@ class OnDeviceBubbleClassifier {
     return BubbleClassificationResult(
       bubbleClass: BubbleClass.values[maxIdx],
       confidence: double.parse(maxProb.toStringAsFixed(3)),
-      classProbabilities: probs.map((p) => double.parse(p.toStringAsFixed(3))).toList(),
+      classProbabilities:
+          probs.map((p) => double.parse(p.toStringAsFixed(3))).toList(),
       coreMean: double.parse(coreMean.toStringAsFixed(1)),
       ringMean: double.parse(ringMean.toStringAsFixed(1)),
       stdDev: double.parse(stdDev.toStringAsFixed(1)),

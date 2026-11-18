@@ -12,7 +12,8 @@ final currentSessionProvider = StreamProvider<AuthState>((ref) {
 
 final currentUserProvider = Provider<User?>((ref) {
   final authState = ref.watch(currentSessionProvider);
-  return authState.value?.session?.user ?? Supabase.instance.client.auth.currentUser;
+  return authState.value?.session?.user ??
+      Supabase.instance.client.auth.currentUser;
 });
 
 /// Current Active Organization ID state provider

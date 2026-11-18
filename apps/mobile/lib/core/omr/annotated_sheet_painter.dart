@@ -26,16 +26,18 @@ class AnnotatedSheetPainter {
     required Map<int, String?> detectedAnswers,
     required Map<int, String> answerKey,
     required Set<int> needsReviewQuestions,
-    Map<int, List<int>>? detectedBubbleCenters, // Optional exact (cx, cy) pixel coordinates
-    Map<int, List<List<int>>>? allOptionCenters, // Optional exact (cx, cy) for each of the 4 options
+    Map<int, List<int>>?
+        detectedBubbleCenters, // Optional exact (cx, cy) pixel coordinates
+    Map<int, List<List<int>>>?
+        allOptionCenters, // Optional exact (cx, cy) for each of the 4 options
   }) {
     final annotated = img.Image.from(originalImage);
     final int w = annotated.width;
     final int h = annotated.height;
 
-    final greenColor = img.ColorRgba8(34, 197, 94, 255);    // Emerald Green
-    final redColor = img.ColorRgba8(239, 68, 68, 255);      // Crimson Red
-    final yellowColor = img.ColorRgba8(234, 179, 8, 255);   // Amber Yellow
+    final greenColor = img.ColorRgba8(34, 197, 94, 255); // Emerald Green
+    final redColor = img.ColorRgba8(239, 68, 68, 255); // Crimson Red
+    final yellowColor = img.ColorRgba8(234, 179, 8, 255); // Amber Yellow
     final whiteHalo = img.ColorRgba8(255, 255, 255, 230);
 
     for (int q = 1; q <= totalQuestions; q++) {
@@ -52,23 +54,29 @@ class AnnotatedSheetPainter {
       final int defaultCy = (qCoords.yNorm * h).round();
 
       // Draw student's marked bubble with a crisp, centered dot
-      if (detectedIdx != null && detectedIdx >= 0 && detectedIdx < qCoords.optXNorm.length) {
+      if (detectedIdx != null &&
+          detectedIdx >= 0 &&
+          detectedIdx < qCoords.optXNorm.length) {
         int cx = (qCoords.optXNorm[detectedIdx] * w).round();
         int cy = defaultCy;
 
         // If exact detected dark-spot center was supplied, use it
-        if (detectedBubbleCenters != null && detectedBubbleCenters.containsKey(q)) {
+        if (detectedBubbleCenters != null &&
+            detectedBubbleCenters.containsKey(q)) {
           final pt = detectedBubbleCenters[q]!;
           cx = pt[0];
           cy = pt[1];
-        } else if (allOptionCenters != null && allOptionCenters.containsKey(q) && detectedIdx < allOptionCenters[q]!.length) {
+        } else if (allOptionCenters != null &&
+            allOptionCenters.containsKey(q) &&
+            detectedIdx < allOptionCenters[q]!.length) {
           final pt = allOptionCenters[q]![detectedIdx];
           cx = pt[0];
           cy = pt[1];
         }
 
         final bool isCorrect = correctIdx != null && detectedIdx == correctIdx;
-        final markColor = isFlagged ? yellowColor : (isCorrect ? greenColor : redColor);
+        final markColor =
+            isFlagged ? yellowColor : (isCorrect ? greenColor : redColor);
 
         // Draw clean centered dot with white halo
         _drawRing(annotated, cx, cy, 5, whiteHalo);
@@ -76,11 +84,16 @@ class AnnotatedSheetPainter {
       }
 
       // If student was wrong or unattempted, indicate the correct answer key with a neat green ring
-      if (correctIdx != null && detectedIdx != correctIdx && correctIdx >= 0 && correctIdx < qCoords.optXNorm.length) {
+      if (correctIdx != null &&
+          detectedIdx != correctIdx &&
+          correctIdx >= 0 &&
+          correctIdx < qCoords.optXNorm.length) {
         int keyCx = (qCoords.optXNorm[correctIdx] * w).round();
         int keyCy = defaultCy;
 
-        if (allOptionCenters != null && allOptionCenters.containsKey(q) && correctIdx < allOptionCenters[q]!.length) {
+        if (allOptionCenters != null &&
+            allOptionCenters.containsKey(q) &&
+            correctIdx < allOptionCenters[q]!.length) {
           final pt = allOptionCenters[q]![correctIdx];
           keyCx = pt[0];
           keyCy = pt[1];
@@ -94,7 +107,8 @@ class AnnotatedSheetPainter {
   }
 
   /// Draws a clean solid filled dot.
-  static void _drawFilledDot(img.Image image, int cx, int cy, int radius, img.Color color) {
+  static void _drawFilledDot(
+      img.Image image, int cx, int cy, int radius, img.Color color) {
     for (int dy = -radius; dy <= radius; dy++) {
       for (int dx = -radius; dx <= radius; dx++) {
         if (dx * dx + dy * dy <= radius * radius) {
@@ -109,7 +123,8 @@ class AnnotatedSheetPainter {
   }
 
   /// Draws a clean 1-pixel perimeter ring.
-  static void _drawRing(img.Image image, int cx, int cy, int radius, img.Color color) {
+  static void _drawRing(
+      img.Image image, int cx, int cy, int radius, img.Color color) {
     final int rInnerSq = (radius - 1) * (radius - 1);
     final int rOuterSq = radius * radius;
     for (int dy = -radius; dy <= radius; dy++) {

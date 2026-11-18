@@ -76,7 +76,8 @@ class CameraQualityAnalyzer {
     final int majorDim = math.max(w, h);
     final int minorDim = math.min(w, h);
     final double aspectRatio = majorDim / (minorDim > 0 ? minorDim : 1);
-    final bool isAspectValid = aspectRatio >= minAspectRatio && aspectRatio <= maxAspectRatio;
+    final bool isAspectValid =
+        aspectRatio >= minAspectRatio && aspectRatio <= maxAspectRatio;
 
     // Use stride to maintain fast processing (< 15ms) on high-resolution camera images (e.g. 12MP/48MP)
     final int step = math.max(1, (math.min(w, h) / 400).floor());
@@ -136,9 +137,12 @@ class CameraQualityAnalyzer {
         final pDown = image.getPixel(x, y + step);
         final pUp = image.getPixel(x, y - step);
 
-        final double lumaR = pRight.r * 0.299 + pRight.g * 0.587 + pRight.b * 0.114;
-        final double lumaL = pLeft.r * 0.299 + pLeft.g * 0.587 + pLeft.b * 0.114;
-        final double lumaD = pDown.r * 0.299 + pDown.g * 0.587 + pDown.b * 0.114;
+        final double lumaR =
+            pRight.r * 0.299 + pRight.g * 0.587 + pRight.b * 0.114;
+        final double lumaL =
+            pLeft.r * 0.299 + pLeft.g * 0.587 + pLeft.b * 0.114;
+        final double lumaD =
+            pDown.r * 0.299 + pDown.g * 0.587 + pDown.b * 0.114;
         final double lumaU = pUp.r * 0.299 + pUp.g * 0.587 + pUp.b * 0.114;
 
         final double lap = lumaR + lumaL + lumaD + lumaU - (4.0 * luma);
@@ -149,8 +153,10 @@ class CameraQualityAnalyzer {
       }
     }
 
-    final double meanLuma = totalSampleCount > 0 ? (totalLumaSum / totalSampleCount) : 0.0;
-    final bool isLightingAdequate = meanLuma >= minMeanLuma && meanLuma <= maxMeanLuma;
+    final double meanLuma =
+        totalSampleCount > 0 ? (totalLumaSum / totalSampleCount) : 0.0;
+    final bool isLightingAdequate =
+        meanLuma >= minMeanLuma && meanLuma <= maxMeanLuma;
 
     // Quadrant mean lumas
     final double q1Mean = q1Count > 0 ? (q1Sum / q1Count) : meanLuma;
@@ -158,8 +164,10 @@ class CameraQualityAnalyzer {
     final double q3Mean = q3Count > 0 ? (q3Sum / q3Count) : meanLuma;
     final double q4Mean = q4Count > 0 ? (q4Sum / q4Count) : meanLuma;
 
-    final double maxQ = math.max(math.max(q1Mean, q2Mean), math.max(q3Mean, q4Mean));
-    final double minQ = math.min(math.min(q1Mean, q2Mean), math.min(q3Mean, q4Mean));
+    final double maxQ =
+        math.max(math.max(q1Mean, q2Mean), math.max(q3Mean, q4Mean));
+    final double minQ =
+        math.min(math.min(q1Mean, q2Mean), math.min(q3Mean, q4Mean));
     final double quadrantDelta = maxQ - minQ;
     final bool hasExcessiveShadow = quadrantDelta > maxQuadrantLumaDelta;
 
@@ -179,7 +187,8 @@ class CameraQualityAnalyzer {
       feedback.add('Image is blurry. Hold camera steady or tap to focus.');
     }
     if (meanLuma < minMeanLuma) {
-      feedback.add('Lighting is too dark. Turn on camera flash or increase lighting.');
+      feedback.add(
+          'Lighting is too dark. Turn on camera flash or increase lighting.');
     } else if (meanLuma > maxMeanLuma) {
       feedback.add('Image is overexposed/washed out. Avoid direct glare.');
     }
@@ -190,7 +199,8 @@ class CameraQualityAnalyzer {
       feedback.add('Camera angle is too steep. Align sheet flat in frame.');
     }
 
-    final bool isAcceptable = isSharp && isLightingAdequate && !hasExcessiveShadow && isAspectValid;
+    final bool isAcceptable =
+        isSharp && isLightingAdequate && !hasExcessiveShadow && isAspectValid;
 
     return ImageQualityAssessment(
       isAcceptable: isAcceptable,

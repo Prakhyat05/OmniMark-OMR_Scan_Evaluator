@@ -9,7 +9,8 @@ class Point2D {
   const Point2D(this.x, this.y);
 
   @override
-  String toString() => 'Point2D(${x.toStringAsFixed(1)}, ${y.toStringAsFixed(1)})';
+  String toString() =>
+      'Point2D(${x.toStringAsFixed(1)}, ${y.toStringAsFixed(1)})';
 }
 
 /// Quadrilateral corners in clockwise order: Top-Left, Top-Right, Bottom-Right, Bottom-Left.
@@ -142,7 +143,8 @@ class PerspectiveTransformer {
     int targetWidth = 1130,
     int targetHeight = 1599,
   }) {
-    final m = _computeDestinationToSourceMatrix(corners, targetWidth, targetHeight);
+    final m =
+        _computeDestinationToSourceMatrix(corners, targetWidth, targetHeight);
     if (m == null) {
       // Fallback to proportional resize if homography singular
       return img.copyResize(source, width: targetWidth, height: targetHeight);
@@ -152,7 +154,10 @@ class PerspectiveTransformer {
     final m10 = m[3], m11 = m[4], m12 = m[5];
     final m20 = m[6], m21 = m[7];
 
-    final output = img.Image(width: targetWidth, height: targetHeight, numChannels: source.numChannels);
+    final output = img.Image(
+        width: targetWidth,
+        height: targetHeight,
+        numChannels: source.numChannels);
     final srcW = source.width;
     final srcH = source.height;
 
@@ -189,9 +194,15 @@ class PerspectiveTransformer {
         final double w01 = (1.0 - dx) * dy;
         final double w11 = dx * dy;
 
-        final int r = (w00 * p00.r + w10 * p10.r + w01 * p01.r + w11 * p11.r).round().clamp(0, 255);
-        final int g = (w00 * p00.g + w10 * p10.g + w01 * p01.g + w11 * p11.g).round().clamp(0, 255);
-        final int b = (w00 * p00.b + w10 * p10.b + w01 * p01.b + w11 * p11.b).round().clamp(0, 255);
+        final int r = (w00 * p00.r + w10 * p10.r + w01 * p01.r + w11 * p11.r)
+            .round()
+            .clamp(0, 255);
+        final int g = (w00 * p00.g + w10 * p10.g + w01 * p01.g + w11 * p11.g)
+            .round()
+            .clamp(0, 255);
+        final int b = (w00 * p00.b + w10 * p10.b + w01 * p01.b + w11 * p11.b)
+            .round()
+            .clamp(0, 255);
 
         output.setPixelRgb(u, v, r, g, b);
       }
@@ -255,11 +266,16 @@ class PerspectiveTransformer {
       return null;
     }
 
-    final tl = findDarkestInRegion(0, qW.round(), 0, qH.round()) ?? const Point2D(0, 0);
-    final tr = findDarkestInRegion((w - qW).round(), w, 0, qH.round()) ?? Point2D(w - 1.0, 0);
-    final br = findDarkestInRegion((w - qW).round(), w, (h - qH).round(), h) ?? Point2D(w - 1.0, h - 1.0);
-    final bl = findDarkestInRegion(0, qW.round(), (h - qH).round(), h) ?? Point2D(0, h - 1.0);
+    final tl = findDarkestInRegion(0, qW.round(), 0, qH.round()) ??
+        const Point2D(0, 0);
+    final tr = findDarkestInRegion((w - qW).round(), w, 0, qH.round()) ??
+        Point2D(w - 1.0, 0);
+    final br = findDarkestInRegion((w - qW).round(), w, (h - qH).round(), h) ??
+        Point2D(w - 1.0, h - 1.0);
+    final bl = findDarkestInRegion(0, qW.round(), (h - qH).round(), h) ??
+        Point2D(0, h - 1.0);
 
-    return QuadCorners(topLeft: tl, topRight: tr, bottomRight: br, bottomLeft: bl);
+    return QuadCorners(
+        topLeft: tl, topRight: tr, bottomRight: br, bottomLeft: bl);
   }
 }

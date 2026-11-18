@@ -11,9 +11,11 @@ void main() async {
   // Initialize Supabase with placeholders or local configs
   try {
     await Supabase.initialize(
-      url: const String.fromEnvironment('SUPABASE_URL', defaultValue: 'https://placeholder.supabase.co'),
+      url: const String.fromEnvironment('SUPABASE_URL',
+          defaultValue: 'https://placeholder.supabase.co'),
       // ignore: deprecated_member_use
-      anonKey: const String.fromEnvironment('SUPABASE_ANON_KEY', defaultValue: 'placeholder-anon-key'),
+      anonKey: const String.fromEnvironment('SUPABASE_ANON_KEY',
+          defaultValue: 'placeholder-anon-key'),
     );
   } catch (_) {
     // Allows previewing and development testing even in standalone mode

@@ -57,9 +57,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               Text(
                 'Reset Password',
                 style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w800,
-                ),
+                      fontSize: 28,
+                      fontWeight: FontWeight.w800,
+                    ),
               ),
               const SizedBox(height: 8),
               Text(
@@ -67,26 +67,30 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               const SizedBox(height: 32),
-
               if (!_isSent) ...[
                 Form(
                   key: _formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Email Address *', style: Theme.of(context).textTheme.labelLarge),
+                      Text('Email Address *',
+                          style: Theme.of(context).textTheme.labelLarge),
                       const SizedBox(height: 8),
                       TextFormField(
                         controller: _emailController,
                         keyboardType: TextInputType.emailAddress,
                         decoration: const InputDecoration(
                           hintText: 'name@institute.com',
-                          prefixIcon: Icon(Icons.email_outlined, color: AppColors.outline),
+                          prefixIcon: Icon(Icons.email_outlined,
+                              color: AppColors.outline),
                         ),
                         validator: (val) {
-                          if (val == null || val.trim().isEmpty) return 'Email address is required';
-                          final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-                          if (!emailRegex.hasMatch(val.trim())) return 'Please enter a valid email address';
+                          if (val == null || val.trim().isEmpty)
+                            return 'Email address is required';
+                          final emailRegex =
+                              RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                          if (!emailRegex.hasMatch(val.trim()))
+                            return 'Please enter a valid email address';
                           return null;
                         },
                       ),
@@ -99,7 +103,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                               ? const SizedBox(
                                   height: 20,
                                   width: 20,
-                                  child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                                  child: CircularProgressIndicator(
+                                      strokeWidth: 2, color: Colors.white),
                                 )
                               : const Text('Send Reset Link'),
                         ),
@@ -117,13 +122,14 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   ),
                   child: Column(
                     children: [
-                      const Icon(Icons.check_circle_rounded, color: AppColors.primary, size: 48),
+                      const Icon(Icons.check_circle_rounded,
+                          color: AppColors.primary, size: 48),
                       const SizedBox(height: 12),
                       Text(
                         'Recovery email sent',
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          color: AppColors.secondary,
-                        ),
+                              color: AppColors.secondary,
+                            ),
                       ),
                       const SizedBox(height: 8),
                       Text(

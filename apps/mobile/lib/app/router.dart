@@ -27,7 +27,8 @@ import '../features/settings/presentation/pages/user_profile_page.dart';
 import '../features/settings/presentation/pages/notifications_activity_page.dart';
 import '../features/settings/presentation/pages/help_support_page.dart';
 
-final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
+final GlobalKey<NavigatorState> _rootNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'root');
 
 final appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,

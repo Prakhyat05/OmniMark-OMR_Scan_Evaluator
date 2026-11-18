@@ -91,7 +91,9 @@ class AdaptiveOMRThresholdEngine {
     if (rowValues.isEmpty) return globalThreshold;
 
     final double mean = rowValues.reduce((a, b) => a + b) / rowValues.length;
-    final double variance = rowValues.map((v) => math.pow(v - mean, 2)).reduce((a, b) => a + b) / rowValues.length;
+    final double variance =
+        rowValues.map((v) => math.pow(v - mean, 2)).reduce((a, b) => a + b) /
+            rowValues.length;
     final double stdDev = math.sqrt(variance);
 
     final double minVal = rowValues.reduce(math.min);
@@ -171,7 +173,8 @@ class AdaptiveOMRThresholdEngine {
 
     // Calculate normalized confidence based on separation gap and margin below threshold
     final double deltaToThresh = math.max(0.0, localThreshold - topScore);
-    final double confidence = ((gap / 40.0) * 0.7 + (deltaToThresh / 50.0) * 0.3).clamp(0.0, 1.0);
+    final double confidence =
+        ((gap / 40.0) * 0.7 + (deltaToThresh / 50.0) * 0.3).clamp(0.0, 1.0);
 
     final bool isUncertain = gap < 16.0 || confidence < 0.35;
 

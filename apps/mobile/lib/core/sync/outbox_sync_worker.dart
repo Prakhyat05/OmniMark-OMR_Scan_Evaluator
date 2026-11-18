@@ -17,7 +17,8 @@ class OutboxSyncWorker {
 
   /// Starts listening for internet reconnection
   void startMonitoring() {
-    _connectivitySubscription = Connectivity().onConnectivityChanged.listen((results) {
+    _connectivitySubscription =
+        Connectivity().onConnectivityChanged.listen((results) {
       final isOnline = results.any((r) => r != ConnectivityResult.none);
       if (isOnline) {
         syncPendingOutbox();
@@ -38,7 +39,8 @@ class OutboxSyncWorker {
         return 0;
       }
 
-      final client = supabaseClient ?? (Supabase.instance.isInitialized ? Supabase.instance.client : null);
+      final client = supabaseClient ??
+          (Supabase.instance.isInitialized ? Supabase.instance.client : null);
       if (client == null) {
         _isSyncing = false;
         return 0;

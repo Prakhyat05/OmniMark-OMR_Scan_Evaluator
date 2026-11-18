@@ -12,16 +12,21 @@ class ExamResultsSummaryPage extends ConsumerStatefulWidget {
   const ExamResultsSummaryPage({super.key});
 
   @override
-  ConsumerState<ExamResultsSummaryPage> createState() => _ExamResultsSummaryPageState();
+  ConsumerState<ExamResultsSummaryPage> createState() =>
+      _ExamResultsSummaryPageState();
 }
 
-class _ExamResultsSummaryPageState extends ConsumerState<ExamResultsSummaryPage> {
-  Future<File> _generateCsvFile(List<ScanResultModel> results, String examTitle) async {
+class _ExamResultsSummaryPageState
+    extends ConsumerState<ExamResultsSummaryPage> {
+  Future<File> _generateCsvFile(
+      List<ScanResultModel> results, String examTitle) async {
     final buffer = StringBuffer();
-    buffer.writeln('Rank,Student Name,Student Code,Score,Max Marks,Percentage,Correct,Wrong,Unattempted');
+    buffer.writeln(
+        'Rank,Student Name,Student Code,Score,Max Marks,Percentage,Correct,Wrong,Unattempted');
     for (int i = 0; i < results.length; i++) {
       final r = results[i];
-      buffer.writeln('${i + 1},"${r.studentName}",${r.studentCode},${r.marksObtained},${r.maximumMarks},${r.percentage}%,${r.correctCount},${r.wrongCount},${r.unattemptedCount}');
+      buffer.writeln(
+          '${i + 1},"${r.studentName}",${r.studentCode},${r.marksObtained},${r.maximumMarks},${r.percentage}%,${r.correctCount},${r.wrongCount},${r.unattemptedCount}');
     }
     final dir = await getApplicationDocumentsDirectory();
     final sanitizedTitle = examTitle.replaceAll(' ', '_');
@@ -30,14 +35,16 @@ class _ExamResultsSummaryPageState extends ConsumerState<ExamResultsSummaryPage>
     return file;
   }
 
-  Future<void> _exportCsv(List<ScanResultModel> results, String examTitle) async {
+  Future<void> _exportCsv(
+      List<ScanResultModel> results, String examTitle) async {
     final file = await _generateCsvFile(results, examTitle);
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Row(
             children: [
-              const Icon(Icons.table_chart_outlined, color: Colors.white, size: 20),
+              const Icon(Icons.table_chart_outlined,
+                  color: Colors.white, size: 20),
               const SizedBox(width: 10),
               Expanded(child: Text('Saved: ${file.path.split('/').last}')),
             ],
@@ -46,14 +53,16 @@ class _ExamResultsSummaryPageState extends ConsumerState<ExamResultsSummaryPage>
           action: SnackBarAction(
             label: 'SHARE',
             textColor: Colors.white,
-            onPressed: () => Share.shareXFiles([XFile(file.path, mimeType: 'text/csv')]),
+            onPressed: () =>
+                Share.shareXFiles([XFile(file.path, mimeType: 'text/csv')]),
           ),
         ),
       );
     }
   }
 
-  void _shareResultsSummary(List<ScanResultModel> results, ExamModel exam, double avgScore) {
+  void _shareResultsSummary(
+      List<ScanResultModel> results, ExamModel exam, double avgScore) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -67,21 +76,28 @@ class _ExamResultsSummaryPageState extends ConsumerState<ExamResultsSummaryPage>
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Share Assessment Summary', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const Text('Share Assessment Summary',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 12),
             Text(
               'Batch: ${exam.className} • ${exam.title}\nTotal Evaluated: ${results.length}/${exam.totalStudents} • Average: ${avgScore.toStringAsFixed(1)}%',
-              style: const TextStyle(color: AppColors.tertiary, fontSize: 13, height: 1.4),
+              style: const TextStyle(
+                  color: AppColors.tertiary, fontSize: 13, height: 1.4),
             ),
             const SizedBox(height: 20),
             ListTile(
-              leading: const Icon(Icons.share_rounded, color: AppColors.primary),
+              leading:
+                  const Icon(Icons.share_rounded, color: AppColors.primary),
               title: const Text('Share Summary Text'),
               subtitle: const Text('Export rank list to WhatsApp/Messages'),
               trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 14),
               onTap: () {
                 Navigator.pop(ctx);
-                final topPerformers = results.take(3).map((r) => '${r.studentName} - ${r.marksObtained.toStringAsFixed(1)}/${r.maximumMarks.toInt()} (${r.percentage}%)').join('\n');
+                final topPerformers = results
+                    .take(3)
+                    .map((r) =>
+                        '${r.studentName} - ${r.marksObtained.toStringAsFixed(1)}/${r.maximumMarks.toInt()} (${r.percentage}%)')
+                    .join('\n');
                 Share.share(
                   '📊 *${exam.title} - Results Summary*\nBatch: ${exam.className}\nAverage: ${avgScore.toStringAsFixed(1)}% | Evaluated: ${results.length}\n\nTop Performers:\n$topPerformers\n\nFull roster exported from OMR Scan System.',
                   subject: '${exam.title} - Batch Summary',
@@ -90,9 +106,11 @@ class _ExamResultsSummaryPageState extends ConsumerState<ExamResultsSummaryPage>
             ),
             const Divider(),
             ListTile(
-              leading: const Icon(Icons.download_rounded, color: AppColors.primary),
+              leading:
+                  const Icon(Icons.download_rounded, color: AppColors.primary),
               title: const Text('Export Excel / CSV Sheet'),
-              subtitle: const Text('Full student-wise marks and question breakdown'),
+              subtitle:
+                  const Text('Full student-wise marks and question breakdown'),
               trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 14),
               onTap: () {
                 Navigator.pop(ctx);
@@ -115,25 +133,27 @@ class _ExamResultsSummaryPageState extends ConsumerState<ExamResultsSummaryPage>
           'This will trigger background email delivery of personalized PDF scorecards to all ${results.length} evaluated students\' parents.',
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
+          TextButton(
+              onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
           ElevatedButton(
             onPressed: () {
               Navigator.pop(ctx);
               for (var r in results) {
                 ref.read(emailDeliveryProvider.notifier).queueEmail(
-                  EmailLogModel(
-                    id: 'mail_${DateTime.now().millisecondsSinceEpoch}_${r.studentCode}',
-                    studentName: r.studentName,
-                    email: r.parentEmail,
-                    examTitle: exam.title,
-                    status: 'delivered',
-                    timeStr: 'Just now',
-                  ),
-                );
+                      EmailLogModel(
+                        id: 'mail_${DateTime.now().millisecondsSinceEpoch}_${r.studentCode}',
+                        studentName: r.studentName,
+                        email: r.parentEmail,
+                        examTitle: exam.title,
+                        status: 'delivered',
+                        timeStr: 'Just now',
+                      ),
+                    );
               }
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('${results.length} parent report emails queued for delivery!'),
+                  content: Text(
+                      '${results.length} parent report emails queued for delivery!'),
                   backgroundColor: AppColors.primary,
                 ),
               );
@@ -157,17 +177,22 @@ class _ExamResultsSummaryPageState extends ConsumerState<ExamResultsSummaryPage>
       );
     }
 
-    final examResults = allResults.where((r) => r.examId == activeExam.id).toList();
+    final examResults =
+        allResults.where((r) => r.examId == activeExam.id).toList();
     examResults.sort((a, b) => b.marksObtained.compareTo(a.marksObtained));
 
     final avgPercentage = examResults.isNotEmpty
-        ? examResults.map((r) => r.percentage).reduce((a, b) => a + b) / examResults.length
+        ? examResults.map((r) => r.percentage).reduce((a, b) => a + b) /
+            examResults.length
         : 0.0;
     final highestMarks = examResults.isNotEmpty
-        ? examResults.map((r) => r.marksObtained).reduce((a, b) => a > b ? a : b)
+        ? examResults
+            .map((r) => r.marksObtained)
+            .reduce((a, b) => a > b ? a : b)
         : 0.0;
     final passCount = examResults.where((r) => r.percentage >= 40.0).length;
-    final passRate = examResults.isNotEmpty ? (passCount / examResults.length * 100) : 0.0;
+    final passRate =
+        examResults.isNotEmpty ? (passCount / examResults.length * 100) : 0.0;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -181,7 +206,8 @@ class _ExamResultsSummaryPageState extends ConsumerState<ExamResultsSummaryPage>
           IconButton(
             icon: const Icon(Icons.share_outlined),
             tooltip: 'Share Summary',
-            onPressed: () => _shareResultsSummary(examResults, activeExam, avgPercentage),
+            onPressed: () =>
+                _shareResultsSummary(examResults, activeExam, avgPercentage),
           ),
           IconButton(
             icon: const Icon(Icons.download_rounded),
@@ -204,25 +230,47 @@ class _ExamResultsSummaryPageState extends ConsumerState<ExamResultsSummaryPage>
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(color: AppColors.surfaceContainerHigh),
                 boxShadow: [
-                  BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 10, offset: const Offset(0, 4)),
+                  BoxShadow(
+                      color: Colors.black.withOpacity(0.02),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4)),
                 ],
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(activeExam.title, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 17)),
+                  Text(activeExam.title,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w700, fontSize: 17)),
                   const SizedBox(height: 4),
-                  Text('${activeExam.className} • ${activeExam.questionsCount} Questions • Max ${(activeExam.questionsCount * activeExam.correctMarks).toInt()} Marks', style: const TextStyle(color: AppColors.tertiary, fontSize: 12)),
+                  Text(
+                      '${activeExam.className} • ${activeExam.questionsCount} Questions • Max ${(activeExam.questionsCount * activeExam.correctMarks).toInt()} Marks',
+                      style: const TextStyle(
+                          color: AppColors.tertiary, fontSize: 12)),
                   const SizedBox(height: 16),
                   const Divider(),
                   const SizedBox(height: 12),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      _StatColumn(label: 'Avg Score', val: '${avgPercentage.toStringAsFixed(1)}%', color: AppColors.primary),
-                      _StatColumn(label: 'Highest', val: '${highestMarks.toStringAsFixed(0)} / ${(activeExam.questionsCount * activeExam.correctMarks).toInt()}', color: AppColors.secondary),
-                      _StatColumn(label: 'Evaluated', val: '${examResults.length} / ${activeExam.totalStudents}', color: AppColors.onSurface),
-                      _StatColumn(label: 'Pass Rate', val: '${passRate.toStringAsFixed(1)}%', color: const Color(0xFF0369A1)),
+                      _StatColumn(
+                          label: 'Avg Score',
+                          val: '${avgPercentage.toStringAsFixed(1)}%',
+                          color: AppColors.primary),
+                      _StatColumn(
+                          label: 'Highest',
+                          val:
+                              '${highestMarks.toStringAsFixed(0)} / ${(activeExam.questionsCount * activeExam.correctMarks).toInt()}',
+                          color: AppColors.secondary),
+                      _StatColumn(
+                          label: 'Evaluated',
+                          val:
+                              '${examResults.length} / ${activeExam.totalStudents}',
+                          color: AppColors.onSurface),
+                      _StatColumn(
+                          label: 'Pass Rate',
+                          val: '${passRate.toStringAsFixed(1)}%',
+                          color: const Color(0xFF0369A1)),
                     ],
                   ),
                 ],
@@ -234,11 +282,13 @@ class _ExamResultsSummaryPageState extends ConsumerState<ExamResultsSummaryPage>
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Student Merit List', style: Theme.of(context).textTheme.titleLarge),
+                Text('Student Merit List',
+                    style: Theme.of(context).textTheme.titleLarge),
                 OutlinedButton.icon(
                   onPressed: () => _sendAllReports(examResults, activeExam),
                   icon: const Icon(Icons.send_rounded, size: 16),
-                  label: const Text('Email All', style: TextStyle(fontSize: 12)),
+                  label:
+                      const Text('Email All', style: TextStyle(fontSize: 12)),
                 ),
               ],
             ),
@@ -251,9 +301,11 @@ class _ExamResultsSummaryPageState extends ConsumerState<ExamResultsSummaryPage>
                 alignment: Alignment.center,
                 child: const Column(
                   children: [
-                    Icon(Icons.document_scanner_outlined, size: 48, color: AppColors.outline),
+                    Icon(Icons.document_scanner_outlined,
+                        size: 48, color: AppColors.outline),
                     SizedBox(height: 12),
-                    Text('No sheets scanned yet for this assessment.', style: TextStyle(color: AppColors.tertiary)),
+                    Text('No sheets scanned yet for this assessment.',
+                        style: TextStyle(color: AppColors.tertiary)),
                   ],
                 ),
               )
@@ -269,15 +321,20 @@ class _ExamResultsSummaryPageState extends ConsumerState<ExamResultsSummaryPage>
 
                   return Card(
                     child: ListTile(
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
                       leading: Container(
                         width: 36,
                         height: 36,
                         decoration: BoxDecoration(
-                          color: rank <= 3 ? AppColors.softMint : AppColors.surfaceContainerLow,
+                          color: rank <= 3
+                              ? AppColors.softMint
+                              : AppColors.surfaceContainerLow,
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: rank <= 3 ? AppColors.primary : AppColors.outlineVariant,
+                            color: rank <= 3
+                                ? AppColors.primary
+                                : AppColors.outlineVariant,
                             width: 1.5,
                           ),
                         ),
@@ -286,24 +343,40 @@ class _ExamResultsSummaryPageState extends ConsumerState<ExamResultsSummaryPage>
                             '#$rank',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: rank <= 3 ? AppColors.primary : AppColors.tertiary,
+                              color: rank <= 3
+                                  ? AppColors.primary
+                                  : AppColors.tertiary,
                               fontSize: 12,
                             ),
                           ),
                         ),
                       ),
-                      title: Text(item.studentName, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
-                      subtitle: Text('ID: ${item.studentCode} • ${item.correctCount} Correct, ${item.wrongCount} Wrong', style: const TextStyle(fontSize: 12)),
+                      title: Text(item.studentName,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w700, fontSize: 15)),
+                      subtitle: Text(
+                          'ID: ${item.studentCode} • ${item.correctCount} Correct, ${item.wrongCount} Wrong',
+                          style: const TextStyle(fontSize: 12)),
                       trailing: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text('${item.marksObtained.toStringAsFixed(1)} / ${item.maximumMarks.toInt()}', style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 14, color: AppColors.primary)),
-                          Text('${item.percentage}%', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: AppColors.secondary)),
+                          Text(
+                              '${item.marksObtained.toStringAsFixed(1)} / ${item.maximumMarks.toInt()}',
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 14,
+                                  color: AppColors.primary)),
+                          Text('${item.percentage}%',
+                              style: const TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.secondary)),
                         ],
                       ),
                       onTap: () {
-                        ref.read(selectedResultIdProvider.notifier).state = item.id;
+                        ref.read(selectedResultIdProvider.notifier).state =
+                            item.id;
                         context.push('/student-result-detail');
                       },
                     ),
@@ -323,15 +396,19 @@ class _StatColumn extends StatelessWidget {
   final String val;
   final Color color;
 
-  const _StatColumn({required this.label, required this.val, required this.color});
+  const _StatColumn(
+      {required this.label, required this.val, required this.color});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(val, style: TextStyle(fontWeight: FontWeight.w800, fontSize: 15, color: color)),
+        Text(val,
+            style: TextStyle(
+                fontWeight: FontWeight.w800, fontSize: 15, color: color)),
         const SizedBox(height: 2),
-        Text(label, style: const TextStyle(fontSize: 11, color: AppColors.tertiary)),
+        Text(label,
+            style: const TextStyle(fontSize: 11, color: AppColors.tertiary)),
       ],
     );
   }

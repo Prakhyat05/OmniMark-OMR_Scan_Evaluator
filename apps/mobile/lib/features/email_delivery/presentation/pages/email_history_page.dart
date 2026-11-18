@@ -12,9 +12,12 @@ class EmailHistoryPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final deliveries = ref.watch(emailDeliveryProvider);
     final hasFailed = deliveries.any((d) => d.status == 'failed');
-    final deliveredCount = deliveries.where((d) => d.status == 'delivered').length;
+    final deliveredCount =
+        deliveries.where((d) => d.status == 'delivered').length;
     final failedCount = deliveries.where((d) => d.status == 'failed').length;
-    final deliveryRate = deliveries.isNotEmpty ? ((deliveredCount / deliveries.length) * 100).toStringAsFixed(1) : '100.0';
+    final deliveryRate = deliveries.isNotEmpty
+        ? ((deliveredCount / deliveries.length) * 100).toStringAsFixed(1)
+        : '100.0';
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -49,10 +52,22 @@ class EmailHistoryPage extends ConsumerWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _EmailStat(val: '${deliveries.length}', label: 'Dispatches', color: AppColors.secondary),
-                  _EmailStat(val: '$deliveredCount', label: 'Delivered', color: AppColors.primary),
-                  _EmailStat(val: '$failedCount', label: 'Failed', color: hasFailed ? AppColors.error : AppColors.tertiary),
-                  _EmailStat(val: '$deliveryRate%', label: 'Delivery Rate', color: const Color(0xFF0369A1)),
+                  _EmailStat(
+                      val: '${deliveries.length}',
+                      label: 'Dispatches',
+                      color: AppColors.secondary),
+                  _EmailStat(
+                      val: '$deliveredCount',
+                      label: 'Delivered',
+                      color: AppColors.primary),
+                  _EmailStat(
+                      val: '$failedCount',
+                      label: 'Failed',
+                      color: hasFailed ? AppColors.error : AppColors.tertiary),
+                  _EmailStat(
+                      val: '$deliveryRate%',
+                      label: 'Delivery Rate',
+                      color: const Color(0xFF0369A1)),
                 ],
               ),
             ),
@@ -61,14 +76,16 @@ class EmailHistoryPage extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Recent Dispatches', style: Theme.of(context).textTheme.titleLarge),
+                Text('Recent Dispatches',
+                    style: Theme.of(context).textTheme.titleLarge),
                 if (hasFailed)
                   TextButton.icon(
                     onPressed: () {
                       ref.read(emailDeliveryProvider.notifier).retryFailed();
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('Retrying dispatch for failed recipients...'),
+                          content: Text(
+                              'Retrying dispatch for failed recipients...'),
                           backgroundColor: AppColors.primary,
                         ),
                       );
@@ -84,7 +101,8 @@ class EmailHistoryPage extends ConsumerWidget {
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 40),
                 alignment: Alignment.center,
-                child: const Text('No email delivery history yet.', style: TextStyle(color: AppColors.tertiary)),
+                child: const Text('No email delivery history yet.',
+                    style: TextStyle(color: AppColors.tertiary)),
               )
             else
               ListView.separated(
@@ -99,7 +117,8 @@ class EmailHistoryPage extends ConsumerWidget {
 
                   return Card(
                     child: ListTile(
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
                       leading: Container(
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
@@ -124,37 +143,50 @@ class EmailHistoryPage extends ConsumerWidget {
                           size: 20,
                         ),
                       ),
-                      title: Text(item.studentName, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
+                      title: Text(item.studentName,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w700, fontSize: 14)),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(height: 2),
-                          Text('${item.email} • ${item.timeStr}', style: const TextStyle(fontSize: 12)),
+                          Text('${item.email} • ${item.timeStr}',
+                              style: const TextStyle(fontSize: 12)),
                           if (isFailed && item.error != null)
                             Padding(
                               padding: const EdgeInsets.only(top: 2),
                               child: Text(
                                 'Error: ${item.error}',
-                                style: const TextStyle(color: AppColors.error, fontSize: 11, fontWeight: FontWeight.w500),
+                                style: const TextStyle(
+                                    color: AppColors.error,
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w500),
                               ),
                             ),
                         ],
                       ),
                       trailing: isFailed
                           ? IconButton(
-                              icon: const Icon(Icons.refresh_rounded, color: AppColors.error),
+                              icon: const Icon(Icons.refresh_rounded,
+                                  color: AppColors.error),
                               tooltip: 'Resend',
                               onPressed: () {
-                                ref.read(emailDeliveryProvider.notifier).resendSingle(item.id);
+                                ref
+                                    .read(emailDeliveryProvider.notifier)
+                                    .resendSingle(item.id);
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Resending scorecard to ${item.email}...')),
+                                  SnackBar(
+                                      content: Text(
+                                          'Resending scorecard to ${item.email}...')),
                                 );
                               },
                             )
                           : Text(
                               item.status.toUpperCase(),
                               style: TextStyle(
-                                color: isDelivered ? AppColors.primary : AppColors.tertiary,
+                                color: isDelivered
+                                    ? AppColors.primary
+                                    : AppColors.tertiary,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 11,
                               ),
@@ -176,15 +208,19 @@ class _EmailStat extends StatelessWidget {
   final String label;
   final Color color;
 
-  const _EmailStat({required this.val, required this.label, required this.color});
+  const _EmailStat(
+      {required this.val, required this.label, required this.color});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(val, style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16, color: color)),
+        Text(val,
+            style: TextStyle(
+                fontWeight: FontWeight.w800, fontSize: 16, color: color)),
         const SizedBox(height: 2),
-        Text(label, style: const TextStyle(fontSize: 11, color: AppColors.tertiary)),
+        Text(label,
+            style: const TextStyle(fontSize: 11, color: AppColors.tertiary)),
       ],
     );
   }

@@ -57,7 +57,8 @@ void main() {
 
   group('Offline Evaluator Scoring Tests', () {
     const evaluator = OfflineExamEvaluator(
-      scoringRule: ScoringRule(correctMarks: 4.0, negativeMarks: 1.0, unattemptedMarks: 0.0),
+      scoringRule: ScoringRule(
+          correctMarks: 4.0, negativeMarks: 1.0, unattemptedMarks: 0.0),
     );
 
     test('Calculates perfect score for 50/50 correct answers', () {

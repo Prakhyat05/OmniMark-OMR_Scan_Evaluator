@@ -63,16 +63,18 @@ class _AnswerKeySetupPageState extends ConsumerState<AnswerKeySetupPage> {
     });
 
     ref.read(examsProvider.notifier).updateAnswerKey(
-      activeExam.id,
-      formatted,
-      bonus: _bonusQuestions,
-      dropped: _droppedQuestions,
-      publish: publish,
-    );
+          activeExam.id,
+          formatted,
+          bonus: _bonusQuestions,
+          dropped: _droppedQuestions,
+          publish: publish,
+        );
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(publish ? 'Answer Key locked & Exam published!' : 'Draft answer key saved.'),
+        content: Text(publish
+            ? 'Answer Key locked & Exam published!'
+            : 'Draft answer key saved.'),
         backgroundColor: AppColors.primary,
       ),
     );
@@ -85,7 +87,8 @@ class _AnswerKeySetupPageState extends ConsumerState<AnswerKeySetupPage> {
     if (activeExam == null) return;
 
     try {
-      final XFile? image = await _picker.pickImage(source: source, imageQuality: 100);
+      final XFile? image =
+          await _picker.pickImage(source: source, imageQuality: 100);
       if (image == null) return;
 
       setState(() => _isScanningKey = true);
@@ -110,7 +113,8 @@ class _AnswerKeySetupPageState extends ConsumerState<AnswerKeySetupPage> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Auto-filled $filledCount / ${activeExam.questionsCount} answers from Master Sheet!'),
+            content: Text(
+                'Auto-filled $filledCount / ${activeExam.questionsCount} answers from Master Sheet!'),
             backgroundColor: AppColors.primary,
           ),
         );
@@ -118,7 +122,9 @@ class _AnswerKeySetupPageState extends ConsumerState<AnswerKeySetupPage> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to read master sheet: $e'), backgroundColor: AppColors.error),
+          SnackBar(
+              content: Text('Failed to read master sheet: $e'),
+              backgroundColor: AppColors.error),
         );
       }
     } finally {
@@ -140,7 +146,8 @@ class _AnswerKeySetupPageState extends ConsumerState<AnswerKeySetupPage> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Set all ${activeExam.questionsCount} questions to Option $option'),
+        content: Text(
+            'Set all ${activeExam.questionsCount} questions to Option $option'),
         duration: const Duration(seconds: 1),
       ),
     );
@@ -198,7 +205,8 @@ class _AnswerKeySetupPageState extends ConsumerState<AnswerKeySetupPage> {
                 children: [
                   CircularProgressIndicator(),
                   SizedBox(height: 16),
-                  Text('Analyzing Master Answer Sheet on-device...', style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text('Analyzing Master Answer Sheet on-device...',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                 ],
               ),
             )
@@ -206,12 +214,15 @@ class _AnswerKeySetupPageState extends ConsumerState<AnswerKeySetupPage> {
               children: [
                 // Quick Action Bar
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                   color: AppColors.surfaceContainerLow,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Quick Pattern:', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+                      const Text('Quick Pattern:',
+                          style: TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.bold)),
                       Row(
                         children: ['1', '2', '3', '4'].map((opt) {
                           return Padding(
@@ -219,10 +230,13 @@ class _AnswerKeySetupPageState extends ConsumerState<AnswerKeySetupPage> {
                             child: OutlinedButton(
                               style: OutlinedButton.styleFrom(
                                 visualDensity: VisualDensity.compact,
-                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
                               ),
                               onPressed: () => _bulkSetAnswers(opt),
-                              child: Text(opt, style: const TextStyle(fontWeight: FontWeight.bold)),
+                              child: Text(opt,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold)),
                             ),
                           );
                         }).toList(),
@@ -246,7 +260,8 @@ class _AnswerKeySetupPageState extends ConsumerState<AnswerKeySetupPage> {
                       return Card(
                         margin: const EdgeInsets.only(bottom: 8),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
                           child: Row(
                             children: [
                               Container(
@@ -254,14 +269,19 @@ class _AnswerKeySetupPageState extends ConsumerState<AnswerKeySetupPage> {
                                 alignment: Alignment.centerLeft,
                                 child: Text(
                                   'Q$qNum',
-                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14),
                                 ),
                               ),
                               Expanded(
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: ['1', '2', '3', '4'].map((opt) {
-                                    final isPicked = currentOpt == opt && !isBonus && !isDropped;
+                                    final isPicked = currentOpt == opt &&
+                                        !isBonus &&
+                                        !isDropped;
                                     return GestureDetector(
                                       onTap: () {
                                         setState(() {
@@ -275,17 +295,23 @@ class _AnswerKeySetupPageState extends ConsumerState<AnswerKeySetupPage> {
                                         height: 38,
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
-                                          color: isPicked ? AppColors.primary : AppColors.surfaceContainerLow,
+                                          color: isPicked
+                                              ? AppColors.primary
+                                              : AppColors.surfaceContainerLow,
                                           shape: BoxShape.circle,
                                           border: Border.all(
-                                            color: isPicked ? AppColors.primary : Colors.grey.shade400,
+                                            color: isPicked
+                                                ? AppColors.primary
+                                                : Colors.grey.shade400,
                                             width: isPicked ? 2 : 1,
                                           ),
                                         ),
                                         child: Text(
                                           opt,
                                           style: TextStyle(
-                                            color: isPicked ? Colors.white : AppColors.onSurface,
+                                            color: isPicked
+                                                ? Colors.white
+                                                : AppColors.onSurface,
                                             fontWeight: FontWeight.bold,
                                             fontSize: 14,
                                           ),
@@ -309,7 +335,10 @@ class _AnswerKeySetupPageState extends ConsumerState<AnswerKeySetupPage> {
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
-            BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 10, offset: const Offset(0, -4)),
+            BoxShadow(
+                color: Colors.black.withOpacity(0.06),
+                blurRadius: 10,
+                offset: const Offset(0, -4)),
           ],
         ),
         child: SizedBox(
@@ -317,7 +346,8 @@ class _AnswerKeySetupPageState extends ConsumerState<AnswerKeySetupPage> {
           child: ElevatedButton.icon(
             onPressed: () => _saveAnswerKey(publish: true),
             icon: const Icon(Icons.check_circle_outline_rounded),
-            label: const Text('Lock Answer Key & Publish Exam', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+            label: const Text('Lock Answer Key & Publish Exam',
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
           ),
         ),
       ),

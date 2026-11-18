@@ -72,7 +72,8 @@ void main() {
       final db = await localDb.database;
 
       // Verify Scan Result record
-      final scanRows = await db.query('scan_results', where: 'id = ?', whereArgs: [scanId]);
+      final scanRows =
+          await db.query('scan_results', where: 'id = ?', whereArgs: [scanId]);
       expect(scanRows.length, equals(1));
       expect(scanRows.first['student_code'], equals('224567'));
       expect(scanRows.first['correct_count'], equals(4));
@@ -100,7 +101,8 @@ void main() {
       expect(pending.first['recipient_email'], equals('parent@example.com'));
     });
 
-    test('Can log and retrieve manual audit resolution for review queue', () async {
+    test('Can log and retrieve manual audit resolution for review queue',
+        () async {
       const scanId = 'scan-audit-001';
 
       await localDb.logAuditResolution(

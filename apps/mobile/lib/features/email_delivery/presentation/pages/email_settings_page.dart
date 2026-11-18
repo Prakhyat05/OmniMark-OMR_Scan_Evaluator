@@ -76,15 +76,18 @@ class _EmailSettingsPageState extends ConsumerState<EmailSettingsPage> {
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text('Send Test Email'),
-        content: Text('A verification email will be dispatched to ${_senderEmailController.text} to verify DKIM, SPF & SMTP latency.'),
+        content: Text(
+            'A verification email will be dispatched to ${_senderEmailController.text} to verify DKIM, SPF & SMTP latency.'),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
+          TextButton(
+              onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
           ElevatedButton(
             onPressed: () {
               Navigator.pop(ctx);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('Test email delivered in 380ms (Status: Healthy)!'),
+                  content:
+                      Text('Test email delivered in 380ms (Status: Healthy)!'),
                   backgroundColor: AppColors.primary,
                 ),
               );
@@ -128,15 +131,23 @@ class _EmailSettingsPageState extends ConsumerState<EmailSettingsPage> {
                 ),
                 child: const Row(
                   children: [
-                    Icon(Icons.verified_rounded, color: AppColors.primary, size: 28),
+                    Icon(Icons.verified_rounded,
+                        color: AppColors.primary, size: 28),
                     SizedBox(width: 14),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Resend API Provider Active', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14, color: AppColors.secondary)),
+                          Text('Resend API Provider Active',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14,
+                                  color: AppColors.secondary)),
                           SizedBox(height: 2),
-                          Text('Domain apexacademy.edu verified (DKIM & SPF valid)', style: TextStyle(fontSize: 12, color: AppColors.tertiary)),
+                          Text(
+                              'Domain apexacademy.edu verified (DKIM & SPF valid)',
+                              style: TextStyle(
+                                  fontSize: 12, color: AppColors.tertiary)),
                         ],
                       ),
                     ),
@@ -145,68 +156,91 @@ class _EmailSettingsPageState extends ConsumerState<EmailSettingsPage> {
               ),
               const SizedBox(height: 24),
 
-              Text('Sender Identity', style: Theme.of(context).textTheme.titleLarge),
+              Text('Sender Identity',
+                  style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 14),
 
               // Sender Name
-              Text('Display Name *', style: Theme.of(context).textTheme.labelLarge),
+              Text('Display Name *',
+                  style: Theme.of(context).textTheme.labelLarge),
               const SizedBox(height: 6),
               TextFormField(
                 controller: _senderNameController,
-                decoration: const InputDecoration(hintText: 'e.g. Apex Academy Exam Cell'),
+                decoration: const InputDecoration(
+                    hintText: 'e.g. Apex Academy Exam Cell'),
                 validator: (val) {
-                  if (val == null || val.trim().isEmpty) return 'Sender display name is required';
+                  if (val == null || val.trim().isEmpty)
+                    return 'Sender display name is required';
                   return null;
                 },
               ),
               const SizedBox(height: 16),
 
               // Sender Email
-              Text('From Email Address *', style: Theme.of(context).textTheme.labelLarge),
+              Text('From Email Address *',
+                  style: Theme.of(context).textTheme.labelLarge),
               const SizedBox(height: 6),
               TextFormField(
                 controller: _senderEmailController,
                 keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(hintText: 'notifications@yourdomain.edu'),
+                decoration: const InputDecoration(
+                    hintText: 'notifications@yourdomain.edu'),
                 validator: (val) {
-                  if (val == null || val.trim().isEmpty) return 'From email is required';
-                  final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-                  if (!emailRegex.hasMatch(val.trim())) return 'Enter a valid email address';
+                  if (val == null || val.trim().isEmpty)
+                    return 'From email is required';
+                  final emailRegex =
+                      RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                  if (!emailRegex.hasMatch(val.trim()))
+                    return 'Enter a valid email address';
                   return null;
                 },
               ),
               const SizedBox(height: 16),
 
               // Reply To
-              Text('Reply-To Email *', style: Theme.of(context).textTheme.labelLarge),
+              Text('Reply-To Email *',
+                  style: Theme.of(context).textTheme.labelLarge),
               const SizedBox(height: 6),
               TextFormField(
                 controller: _replyToController,
                 keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(hintText: 'support@yourdomain.edu'),
+                decoration:
+                    const InputDecoration(hintText: 'support@yourdomain.edu'),
                 validator: (val) {
-                  if (val == null || val.trim().isEmpty) return 'Reply-to email is required';
-                  final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-                  if (!emailRegex.hasMatch(val.trim())) return 'Enter a valid email address';
+                  if (val == null || val.trim().isEmpty)
+                    return 'Reply-to email is required';
+                  final emailRegex =
+                      RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                  if (!emailRegex.hasMatch(val.trim()))
+                    return 'Enter a valid email address';
                   return null;
                 },
               ),
               const SizedBox(height: 28),
 
-              Text('Report Card Template Options', style: Theme.of(context).textTheme.titleLarge),
+              Text('Report Card Template Options',
+                  style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 12),
 
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('Default PDF Attachment in Parent Email', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
-                subtitle: const Text('Automatically generates and attaches signed PDF', style: TextStyle(fontSize: 12, color: AppColors.tertiary)),
+                title: const Text('Default PDF Attachment in Parent Email',
+                    style:
+                        TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+                subtitle: const Text(
+                    'Automatically generates and attaches signed PDF',
+                    style: TextStyle(fontSize: 12, color: AppColors.tertiary)),
                 value: _sendPdfAttachment,
                 onChanged: (v) => setState(() => _sendPdfAttachment = v),
               ),
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('Include Web Result Verification Link', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
-                subtitle: const Text('Unique URL with student credentials for interactive view', style: TextStyle(fontSize: 12, color: AppColors.tertiary)),
+                title: const Text('Include Web Result Verification Link',
+                    style:
+                        TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+                subtitle: const Text(
+                    'Unique URL with student credentials for interactive view',
+                    style: TextStyle(fontSize: 12, color: AppColors.tertiary)),
                 value: _sendOnlineLink,
                 onChanged: (v) => setState(() => _sendOnlineLink = v),
               ),

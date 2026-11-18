@@ -8,10 +8,12 @@ class StudentsManagementPage extends ConsumerStatefulWidget {
   const StudentsManagementPage({super.key});
 
   @override
-  ConsumerState<StudentsManagementPage> createState() => _StudentsManagementPageState();
+  ConsumerState<StudentsManagementPage> createState() =>
+      _StudentsManagementPageState();
 }
 
-class _StudentsManagementPageState extends ConsumerState<StudentsManagementPage> {
+class _StudentsManagementPageState
+    extends ConsumerState<StudentsManagementPage> {
   String _searchQuery = '';
   String _selectedClass = 'All Classes';
   final TextEditingController _searchController = TextEditingController();
@@ -52,7 +54,8 @@ class _StudentsManagementPageState extends ConsumerState<StudentsManagementPage>
             const SizedBox(height: 12),
             const Text(
               'Upload a CSV with columns: Full Name, Student Code, Roll No, Class, Parent Email.',
-              style: TextStyle(color: AppColors.tertiary, fontSize: 13, height: 1.4),
+              style: TextStyle(
+                  color: AppColors.tertiary, fontSize: 13, height: 1.4),
             ),
             const SizedBox(height: 20),
             Container(
@@ -65,11 +68,15 @@ class _StudentsManagementPageState extends ConsumerState<StudentsManagementPage>
               ),
               child: Column(
                 children: [
-                  const Icon(Icons.cloud_upload_outlined, size: 40, color: AppColors.primary),
+                  const Icon(Icons.cloud_upload_outlined,
+                      size: 40, color: AppColors.primary),
                   const SizedBox(height: 8),
-                  const Text('Select .CSV or Excel file', style: TextStyle(fontWeight: FontWeight.bold)),
+                  const Text('Select .CSV or Excel file',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 4),
-                  Text('Supports up to 500 students per batch', style: TextStyle(color: Colors.grey.shade600, fontSize: 11)),
+                  Text('Supports up to 500 students per batch',
+                      style:
+                          TextStyle(color: Colors.grey.shade600, fontSize: 11)),
                 ],
               ),
             ),
@@ -81,7 +88,9 @@ class _StudentsManagementPageState extends ConsumerState<StudentsManagementPage>
                     onPressed: () {
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Sample CSV format: Full Name,Student Code,Roll No,Class,Parent Email')),
+                        const SnackBar(
+                            content: Text(
+                                'Sample CSV format: Full Name,Student Code,Roll No,Class,Parent Email')),
                       );
                     },
                     child: const Text('View Template'),
@@ -97,11 +106,14 @@ Kavya Joshi,STU1006,106,Grade 10 - Section A,kavya.joshi@example.com
 Devansh Kapoor,STU1007,107,Grade 10 - Section A,devansh.kapoor@example.com
 Isha Singhania,STU1008,108,Grade 10 - Section A,isha.singh@example.com
 ''';
-                      final count = ref.read(studentsProvider.notifier).importFromCsv(sampleCsv);
+                      final count = ref
+                          .read(studentsProvider.notifier)
+                          .importFromCsv(sampleCsv);
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text('$count new students imported into roster!'),
+                          content:
+                              Text('$count new students imported into roster!'),
                           backgroundColor: AppColors.primary,
                         ),
                       );
@@ -127,7 +139,8 @@ Isha Singhania,STU1008,108,Grade 10 - Section A,isha.singh@example.com
           s.name.toLowerCase().contains(_searchQuery.toLowerCase()) ||
           s.code.toLowerCase().contains(_searchQuery.toLowerCase()) ||
           s.roll.toLowerCase().contains(_searchQuery.toLowerCase());
-      final matchesClass = _selectedClass == 'All Classes' || s.className == _selectedClass;
+      final matchesClass =
+          _selectedClass == 'All Classes' || s.className == _selectedClass;
       return matchesSearch && matchesClass;
     }).toList();
 
@@ -168,7 +181,8 @@ Isha Singhania,STU1008,108,Grade 10 - Section A,isha.singh@example.com
                     controller: _searchController,
                     decoration: InputDecoration(
                       hintText: 'Search by name, roll, or ID...',
-                      prefixIcon: const Icon(Icons.search_rounded, size: 20, color: AppColors.outline),
+                      prefixIcon: const Icon(Icons.search_rounded,
+                          size: 20, color: AppColors.outline),
                       suffixIcon: _searchQuery.isNotEmpty
                           ? IconButton(
                               icon: const Icon(Icons.clear, size: 18),
@@ -178,7 +192,8 @@ Isha Singhania,STU1008,108,Grade 10 - Section A,isha.singh@example.com
                               },
                             )
                           : null,
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 10),
                     ),
                     onChanged: (v) => setState(() => _searchQuery = v),
                   ),
@@ -189,7 +204,12 @@ Isha Singhania,STU1008,108,Grade 10 - Section A,isha.singh@example.com
                   child: DropdownButtonFormField<String>(
                     value: _selectedClass,
                     isExpanded: true,
-                    items: ['All Classes', 'Grade 10 - Section A', 'Grade 10 - Section B', 'Grade 12 - Science']
+                    items: [
+                      'All Classes',
+                      'Grade 10 - Section A',
+                      'Grade 10 - Section B',
+                      'Grade 12 - Science'
+                    ]
                         .map((c) => DropdownMenuItem(
                               value: c,
                               child: Text(
@@ -201,7 +221,8 @@ Isha Singhania,STU1008,108,Grade 10 - Section A,isha.singh@example.com
                         .toList(),
                     onChanged: (v) => setState(() => _selectedClass = v!),
                     decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                     ),
                   ),
                 ),
@@ -217,7 +238,10 @@ Isha Singhania,STU1008,108,Grade 10 - Section A,isha.singh@example.com
               children: [
                 Text(
                   '${filtered.length} Students Enrolled',
-                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.tertiary),
+                  style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.tertiary),
                 ),
                 const Text(
                   'Active Term: 2026-27',
@@ -234,11 +258,13 @@ Isha Singhania,STU1008,108,Grade 10 - Section A,isha.singh@example.com
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.person_search_rounded, size: 48, color: Colors.grey.shade400),
+                        Icon(Icons.person_search_rounded,
+                            size: 48, color: Colors.grey.shade400),
                         const SizedBox(height: 12),
                         Text(
                           'No students match your filter criteria',
-                          style: TextStyle(color: Colors.grey.shade600, fontSize: 14),
+                          style: TextStyle(
+                              color: Colors.grey.shade600, fontSize: 14),
                         ),
                       ],
                     ),
@@ -258,12 +284,15 @@ Isha Singhania,STU1008,108,Grade 10 - Section A,isha.singh@example.com
 
                       return Card(
                         child: ListTile(
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 8),
                           leading: CircleAvatar(
                             backgroundColor: AppColors.softMint,
                             child: Text(
                               initials,
-                              style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold),
+                              style: const TextStyle(
+                                  color: AppColors.primary,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           title: Row(
@@ -272,19 +301,25 @@ Isha Singhania,STU1008,108,Grade 10 - Section A,isha.singh@example.com
                               Expanded(
                                 child: Text(
                                   student.name,
-                                  style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 15),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                               Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8, vertical: 2),
                                 decoration: BoxDecoration(
                                   color: AppColors.softMint,
                                   borderRadius: BorderRadius.circular(6),
                                 ),
                                 child: Text(
                                   student.avgScore,
-                                  style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold, fontSize: 11),
+                                  style: const TextStyle(
+                                      color: AppColors.primary,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 11),
                                 ),
                               ),
                             ],
@@ -294,19 +329,24 @@ Isha Singhania,STU1008,108,Grade 10 - Section A,isha.singh@example.com
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('ID: ${student.code} • Roll: ${student.roll}', style: const TextStyle(fontSize: 12)),
+                                Text(
+                                    'ID: ${student.code} • Roll: ${student.roll}',
+                                    style: const TextStyle(fontSize: 12)),
                                 const SizedBox(height: 2),
                                 Text(
                                   'Parent: ${student.parentEmail}',
-                                  style: const TextStyle(color: AppColors.tertiary, fontSize: 12),
+                                  style: const TextStyle(
+                                      color: AppColors.tertiary, fontSize: 12),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ],
                             ),
                           ),
-                          trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: AppColors.outline),
+                          trailing: const Icon(Icons.arrow_forward_ios_rounded,
+                              size: 14, color: AppColors.outline),
                           onTap: () {
-                            ref.read(selectedStudentIdProvider.notifier).state = student.id;
+                            ref.read(selectedStudentIdProvider.notifier).state =
+                                student.id;
                             context.push('/student-detail');
                           },
                         ),

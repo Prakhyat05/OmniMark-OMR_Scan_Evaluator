@@ -76,7 +76,8 @@ class ExamModel {
       bonusQuestions: bonusQuestions ?? this.bonusQuestions,
       droppedQuestions: droppedQuestions ?? this.droppedQuestions,
       templateConfig: templateConfig ?? this.templateConfig,
-      templatePreviewBase64: templatePreviewBase64 ?? this.templatePreviewBase64,
+      templatePreviewBase64:
+          templatePreviewBase64 ?? this.templatePreviewBase64,
     );
   }
 }
@@ -137,15 +138,15 @@ class StudentModel {
   }
 
   Map<String, dynamic> toJson() => {
-    'id': id,
-    'name': name,
-    'code': code,
-    'roll': roll,
-    'className': className,
-    'parentName': parentName,
-    'parentEmail': parentEmail,
-    'parentPhone': parentPhone,
-  };
+        'id': id,
+        'name': name,
+        'code': code,
+        'roll': roll,
+        'className': className,
+        'parentName': parentName,
+        'parentEmail': parentEmail,
+        'parentPhone': parentPhone,
+      };
 }
 
 class ScanResultModel {
@@ -243,7 +244,8 @@ class ScanResultModel {
       vacantFields: vacantFields ?? this.vacantFields,
       metadataFields: metadataFields ?? this.metadataFields,
       answers: answers ?? this.answers,
-      annotatedPreviewBase64: annotatedPreviewBase64 ?? this.annotatedPreviewBase64,
+      annotatedPreviewBase64:
+          annotatedPreviewBase64 ?? this.annotatedPreviewBase64,
     );
   }
 }
@@ -475,8 +477,16 @@ class ExamsNotifier extends StateNotifier<List<ExamModel>> {
         },
       },
       'preProcessors': [
-        {'name': 'CropPage', 'options': {'morphKernel': [10, 10]}},
-        {'name': 'CropOnMarkers', 'options': {'sheetToMarkerWidthRatio': 17}},
+        {
+          'name': 'CropPage',
+          'options': {
+            'morphKernel': [10, 10]
+          }
+        },
+        {
+          'name': 'CropOnMarkers',
+          'options': {'sheetToMarkerWidthRatio': 17}
+        },
       ],
     };
 
@@ -507,7 +517,8 @@ class ExamsNotifier extends StateNotifier<List<ExamModel>> {
     state = state.map((e) => e.id == updated.id ? updated : e).toList();
   }
 
-  void updateAnswerKey(String examId, Map<int, List<String>> answerKey, {Set<int>? bonus, Set<int>? dropped, bool publish = false}) {
+  void updateAnswerKey(String examId, Map<int, List<String>> answerKey,
+      {Set<int>? bonus, Set<int>? dropped, bool publish = false}) {
     state = state.map((e) {
       if (e.id == examId) {
         return e.copyWith(
@@ -521,7 +532,8 @@ class ExamsNotifier extends StateNotifier<List<ExamModel>> {
     }).toList();
   }
 
-  void updateTemplateConfig(String examId, Map<String, dynamic> config, {String? previewBase64}) {
+  void updateTemplateConfig(String examId, Map<String, dynamic> config,
+      {String? previewBase64}) {
     state = state.map((e) {
       if (e.id == examId) {
         return e.copyWith(
@@ -543,10 +555,12 @@ class ExamsNotifier extends StateNotifier<List<ExamModel>> {
   }
 }
 
-final examsProvider = StateNotifierProvider<ExamsNotifier, List<ExamModel>>((ref) => ExamsNotifier());
+final examsProvider = StateNotifierProvider<ExamsNotifier, List<ExamModel>>(
+    (ref) => ExamsNotifier());
 
 // Default active exam set directly to TESTING (200 Questions)
-final activeExamIdProvider = StateProvider<String>((ref) => 'exam_testing_200q');
+final activeExamIdProvider =
+    StateProvider<String>((ref) => 'exam_testing_200q');
 
 final activeExamProvider = Provider<ExamModel?>((ref) {
   final exams = ref.watch(examsProvider);
@@ -641,7 +655,8 @@ class StudentsNotifier extends StateNotifier<List<StudentModel>> {
         final code = parts[1].trim();
         final roll = parts[2].trim();
         final className = parts[3].trim();
-        final email = parts.length > 4 ? parts[4].trim() : 'parent.$code@example.com';
+        final email =
+            parts.length > 4 ? parts[4].trim() : 'parent.$code@example.com';
         if (name.isNotEmpty && code.isNotEmpty) {
           addStudent(StudentModel(
             id: 'stu_${DateTime.now().millisecondsSinceEpoch}_$addedCount',
@@ -660,14 +675,18 @@ class StudentsNotifier extends StateNotifier<List<StudentModel>> {
   }
 }
 
-final studentsProvider = StateNotifierProvider<StudentsNotifier, List<StudentModel>>((ref) => StudentsNotifier());
+final studentsProvider =
+    StateNotifierProvider<StudentsNotifier, List<StudentModel>>(
+        (ref) => StudentsNotifier());
 
-final selectedStudentIdProvider = StateProvider<String>((ref) => '44444444-4444-4444-4444-444444444441');
+final selectedStudentIdProvider =
+    StateProvider<String>((ref) => '44444444-4444-4444-4444-444444444441');
 
 final selectedStudentProvider = Provider<StudentModel?>((ref) {
   final students = ref.watch(studentsProvider);
   final selId = ref.watch(selectedStudentIdProvider);
-  return students.firstWhere((s) => s.id == selId, orElse: () => students.first);
+  return students.firstWhere((s) => s.id == selId,
+      orElse: () => students.first);
 });
 
 // --- SCAN RESULTS & EVALUATION NOTIFIER ---
@@ -782,7 +801,9 @@ class ScanResultsNotifier extends StateNotifier<List<ScanResultModel>> {
   void addScanResult(ScanResultModel result) {
     state = [
       result,
-      ...state.where((r) => !(r.examId == result.examId && r.studentCode == result.studentCode && result.studentCode.isNotEmpty)),
+      ...state.where((r) => !(r.examId == result.examId &&
+          r.studentCode == result.studentCode &&
+          result.studentCode.isNotEmpty)),
     ];
   }
 
@@ -802,16 +823,22 @@ class ScanResultsNotifier extends StateNotifier<List<ScanResultModel>> {
     }).toList();
   }
 
-  void resolveReviewItem(String resultId, int questionNumber, String chosenOption, ExamModel exam) {
+  void resolveReviewItem(String resultId, int questionNumber,
+      String chosenOption, ExamModel exam) {
     state = state.map((r) {
       if (r.id == resultId) {
         final Map<int, Map<String, dynamic>> detMap = {};
         for (var a in r.answers) {
           detMap[a.questionNumber] = {
-            'detected_option': a.questionNumber == questionNumber ? (chosenOption == 'Blank' ? null : chosenOption) : a.detectedOption,
-            'is_multiple': a.questionNumber == questionNumber ? false : a.isMultiple,
-            'is_uncertain': a.questionNumber == questionNumber ? false : a.isUncertain,
-            'confidence': a.questionNumber == questionNumber ? 1.0 : a.confidence,
+            'detected_option': a.questionNumber == questionNumber
+                ? (chosenOption == 'Blank' ? null : chosenOption)
+                : a.detectedOption,
+            'is_multiple':
+                a.questionNumber == questionNumber ? false : a.isMultiple,
+            'is_uncertain':
+                a.questionNumber == questionNumber ? false : a.isUncertain,
+            'confidence':
+                a.questionNumber == questionNumber ? 1.0 : a.confidence,
           };
         }
 
@@ -841,7 +868,9 @@ class ScanResultsNotifier extends StateNotifier<List<ScanResultModel>> {
   }
 }
 
-final scanResultsProvider = StateNotifierProvider<ScanResultsNotifier, List<ScanResultModel>>((ref) => ScanResultsNotifier());
+final scanResultsProvider =
+    StateNotifierProvider<ScanResultsNotifier, List<ScanResultModel>>(
+        (ref) => ScanResultsNotifier());
 
 final selectedResultIdProvider = StateProvider<String>((ref) => 'res_3');
 
@@ -908,7 +937,9 @@ class ReviewQueueNotifier extends StateNotifier<List<ReviewQueueItemModel>> {
   }
 }
 
-final reviewQueueProvider = StateNotifierProvider<ReviewQueueNotifier, List<ReviewQueueItemModel>>((ref) => ReviewQueueNotifier());
+final reviewQueueProvider =
+    StateNotifierProvider<ReviewQueueNotifier, List<ReviewQueueItemModel>>(
+        (ref) => ReviewQueueNotifier());
 
 // --- EMAIL DELIVERY NOTIFIER ---
 class EmailDeliveryNotifier extends StateNotifier<List<EmailLogModel>> {
@@ -963,7 +994,8 @@ class EmailDeliveryNotifier extends StateNotifier<List<EmailLogModel>> {
   void retryFailed() {
     state = state.map((log) {
       if (log.status == 'failed') {
-        return log.copyWith(status: 'sent', timeStr: 'Just now', attempts: log.attempts + 1);
+        return log.copyWith(
+            status: 'sent', timeStr: 'Just now', attempts: log.attempts + 1);
       }
       return log;
     }).toList();
@@ -972,14 +1004,17 @@ class EmailDeliveryNotifier extends StateNotifier<List<EmailLogModel>> {
   void resendSingle(String id) {
     state = state.map((log) {
       if (log.id == id) {
-        return log.copyWith(status: 'sent', timeStr: 'Just now', attempts: log.attempts + 1);
+        return log.copyWith(
+            status: 'sent', timeStr: 'Just now', attempts: log.attempts + 1);
       }
       return log;
     }).toList();
   }
 }
 
-final emailDeliveryProvider = StateNotifierProvider<EmailDeliveryNotifier, List<EmailLogModel>>((ref) => EmailDeliveryNotifier());
+final emailDeliveryProvider =
+    StateNotifierProvider<EmailDeliveryNotifier, List<EmailLogModel>>(
+        (ref) => EmailDeliveryNotifier());
 
 // --- SETTINGS NOTIFIER ---
 class SettingsNotifier extends StateNotifier<InstituteSettingsModel> {
@@ -994,4 +1029,6 @@ class SettingsNotifier extends StateNotifier<InstituteSettingsModel> {
   }
 }
 
-final settingsProvider = StateNotifierProvider<SettingsNotifier, InstituteSettingsModel>((ref) => SettingsNotifier());
+final settingsProvider =
+    StateNotifierProvider<SettingsNotifier, InstituteSettingsModel>(
+        (ref) => SettingsNotifier());

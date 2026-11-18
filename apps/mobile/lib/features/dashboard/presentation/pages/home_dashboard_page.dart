@@ -15,9 +15,11 @@ class HomeDashboardPage extends ConsumerWidget {
     final scanResults = ref.watch(scanResultsProvider);
     final emailLogs = ref.watch(emailDeliveryProvider);
 
-    final activeExamResults = scanResults.where((r) => r.examId == activeExam?.id).toList();
+    final activeExamResults =
+        scanResults.where((r) => r.examId == activeExam?.id).toList();
     final evaluatedCount = activeExamResults.where((r) => r.isReviewed).length;
-    final inReviewCount = reviewQueue.where((r) => r.examId == activeExam?.id).length;
+    final inReviewCount =
+        reviewQueue.where((r) => r.examId == activeExam?.id).length;
     final emailedCount = emailLogs.where((e) => e.status == 'delivered').length;
 
     return Scaffold(
@@ -29,14 +31,14 @@ class HomeDashboardPage extends ConsumerWidget {
             Text(
               'Apex International Academy',
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.w700,
-              ),
+                    fontWeight: FontWeight.w700,
+                  ),
             ),
             Text(
               'Grade 10 & 12 Assessment Portal',
               style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                color: AppColors.tertiary,
-              ),
+                    color: AppColors.tertiary,
+                  ),
             ),
           ],
         ),
@@ -52,7 +54,11 @@ class HomeDashboardPage extends ConsumerWidget {
               child: const CircleAvatar(
                 radius: 18,
                 backgroundColor: AppColors.primaryContainer,
-                child: Text('AS', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
+                child: Text('AS',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13)),
               ),
             ),
           ),
@@ -89,14 +95,16 @@ class HomeDashboardPage extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 4),
                         decoration: BoxDecoration(
                           color: Colors.white.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: const Row(
                           children: [
-                            Icon(Icons.fiber_manual_record, color: Color(0xFF78DC77), size: 10),
+                            Icon(Icons.fiber_manual_record,
+                                color: Color(0xFF78DC77), size: 10),
                             SizedBox(width: 6),
                             Text(
                               'ACTIVE EXAM',
@@ -110,22 +118,30 @@ class HomeDashboardPage extends ConsumerWidget {
                           ],
                         ),
                       ),
-                      Text('Today', style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 12)),
+                      Text('Today',
+                          style: TextStyle(
+                              color: Colors.white.withOpacity(0.8),
+                              fontSize: 12)),
                     ],
                   ),
                   const SizedBox(height: 16),
                   Text(
                     activeExam?.title ?? 'Mathematics Weekly Assessment 04',
-                    style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700),
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     '${activeExam?.className ?? "Grade 10"} • ${activeExam?.questionsCount ?? 50} Questions • Max ${(activeExam?.questionsCount ?? 50) * 4} Marks',
-                    style: TextStyle(color: Colors.white.withOpacity(0.85), fontSize: 13),
+                    style: TextStyle(
+                        color: Colors.white.withOpacity(0.85), fontSize: 13),
                   ),
                   const SizedBox(height: 20),
                   Container(
-                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 12, horizontal: 16),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.12),
                       borderRadius: BorderRadius.circular(12),
@@ -133,11 +149,16 @@ class HomeDashboardPage extends ConsumerWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        _StatItem(val: '${activeExam?.scannedCount ?? 48}', label: 'Scanned'),
+                        _StatItem(
+                            val: '${activeExam?.scannedCount ?? 48}',
+                            label: 'Scanned'),
                         const _StatDivider(),
                         _StatItem(val: '$evaluatedCount', label: 'Evaluated'),
                         const _StatDivider(),
-                        _StatItem(val: '$inReviewCount', label: 'In Review', highlight: inReviewCount > 0),
+                        _StatItem(
+                            val: '$inReviewCount',
+                            label: 'In Review',
+                            highlight: inReviewCount > 0),
                         const _StatDivider(),
                         _StatItem(val: '$emailedCount', label: 'Emailed'),
                       ],
@@ -149,7 +170,8 @@ class HomeDashboardPage extends ConsumerWidget {
             const SizedBox(height: 24),
 
             // Quick Operations Grid
-            Text('Quick Operations', style: Theme.of(context).textTheme.titleLarge),
+            Text('Quick Operations',
+                style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 12),
             Row(
               children: [
@@ -205,7 +227,8 @@ class HomeDashboardPage extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Recent Assessments', style: Theme.of(context).textTheme.titleLarge),
+                Text('Recent Assessments',
+                    style: Theme.of(context).textTheme.titleLarge),
                 TextButton(
                   onPressed: () => context.go('/exams'),
                   child: const Text('View All'),
@@ -244,7 +267,8 @@ class _StatItem extends StatelessWidget {
   final String val;
   final String label;
   final bool highlight;
-  const _StatItem({required this.val, required this.label, this.highlight = false});
+  const _StatItem(
+      {required this.val, required this.label, this.highlight = false});
 
   @override
   Widget build(BuildContext context) {
@@ -272,7 +296,8 @@ class _StatDivider extends StatelessWidget {
   const _StatDivider();
   @override
   Widget build(BuildContext context) {
-    return Container(height: 24, width: 1, color: Colors.white.withOpacity(0.2));
+    return Container(
+        height: 24, width: 1, color: Colors.white.withOpacity(0.2));
   }
 }
 
@@ -326,9 +351,17 @@ class _ActionCard extends StatelessWidget {
                   child: Icon(icon, color: color, size: 24),
                 ),
                 const SizedBox(height: 14),
-                Text(title, style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 16)),
+                Text(title,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge
+                        ?.copyWith(fontSize: 16)),
                 const SizedBox(height: 4),
-                Text(subtitle, style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 12)),
+                Text(subtitle,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(fontSize: 12)),
               ],
             ),
             if (badgeCount != null && badgeCount! > 0)
@@ -336,14 +369,18 @@ class _ActionCard extends StatelessWidget {
                 top: 0,
                 right: 0,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                   decoration: BoxDecoration(
                     color: AppColors.error,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
                     '$badgeCount',
-                    style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -377,18 +414,27 @@ class _ExamTile extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        title: Text(title, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15)),
+        title: Text(title,
+            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15)),
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 4),
-          child: Text('$batch • $date', style: TextStyle(color: AppColors.onSurfaceVariant.withOpacity(0.8), fontSize: 13)),
+          child: Text('$batch • $date',
+              style: TextStyle(
+                  color: AppColors.onSurfaceVariant.withOpacity(0.8),
+                  fontSize: 13)),
         ),
         trailing: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text('$scanned/$total Scanned', style: const TextStyle(fontWeight: FontWeight.w700, color: AppColors.primary, fontSize: 13)),
+            Text('$scanned/$total Scanned',
+                style: const TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.primary,
+                    fontSize: 13)),
             const SizedBox(height: 2),
-            const Icon(Icons.arrow_forward_ios_rounded, size: 12, color: AppColors.outline),
+            const Icon(Icons.arrow_forward_ios_rounded,
+                size: 12, color: AppColors.outline),
           ],
         ),
         onTap: onTap,

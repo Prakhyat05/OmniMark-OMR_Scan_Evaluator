@@ -10,7 +10,8 @@ class SplashPage extends StatefulWidget {
   State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateMixin {
+class _SplashPageState extends State<SplashPage>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
   late Animation<double> _fadeAnimation;
@@ -82,16 +83,16 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                 Text(
                   'OMR Scan System',
                   style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                    fontWeight: FontWeight.w800,
-                    color: AppColors.onSurface,
-                  ),
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.onSurface,
+                      ),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   'Academic Precision & Rapid Grading',
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: AppColors.tertiary,
-                  ),
+                        color: AppColors.tertiary,
+                      ),
                 ),
               ],
             ),

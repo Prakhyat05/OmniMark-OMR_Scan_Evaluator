@@ -8,7 +8,8 @@ class EmailReportCardPage extends ConsumerStatefulWidget {
   const EmailReportCardPage({super.key});
 
   @override
-  ConsumerState<EmailReportCardPage> createState() => _EmailReportCardPageState();
+  ConsumerState<EmailReportCardPage> createState() =>
+      _EmailReportCardPageState();
 }
 
 class _EmailReportCardPageState extends ConsumerState<EmailReportCardPage> {
@@ -39,7 +40,8 @@ class _EmailReportCardPageState extends ConsumerState<EmailReportCardPage> {
       text: 'Official Assessment Report: ${result.studentName} - ${exam.title}',
     );
     _customNoteController = TextEditingController(
-      text: 'Dear Parent,\n\nPlease find attached the official assessment scorecard for ${result.studentName} in ${exam.title}. ${result.studentName} scored ${result.marksObtained.toStringAsFixed(1)}/${result.maximumMarks.toInt()} (${result.percentage}%).',
+      text:
+          'Dear Parent,\n\nPlease find attached the official assessment scorecard for ${result.studentName} in ${exam.title}. ${result.studentName} scored ${result.marksObtained.toStringAsFixed(1)}/${result.maximumMarks.toInt()} (${result.percentage}%).',
     );
   }
 
@@ -66,7 +68,8 @@ class _EmailReportCardPageState extends ConsumerState<EmailReportCardPage> {
       setState(() => _isSending = false);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Report successfully emailed to ${_emailController.text.trim()}!'),
+          content: Text(
+              'Report successfully emailed to ${_emailController.text.trim()}!'),
           backgroundColor: AppColors.primary,
         ),
       );
@@ -124,9 +127,14 @@ class _EmailReportCardPageState extends ConsumerState<EmailReportCardPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('${result.studentName} (${result.studentCode})', style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
+                          Text('${result.studentName} (${result.studentCode})',
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w700, fontSize: 14)),
                           const SizedBox(height: 2),
-                          Text('${exam.title} • ${result.marksObtained.toStringAsFixed(1)}/${result.maximumMarks.toInt()} (${result.percentage}%)', style: const TextStyle(color: AppColors.tertiary, fontSize: 12)),
+                          Text(
+                              '${exam.title} • ${result.marksObtained.toStringAsFixed(1)}/${result.maximumMarks.toInt()} (${result.percentage}%)',
+                              style: const TextStyle(
+                                  color: AppColors.tertiary, fontSize: 12)),
                         ],
                       ),
                     ),
@@ -135,68 +143,87 @@ class _EmailReportCardPageState extends ConsumerState<EmailReportCardPage> {
               ),
               const SizedBox(height: 24),
 
-              Text('Recipient Information', style: Theme.of(context).textTheme.titleLarge),
+              Text('Recipient Information',
+                  style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 12),
 
               // Recipient Email
-              Text('Parent Email Address *', style: Theme.of(context).textTheme.labelLarge),
+              Text('Parent Email Address *',
+                  style: Theme.of(context).textTheme.labelLarge),
               const SizedBox(height: 6),
               TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.email_outlined, color: AppColors.outline),
+                  prefixIcon:
+                      Icon(Icons.email_outlined, color: AppColors.outline),
                 ),
                 validator: (val) {
-                  if (val == null || val.trim().isEmpty) return 'Recipient email is required';
-                  final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-                  if (!emailRegex.hasMatch(val.trim())) return 'Please enter a valid email address';
+                  if (val == null || val.trim().isEmpty)
+                    return 'Recipient email is required';
+                  final emailRegex =
+                      RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                  if (!emailRegex.hasMatch(val.trim()))
+                    return 'Please enter a valid email address';
                   return null;
                 },
               ),
               const SizedBox(height: 16),
 
               // Subject
-              Text('Email Subject Line *', style: Theme.of(context).textTheme.labelLarge),
+              Text('Email Subject Line *',
+                  style: Theme.of(context).textTheme.labelLarge),
               const SizedBox(height: 6),
               TextFormField(
                 controller: _subjectController,
                 decoration: const InputDecoration(),
                 validator: (val) {
-                  if (val == null || val.trim().isEmpty) return 'Subject line is required';
+                  if (val == null || val.trim().isEmpty)
+                    return 'Subject line is required';
                   return null;
                 },
               ),
               const SizedBox(height: 16),
 
               // Custom Note
-              Text('Message / Note to Parent *', style: Theme.of(context).textTheme.labelLarge),
+              Text('Message / Note to Parent *',
+                  style: Theme.of(context).textTheme.labelLarge),
               const SizedBox(height: 6),
               TextFormField(
                 controller: _customNoteController,
                 maxLines: 4,
                 decoration: const InputDecoration(),
                 validator: (val) {
-                  if (val == null || val.trim().isEmpty) return 'Message note is required';
+                  if (val == null || val.trim().isEmpty)
+                    return 'Message note is required';
                   return null;
                 },
               ),
               const SizedBox(height: 20),
 
               // Delivery Options
-              Text('Attachment Settings', style: Theme.of(context).textTheme.titleLarge),
+              Text('Attachment Settings',
+                  style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 10),
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('Attach Official PDF Report Card', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
-                subtitle: const Text('Includes institutional watermarks and QR code', style: TextStyle(fontSize: 12)),
+                title: const Text('Attach Official PDF Report Card',
+                    style:
+                        TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+                subtitle: const Text(
+                    'Includes institutional watermarks and QR code',
+                    style: TextStyle(fontSize: 12)),
                 value: _attachPdf,
                 onChanged: (v) => setState(() => _attachPdf = v),
               ),
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('Include Web Result Verification Link', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
-                subtitle: const Text('Allows parents to view interactive breakdown online', style: TextStyle(fontSize: 12)),
+                title: const Text('Include Web Result Verification Link',
+                    style:
+                        TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+                subtitle: const Text(
+                    'Allows parents to view interactive breakdown online',
+                    style: TextStyle(fontSize: 12)),
                 value: _includeLink,
                 onChanged: (v) => setState(() => _includeLink = v),
               ),
@@ -211,10 +238,13 @@ class _EmailReportCardPageState extends ConsumerState<EmailReportCardPage> {
                       ? const SizedBox(
                           width: 18,
                           height: 18,
-                          child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                          child: CircularProgressIndicator(
+                              strokeWidth: 2, color: Colors.white),
                         )
                       : const Icon(Icons.send_rounded),
-                  label: Text(_isSending ? 'Delivering Report...' : 'Send Report Card Now'),
+                  label: Text(_isSending
+                      ? 'Delivering Report...'
+                      : 'Send Report Card Now'),
                 ),
               ),
               const SizedBox(height: 40),

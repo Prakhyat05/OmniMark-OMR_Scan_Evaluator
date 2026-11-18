@@ -5,14 +5,19 @@ import 'template_model.dart';
 class Universal200QBlueprint {
   static const int totalQuestions = 200;
   static const int maxQuestions = 200;
-  
+
   // Exact Oval Radius (Normalized)
   static const double bubbleRxNorm = 0.0070; // Oval horizontal radius
   static const double bubbleRyNorm = 0.0055; // Oval vertical radius
 
   // 6-Digit Student Code Block (Normalized - Calibrated to Scanned Photos)
   static const List<double> codeColXNorm = [
-    0.19205, 0.20955, 0.22705, 0.24455, 0.26205, 0.27955,
+    0.19205,
+    0.20955,
+    0.22705,
+    0.24455,
+    0.26205,
+    0.27955,
   ];
   static const double codeStartYNorm = 0.13867;
   static const double codePitchYNorm = 0.01260;

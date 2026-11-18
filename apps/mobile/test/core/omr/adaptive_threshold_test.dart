@@ -11,7 +11,9 @@ void main() {
   });
 
   group('AdaptiveOMRThresholdEngine Tests', () {
-    test('computeGlobalThreshold detects bimodal split between dark pen ink and white paper', () {
+    test(
+        'computeGlobalThreshold detects bimodal split between dark pen ink and white paper',
+        () {
       // 10 filled marks (intensities 30 to 60) and 90 blank bubbles (intensities 190 to 240)
       final List<double> values = [];
       for (int i = 0; i < 10; i++) {
@@ -26,7 +28,9 @@ void main() {
       expect(threshold, lessThan(190.0));
     });
 
-    test('computeLocalThreshold suppresses threshold on all-white unattempted row', () {
+    test(
+        'computeLocalThreshold suppresses threshold on all-white unattempted row',
+        () {
       const globalThr = 125.0;
       final row = [215.0, 218.0, 214.0, 216.0];
 
@@ -35,7 +39,9 @@ void main() {
       expect(localThr, lessThan(214.0));
     });
 
-    test('computeLocalThreshold sets optimal threshold when single bubble is marked', () {
+    test(
+        'computeLocalThreshold sets optimal threshold when single bubble is marked',
+        () {
       const globalThr = 125.0;
       final row = [42.0, 218.0, 214.0, 216.0];
 
