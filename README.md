@@ -16,11 +16,16 @@ Engineered specifically for educational institutions, academies, and examination
 
 ## 📦 Downloads & Releases
 
-| Build Artifact | Platform / Target | Download Link | Size |
-| :--- | :--- | :--- | :--- |
-| **Android Release APK** | Android (ARM64, ARMv7, x86_64) | [**Download `omnimark-mobile-v1.0.0.apk`**](https://github.com/Prakhyat05/OmniMark-OMR_Scan_Evaluator/releases/download/v1.0.0/omnimark-mobile-v1.0.0.apk) | ~24.9 MB |
-| **Python Engine Wheel** | Python 3.10+ (Any OS) | [**Download `omr_engine-1.0.0-py3-none-any.whl`**](https://github.com/Prakhyat05/OmniMark-OMR_Scan_Evaluator/releases/download/v1.0.0/omr_engine-1.0.0-py3-none-any.whl) | ~31 KB |
-| **Full GitHub Release** | Release Notes & Source Code | [**View Release v1.0.0**](https://github.com/Prakhyat05/OmniMark-OMR_Scan_Evaluator/releases/tag/v1.0.0) | — |
+Pre-compiled production binaries are available below. **Split-ABI builds reduce the download size by ~65%** compared to the universal bundle:
+
+| Build Artifact | Target Architecture / Platform | Direct Download Link | File Size | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| **Android APK (ARM64)** 🌟 | `arm64-v8a` | [**`omnimark-mobile-v1.0.0-arm64-v8a.apk`**](https://github.com/Prakhyat05/OmniMark-OMR_Scan_Evaluator/releases/download/v1.0.0/omnimark-mobile-v1.0.0-arm64-v8a.apk) | **8.98 MB** | **Recommended.** Modern Android devices (2016–present). 64% smaller! |
+| **Android APK (ARMv7)** | `armeabi-v7a` | [**`omnimark-mobile-v1.0.0-armeabi-v7a.apk`**](https://github.com/Prakhyat05/OmniMark-OMR_Scan_Evaluator/releases/download/v1.0.0/omnimark-mobile-v1.0.0-armeabi-v7a.apk) | **8.72 MB** | Legacy & budget 32-bit Android devices. 65% smaller! |
+| **Android APK (x86_64)** | `x86_64` | [**`omnimark-mobile-v1.0.0-x86_64.apk`**](https://github.com/Prakhyat05/OmniMark-OMR_Scan_Evaluator/releases/download/v1.0.0/omnimark-mobile-v1.0.0-x86_64.apk) | **9.13 MB** | Android emulators, ChromeOS, and Intel/AMD tablets. |
+| **Android APK (Universal)** | All ABIs combined | [**`omnimark-mobile-v1.0.0.apk`**](https://github.com/Prakhyat05/OmniMark-OMR_Scan_Evaluator/releases/download/v1.0.0/omnimark-mobile-v1.0.0.apk) | **24.85 MB** | Universal fallback for any device architecture. |
+| **Python OMR Engine** | Python 3.10+ (Any OS) | [**`omr_engine-1.0.0-py3-none-any.whl`**](https://github.com/Prakhyat05/OmniMark-OMR_Scan_Evaluator/releases/download/v1.0.0/omr_engine-1.0.0-py3-none-any.whl) | **31 KB** | CLI calibration tool, PyTorch Micro-CNN trainer, and FastAPI service. |
+| **Full GitHub Release** | Release Notes & Source | [**View Release Notes (v1.0.0)**](https://github.com/Prakhyat05/OmniMark-OMR_Scan_Evaluator/releases/tag/v1.0.0) | — | Checksums, release notes, and source archives. |
 
 ---
 
