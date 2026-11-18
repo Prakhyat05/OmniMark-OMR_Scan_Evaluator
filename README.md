@@ -1,6 +1,6 @@
 # OmniMark — Mobile OMR Scanner, Automated Evaluation & Cloud Analytics Platform
 
-[![Live Interactive Showcase](https://img.shields.io/badge/Live%20Demo-Vercel%20Showcase-black?style=flat-square&logo=vercel)](https://omnimark.vercel.app)
+[![Live Flutter Web App](https://img.shields.io/badge/Live%20Web%20App-Flutter%20Web%20Demo-blue?style=flat-square&logo=flutter)](https://Prakhyat05.github.io/OmniMark-OMR_Scan_Evaluator/)
 [![Latest Release](https://img.shields.io/github/v/release/Prakhyat05/OmniMark-OMR_Scan_Evaluator?style=flat-square&color=blue)](https://github.com/Prakhyat05/OmniMark-OMR_Scan_Evaluator/releases/tag/v1.0.0)
 [![Download APK](https://img.shields.io/badge/Download-Android%20APK%20(v1.0.0)-success?style=flat-square&logo=android)](https://github.com/Prakhyat05/OmniMark-OMR_Scan_Evaluator/releases/download/v1.0.0/omnimark-mobile-v1.0.0-arm64-v8a.apk)
 [![Flutter CI](https://img.shields.io/badge/Flutter%20CI-Passing-brightgreen.svg?style=flat-square)](https://github.com/Prakhyat05/OmniMark-OMR_Scan_Evaluator/actions/workflows/mobile-ci.yml)
@@ -15,15 +15,14 @@ Engineered specifically for educational institutions, academies, and examination
 
 ---
 
-## 🌐 Live Interactive Recruiter Demo
+## 🌐 Live Flutter Mobile App (Browser Demo)
 
-Recruiters and hiring managers can explore the live edge evaluation engine directly in their browser without downloading an APK:
+Recruiters, educators, and developers can test the **exact Flutter mobile application** live in any web browser without downloading the Android APK:
 
-- **⚡ Live Interactive Showcase**: [**omnimark.vercel.app**](https://omnimark.vercel.app) *(or connect your fork to Vercel)*
-  - **Interactive OMR Canvas**: Click bubbles, simulate human answering, or load 100% perfect score presets.
-  - **Real-Time Edge Evaluation**: Sub-35ms scoring, Modulo-11 student roll validation, and color-coded question audit overlays.
-  - **Official Report Card Preview**: Dynamic A4 student performance card with ranks and percentile distribution.
-  - **CV Pipeline Deep-Dive**: Visual inspection of Fiducials, Homography, Otsu Gradients, and Micro-CNN stages.
+- **📱 Live Flutter Web App**: [**Open OmniMark in Browser**](https://Prakhyat05.github.io/OmniMark-OMR_Scan_Evaluator/) *(or deploy to Vercel via [`vercel.json`](vercel.json))*
+  - **Identical Mobile UI**: Powered by Flutter Web (CanvasKit rendering + WebAssembly SQLite driver).
+  - **Full Feature Tour**: Explore the Dashboard, Exams List, Create Exam, Answer Key Setup, Student Roster, Review Queue, and Result Reports.
+  - **Zero Installation**: Runs client-side directly in Google Chrome, Safari, Firefox, or Edge.
 - **⚙️ Live Backend Microservice**: Deployable in 1-click on [Render via `render.yaml`](render.yaml) with live Swagger UI (`/docs`).
 
 ---
@@ -568,14 +567,18 @@ curl http://localhost:8000/v1/health
 
 ### 🚀 Cloud Deployment (Vercel & Render)
 
-#### 1. Interactive Web Showcase on Vercel
-The interactive recruiter showcase (`apps/web`) is configured for zero-config Vercel deployment:
-1. Go to [vercel.com](https://vercel.com) and log in with your GitHub account.
-2. Click **"Add New..."** > **"Project"** and select `OmniMark-OMR_Scan_Evaluator`.
-3. Vercel automatically detects the root `vercel.json` and builds `apps/web`.
-4. Click **"Deploy"** — your live interactive showcase will be live at `https://<your-project>.vercel.app` in under 60 seconds!
+#### 1. Live Flutter Mobile App on GitHub Pages (Automated via GitHub Actions)
+The repository includes an automated GitHub Actions deployment workflow ([`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml)):
+1. In your GitHub repository, go to **Settings** > **Pages**.
+2. Under **Build and deployment** > **Source**, select **"GitHub Actions"**.
+3. Push any commit to `main`. GitHub Actions will automatically compile the exact Flutter mobile app with CanvasKit and host it at `https://Prakhyat05.github.io/OmniMark-OMR_Scan_Evaluator/`.
 
-#### 2. Python OMR Engine API on Render
+#### 2. Deploying Flutter Web to Vercel
+You can also deploy the Flutter web app to Vercel using the root [`vercel.json`](vercel.json) and [`scripts/build_flutter_web.sh`](scripts/build_flutter_web.sh):
+1. In [vercel.com](https://vercel.com), import `OmniMark-OMR_Scan_Evaluator`.
+2. Vercel automatically runs the build script to compile `apps/mobile/build/web` and serves the mobile application.
+
+#### 3. Python OMR Engine API on Render
 The Python microservice is configured for 1-click deployment on Render via the included [`render.yaml`](render.yaml) Blueprint:
 1. Go to [render.com](https://render.com) and log in with your GitHub account.
 2. Click **"New +"** > **"Blueprint"**.
