@@ -42,6 +42,20 @@ class OMRScanApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       routerConfig: appRouter,
+      builder: (context, child) {
+        if (kIsWeb) {
+          final mediaQuery = MediaQuery.of(context);
+          return MediaQuery(
+            data: mediaQuery.copyWith(
+              // Provide authentic iOS status bar & home indicator insets
+              padding: const EdgeInsets.only(top: 36, bottom: 18),
+              textScaler: const TextScaler.linear(0.92),
+            ),
+            child: child ?? const SizedBox.shrink(),
+          );
+        }
+        return child ?? const SizedBox.shrink();
+      },
     );
   }
 }

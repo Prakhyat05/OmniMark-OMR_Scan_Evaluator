@@ -198,24 +198,26 @@
       position: relative;
     }
 
-    /* PHOTOREALISTIC IPHONE 16 PRO FRAME */
+    /* PHOTOREALISTIC IPHONE 16 PRO MAX FRAME */
     .iphone-wrapper {
       position: relative;
-      /* Responsive sizing that perfectly preserves aspect ratio and fits in view */
-      height: min(840px, calc(100vh - 150px));
-      width: calc(min(840px, calc(100vh - 150px)) * (393 / 852));
-      max-width: 94vw;
+      /* Generous Pro Max screen size with ample horizontal breathing room */
+      width: min(440px, 94vw);
+      height: min(920px, calc(100vh - 120px));
+      min-width: 380px;
+      min-height: 760px;
+      aspect-ratio: 430 / 932;
       /* Outer titanium chassis */
-      border-radius: 54px;
+      border-radius: 56px;
       background: #000000;
-      padding: 11px;
+      padding: 12px;
       /* Multi-layer bevel & shadow */
       box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.12),
-        0 0 0 3px #282a32,
-        0 0 0 4px #15161b,
-        0 25px 70px -10px rgba(0, 0, 0, 0.85),
-        0 0 50px rgba(99, 102, 241, 0.22);
+        0 0 0 1px rgba(255, 255, 255, 0.15),
+        0 0 0 3.5px #2a2c35,
+        0 0 0 5px #15161c,
+        0 30px 80px -12px rgba(0, 0, 0, 0.88),
+        0 0 60px rgba(99, 102, 241, 0.28);
       display: flex;
       flex-direction: column;
       transition: all 0.3s ease;
@@ -226,9 +228,9 @@
     .hw-btn-action {
       position: absolute;
       left: -6px;
-      top: 105px;
+      top: 110px;
       width: 4px;
-      height: 26px;
+      height: 28px;
       background: #373942;
       border-radius: 3px 0 0 3px;
       box-shadow: -1px 0 2px rgba(0,0,0,0.5);
@@ -236,9 +238,9 @@
     .hw-btn-volup {
       position: absolute;
       left: -6px;
-      top: 150px;
+      top: 160px;
       width: 4px;
-      height: 50px;
+      height: 54px;
       background: #373942;
       border-radius: 3px 0 0 3px;
       box-shadow: -1px 0 2px rgba(0,0,0,0.5);
@@ -246,9 +248,9 @@
     .hw-btn-voldown {
       position: absolute;
       left: -6px;
-      top: 215px;
+      top: 230px;
       width: 4px;
-      height: 50px;
+      height: 54px;
       background: #373942;
       border-radius: 3px 0 0 3px;
       box-shadow: -1px 0 2px rgba(0,0,0,0.5);
@@ -257,9 +259,9 @@
     .hw-btn-power {
       position: absolute;
       right: -6px;
-      top: 165px;
+      top: 175px;
       width: 4px;
-      height: 75px;
+      height: 80px;
       background: #373942;
       border-radius: 0 3px 3px 0;
       box-shadow: 1px 0 2px rgba(0,0,0,0.5);
@@ -270,7 +272,7 @@
       position: relative;
       width: 100%;
       height: 100%;
-      border-radius: 43px;
+      border-radius: 44px;
       overflow: hidden;
       background-color: #0f172a;
       display: flex;
@@ -280,11 +282,11 @@
     /* Dynamic Island */
     .dynamic-island {
       position: absolute;
-      top: 10px;
+      top: 9px;
       left: 50%;
       transform: translateX(-50%);
-      width: 110px;
-      height: 30px;
+      width: 106px;
+      height: 26px;
       background: #000000;
       border-radius: 20px;
       z-index: 9999;
@@ -292,8 +294,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 12px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+      padding: 0 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
     }
 
     .camera-lens {
@@ -441,7 +443,7 @@
             OmniMark OMR
             <span class="brand-badge">v1.0.0</span>
           </div>
-          <div class="brand-sub">Real-Time On-Device Flutter Mobile App Preview</div>
+          <div class="brand-sub">iPhone 16 Pro Max • Real-Time On-Device Flutter Engine</div>
         </div>
       </div>
 
